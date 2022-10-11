@@ -1,0 +1,201 @@
+.bg-body {
+  background: linear-gradient(
+      217deg,
+      rgba(245, 97, 97, 0.342),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(127deg, rgba(82, 184, 82, 0.212), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.219), rgba(0, 0, 255, 0) 70.71%);
+}
+
+.leaflet-container2 {
+  width: auto;
+  height: 100vh;
+  margin: auto;
+  overflow: hidden;
+}
+
+.leaflet-container {
+  width: auto;
+  height: 90vh;
+  margin: auto;
+}
+
+.leaflet-tooltip.my-labels {
+  box-shadow: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.leaflet-popup-content h1 {
+  margin: 0.8em;
+  text-align: center;
+}
+
+.emoji-404 {
+  position: relative;
+  animation: mymove 2.5s infinite;
+}
+
+@keyframes mymove {
+  33% {
+    top: 0px;
+  }
+  66% {
+    top: 20px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+
+.bg-image {
+  background-image: url(http://localhost:5000/public/grave-carousel.jpg);
+}
+
+.back-to-home {
+  width: 34px;
+  height: 34px;
+  z-index: 999;
+  cursor: pointer;
+  padding: 5px;
+  display: none;
+  background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 65%);
+}
+
+.show-button-home .back-to-home {
+  display: block;
+  margin-left: 10px;
+}
+
+.hero-content {
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 80rem /* 1280px */;
+  gap: 1rem /* 16px */;
+  padding: 1rem /* 16px */;
+}
+
+:root {
+  --gutter: max(1rem, min(1.5625vw, 1.5rem));
+  --gutter-lg-half: max(0.75rem, min(1.302vw, 1.5rem));
+  --gutter-lg-x-half: var(--gutter-lg-half);
+  --gutter-sm-x-half: max(0.2rem, min(0.5208vw, 1rem));
+  --gutter-xlg-half: max(1.3rem, min(1.6275vw, 3rem));
+  --gutter-sm-half: max(0.5rem, min(0.5208vw, 1rem));
+  --gutter-y: var(--gutter);
+  --padding: max(2.5rem, min(6.51vw, 6.5rem));
+  --container-padding-vertical: var(--padding);
+  --container-padding-horizontal: var(--padding);
+  --container-medium-max-width: 126rem;
+  --gutter-sm: max(0.5rem, min(1.0416vw, 1rem));
+  --gutter-sm-y: var(--gutter-sm);
+  --gutter-xlg: max(2rem, min(3.255vw, 5rem));
+  --gutter-xlg-y: var(--gutter-xlg);
+}
+
+.padding-samp {
+  padding: 0 var(--gutter-sm-x-half);
+}
+
+.padding-samp2 {
+  padding: calc(var(--gutter-xlg-half) + 0.6rem) var(--gutter-xlg-half);
+}
+
+.navigation-media {
+  margin: 0 var(--gutter-xlg-half) 0 0;
+  width: max(4.5rem, min(4.21053vw, 6.4rem));
+}
+
+.slide {
+  height: 12.5rem;
+  width: 15.625rem;
+  display: flex;
+  align-items: center;
+  padding: 0.938rem;
+}
+
+.padding-samp3 {
+  padding-left: var(--gutter-sm-x-half);
+  padding-right: var(--gutter-sm-x-half);
+  overflow: hidden;
+}
+
+.padding-samp4 {
+  padding: var(--container-padding-vertical) var(--container-padding-horizontal);
+}
+
+.widget-container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.widget-container2 {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.widget-container::after {
+  height: 33%;
+  content: "";
+  background-color: #ffc500;
+  bottom: 0;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  position: absolute;
+  right: 50%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.stripe-one-third {
+  padding-top: 0;
+}
+
+.steps2 {
+  display: flex;
+  flex-wrap: wrap;
+  margin: calc(var(--gutter-y) * -1) calc(var(--gutter-lg-x-half) * -1) 0;
+}
+
+.steps--odd {
+  flex: 0 0 33.3333%;
+  max-width: none;
+}
+
+@media (max-width: 700px) {
+  .steps--odd {
+    flex: 0 0 100%;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--gutter-xlg-y) var(--gutter-sm-x-half) 0;
+  }
+}
+
+.steps_step {
+  padding: var(--gutter-y) var(--gutter-lg-x-half) 0;
+}
+
+.steps__step__media {
+  margin: 0 0 var(--gutter-sm-y);
+}
+
+.steps__step__img {
+  display: block;
+  margin: 0 auto;
+}
+
+.steps__step__link {
+  margin: var(--gutter-y) 0 0;
+}

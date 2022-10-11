@@ -1,0 +1,110 @@
+:root {
+  --first-navigation-item-height: 181.281px;
+  --warning-message-height: 43.3906px;
+  --modal-padding-horizontal: max(2rem, min(3.94737vw, 6rem));
+  --modal-padding-vertical: max(4rem, min(3.94737vw, 6rem));
+  --container-large-max-width: 152rem;
+  --gutter-lg: max(2rem, min(2.60416vw, 3rem));
+  --eyebrow-color: #abacaa;
+  --gutter: max(1rem, min(1.5625vw, 1.5rem));
+  --gutter-y: var(--gutter);
+}
+
+.home-hero-guided-modal {
+  background: rgba(255, 255, 255, 0.93);
+  bottom: 0;
+  left: 0;
+  padding: var(--modal-padding-vertical) 0 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  touch-action: none;
+  z-index: 99999;
+  --modal-padding-horizontal: max(2rem, min(3.94737vw, 6rem));
+  --modal-padding-vertical: max(4rem, min(3.94737vw, 6rem));
+}
+
+.home-hero-guided-modal-controls {
+  left: 0;
+  position: absolute;
+  right: 0;
+  padding: 0 var(--modal-padding-horizontal);
+  top: calc(var(--modal-padding-vertical) / 2);
+  width: 100%;
+}
+
+.home-hero-guided-modal-controls-inside {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 auto;
+  max-width: var(--container-large-max-width);
+  transform: translate(0, -50%);
+}
+
+button {
+  border: none;
+  padding: 0;
+}
+button:not([disabled]) {
+  cursor: pointer;
+}
+
+.btn-close {
+  align-items: center;
+  display: flex;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  user-select: none;
+  color: #000;
+}
+
+.btn-close-logo {
+  align-items: center;
+  border-radius: 50%;
+  border: 0.2rem solid var(#000);
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 700;
+  height: 3rem;
+  justify-content: center;
+  text-indent: 0.05em;
+  transition: background-color 0.2s var(--transition-timing),
+    color 0.2s var(--transition-timing);
+  width: 3rem;
+}
+
+.home-hero-guided-modal-close {
+  color: #000;
+}
+
+.home-hero-guided-modal-container {
+  height: 100%;
+  overflow: hidden scroll;
+  padding: 0 var(--modal-padding-horizontal) var(--modal-padding-vertical);
+  position: relative;
+}
+
+.home-hero-guided-modal-container-content {
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  max-width: var(--container-large-max-width);
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.hero-orbits-header {
+  padding-bottom: var(--gutter-lg);
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-intro-eyebrow {
+  color: var(--eyebrow-color);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}

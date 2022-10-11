@@ -1,0 +1,18 @@
+/* Map */
+
+.leaflet-tooltip.my-labels {
+  box-shadow: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.leaflet-popup-content h1 {
+  margin: 0.8em;
+  text-align: center;
+}
+
+.leaflet-container4 {
+  width: auto;
+  height: 60vh;
+  margin: auto;
+}
