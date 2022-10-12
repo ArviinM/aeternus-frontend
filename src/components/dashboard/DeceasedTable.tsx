@@ -120,7 +120,8 @@ const DeceasedTable: React.FC = () => {
 
     if (deceased.first_name.trim()) {
       let _deceased = { ...deceased };
-
+      console.log(deceased.id);
+      console.log(_deceased);
       if (deceased.id) {
         Deceased.updateDeceased(deceased.id, _deceased)
           .then((response) => {
