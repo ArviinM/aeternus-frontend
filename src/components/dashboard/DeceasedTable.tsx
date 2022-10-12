@@ -120,19 +120,10 @@ const DeceasedTable: React.FC = () => {
 
     if (deceased.first_name.trim()) {
       let _deceased = { ...deceased };
-
-      if (deceased.id) {
-        let formData = new FormData();
-        formData.append("id", _deceased.id);
-        formData.append("first_name", _deceased.first_name);
-        formData.append("middle_name", _deceased.middle_name);
-        formData.append("last_name", _deceased.last_name);
-        formData.append("birth_date", _deceased.birth_date);
-        formData.append("death_date", _deceased.death_date);
-        formData.append("obituary", _deceased.obituary);
-        formData.append("grave_plot", _deceased.grave_plot._id);
-
-        Deceased.updateDeceased(deceased.id, formData)
+      console.log(_deceased.id);
+      console.log(_deceased);
+      if (_deceased.id) {
+        Deceased.updateDeceased(_deceased.id, _deceased)
           .then((response) => {
             console.log(response.data);
             toast.current.show({
