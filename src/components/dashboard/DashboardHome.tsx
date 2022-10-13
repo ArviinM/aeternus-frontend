@@ -20,8 +20,10 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 
 import "./dashboard.scss";
+import { TabTitle } from "../../utils/GenerateFunctions";
 
 const DashboardHome: React.FC = () => {
+  TabTitle("Aeternus – Dashboard");
   const [allDeceased, setAllDeceased] = useState<Array<IDeceasedData>>([]);
   const [allGravePlots, setAllGravePlots] = useState<Array<IGravePlotData>>([]);
   const [allUsers, setAllUsers] = useState<Array<IUser>>([]);

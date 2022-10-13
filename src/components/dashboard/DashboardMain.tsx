@@ -10,8 +10,11 @@ import DeceasedTable from "./DeceasedTable";
 import DashboardHome from "./DashboardHome";
 
 import { Route, Routes } from "react-router-dom";
+import { TabTitle } from "../../utils/GenerateFunctions";
+import GravePlots from "./GravePlots";
 
 const DashboardMain: React.FC = () => {
+  TabTitle("Aeternus – Dashboard");
   const [layoutMode, setLayoutMode] = useState<string>("static");
   const [layoutColorMode, setLayoutColorMode] = useState<string>("light");
   const [inputStyle, setInputStyle] = useState<string>("outlined");
@@ -168,6 +171,11 @@ const DashboardMain: React.FC = () => {
           icon: "pi pi-fw pi-book",
           to: "/dashboard/deceased-table",
         },
+        {
+          label: "Grave Plots",
+          icon: "pi pi-fw pi-map",
+          to: "/dashboard/grave-plots",
+        },
         { label: "User", icon: "pi pi-fw pi-user", to: "/users" },
       ],
     },
@@ -196,6 +204,7 @@ const DashboardMain: React.FC = () => {
           <Routes>
             <Route path="/home" element={<DashboardHome />} />
             <Route path="/deceased-table" element={<DeceasedTable />} />
+            <Route path="/grave-plots" element={<GravePlots />} />
           </Routes>
         </div>
       </div>

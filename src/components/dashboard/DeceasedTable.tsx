@@ -24,6 +24,7 @@ import IGravePlotData from "../../types/graveplot.type";
 import { InputTextarea } from "primereact/inputtextarea";
 
 import { FilterMatchMode } from "primereact";
+import { TabTitle } from "../../utils/GenerateFunctions";
 
 interface IFilter {
   global?: any;
@@ -31,6 +32,7 @@ interface IFilter {
 }
 
 const DeceasedTable: React.FC = () => {
+  TabTitle("Aeternus – Deceased Table");
   let emptyDeceased: IDeceasedData = {
     id: "",
     first_name: "",
@@ -122,6 +124,7 @@ const DeceasedTable: React.FC = () => {
       let _deceased = { ...deceased };
       console.log(_deceased.id);
       console.log(_deceased);
+
       if (_deceased.id) {
         Deceased.updateDeceased(_deceased.id, _deceased)
           .then((response) => {

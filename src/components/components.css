@@ -15,12 +15,6 @@
   overflow: hidden;
 }
 
-.leaflet-container {
-  width: auto;
-  height: 90vh;
-  margin: auto;
-}
-
 .leaflet-tooltip.my-labels {
   box-shadow: none;
   font-weight: bold;
@@ -50,7 +44,7 @@
 }
 
 .bg-image {
-  background-image: url(https://aeternus-api.onrender.com/public/grave-carousel.jpg);
+  background-image: url(http://localhost:5000/public/grave-carousel.jpg);
 }
 
 .back-to-home {

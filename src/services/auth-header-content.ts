@@ -28,7 +28,6 @@ export default function getAuthHeaders(): AxiosRequestHeaders {
     // Return headers object
     return {
       "x-access-token": accessToken,
-      "Content-Type": "multipart/form-data",
     };
   } catch {
     // Catch any errors and return an empty headers object
