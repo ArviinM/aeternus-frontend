@@ -13,6 +13,19 @@ export default function GraveMarker() {
   const map = useMap();
   const [gravePlots, setGravePlots] = useState<Array<IGravePlotData>>([]);
 
+  const color = (status: any) => {
+    if (status === "available") {
+      return `green`;
+    }
+    if (status === "occupied") {
+      return "blue";
+    }
+    if (status === "reserved") {
+      return "black";
+    }
+    return "red";
+  };
+
   useEffect(() => {
     retrieveGravePlots();
   }, []);
@@ -38,6 +51,7 @@ export default function GraveMarker() {
         <div>
           <Rectangle
             key={index}
+            pathOptions={{ color: color(gravePlots.status.name) }}
             bounds={
               new LatLngBounds(
                 [
@@ -51,7 +65,7 @@ export default function GraveMarker() {
               )
             }
             eventHandlers={{
-              click: (e) => {
+              click: () => {
                 map.flyToBounds(
                   new LatLngBounds(
                     [
@@ -69,7 +83,7 @@ export default function GraveMarker() {
           >
             <Popup keepInView={true}>
               <h1 className="text-lg font-semibold text-gray-600 ">
-                {gravePlots.lot_address}
+                B{gravePlots.block.name} L{gravePlots.lot}
               </h1>
 
               <h1 className="text-lg font-semibold text-gray-600 ">

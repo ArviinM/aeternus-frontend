@@ -26,6 +26,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { FilterMatchMode } from "primereact";
 import { TabTitle } from "../../utils/GenerateFunctions";
 import GraveShowerModal from "../map/GraveShowerModal";
+import EditFeatureModal from "../map/EditFeatureModal";
 
 interface IFilter {
   global?: any;
@@ -36,7 +37,8 @@ const GravePlots: React.FC = () => {
   TabTitle("Aeternus – Grave Plots Table");
   let emptyGravePlot: IGravePlotData = {
     id: "",
-    lot_address: "",
+    block: { id: "", name: "" },
+    lot: "",
     status: { id: "", name: "" },
     southWest: ["", ""],
     northEast: ["", ""],
@@ -49,10 +51,18 @@ const GravePlots: React.FC = () => {
   const [obituaryDialog, setObituaryDialog] = useState(false);
   const [graveMapDialog, setGraveMapDialog] = useState(false);
   const [gravePlotDialog, setGravePlotDialog] = useState(false);
+
   const [deceasedProfileDialog, setDeceasedProfileDialog] = useState(false);
+  const [allBlocks, setAllBlocks] = useState<Array<any>>([]);
 
   const [deleteDeceasedDialog, setDeleteDeceasedDialog] = useState(false);
   const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
+
+  const [southWest1, setSouthWest1] = useState<[any]>();
+  const [southWest2, setSouthWest2] = useState<[any]>();
+
+  const [northEast1, setNorthEast1] = useState<[any]>();
+  const [northEast2, setNorthEast2] = useState<[any]>();
 
   const [selectedGravePlot, setSelectedGravePlot] = useState<IGravePlotData[]>(
     []
@@ -83,6 +93,13 @@ const GravePlots: React.FC = () => {
       });
   };
 
+  const blocks = [
+    { name: "1", id: "634f61364e1560f278e4543f" },
+    { name: "2", id: "634f61364e1560f278e45440" },
+    { name: "3", id: "634f61364e1560f278e45441" },
+    { name: "4", id: "634f61364e1560f278e45442" },
+  ];
+
   useEffect(() => {
     retrieveAllGravePlots();
     initFilters();
@@ -111,72 +128,108 @@ const GravePlots: React.FC = () => {
     setDeleteProductsDialog(false);
   };
 
-  // const saveDeceased = () => {
-  //   setSubmitted(true);
+  const saveGravePlot = () => {
+    setSubmitted(true);
+    gravePlot.southWest[0] = southWest1;
+    gravePlot.southWest[1] = southWest2;
 
-  //   if (deceased.first_name.trim()) {
-  //     let _deceased = { ...deceased };
-  //     console.log(_deceased.id);
-  //     console.log(_deceased);
+    gravePlot.northEast[0] = northEast1;
+    gravePlot.northEast[1] = northEast2;
 
-  //     if (_deceased.id) {
-  //       Deceased.updateDeceased(_deceased.id, _deceased)
-  //         .then((response) => {
-  //           console.log(response.data);
-  //           toast.current.show({
-  //             severity: "success",
-  //             summary: "Successful",
-  //             detail: "Deceased Updated",
-  //             life: 3000,
-  //           });
-  //           retrieveAllDeceased();
-  //         })
-  //         .catch((e) => {
-  //           console.log(e);
-  //           toast.current.show({
-  //             severity: "error",
-  //             summary: "Error!",
-  //             detail: "There is an error updating the deceased information.",
-  //             life: 3000,
-  //           });
-  //         });
-  //     } else {
-  //       let formData = new FormData();
-  //       formData.append("first_name", _deceased.first_name);
-  //       formData.append("middle_name", _deceased.middle_name);
-  //       formData.append("last_name", _deceased.last_name);
-  //       formData.append("profile_picture", _deceased.profile_picture);
-  //       formData.append("birth_date", _deceased.birth_date);
-  //       formData.append("death_date", _deceased.death_date);
-  //       formData.append("obituary", _deceased.obituary);
-  //       formData.append("grave_plot", _deceased.grave_plot._id);
+    if (gravePlot.lot.trim()) {
+      let _graveplot = { ...gravePlot };
+      console.log(_graveplot.id);
+      console.log(_graveplot);
 
-  //       Deceased.createDeceased(formData)
-  //         .then((response) => {
-  //           console.log(response.data);
-  //           toast.current.show({
-  //             severity: "success",
-  //             summary: "Successful",
-  //             detail: "Deceased Created",
-  //             life: 3000,
-  //           });
-  //           retrieveAllDeceased();
-  //         })
-  //         .catch((e) => {
-  //           console.log(e);
-  //           toast.current.show({
-  //             severity: "error",
-  //             summary: "Error!",
-  //             detail: "There is an error creating the deceased information.",
-  //             life: 3000,
-  //           });
-  //         });
-  //     }
+      if (_graveplot.id) {
+        GravePlot.updateName(_graveplot.id, _graveplot)
+          .then((response) => {
+            console.log(response.data);
+            toast.current.show({
+              severity: "success",
+              summary: "Successful",
+              detail: "Deceased Updated",
+              life: 3000,
+            });
+            retrieveAllGravePlots();
+          })
+          .catch((e) => {
+            console.log(e);
+            toast.current.show({
+              severity: "error",
+              summary: "Error!",
+              detail: "There is an error updating the grave plot information.",
+              life: 3000,
+            });
+          });
+      } else {
+        GravePlot.create(_graveplot)
+          .then((response) => {
+            console.log(response.data);
+            toast.current.show({
+              severity: "success",
+              summary: "Successful",
+              detail: "Grave Plot Created",
+              life: 3000,
+            });
+            retrieveAllGravePlots();
+          })
+          .catch((e) => {
+            console.log(e);
+            toast.current.show({
+              severity: "error",
+              summary: "Error!",
+              detail: "There is an error creating the deceased information.",
+              life: 3000,
+            });
+          });
+      }
 
-  //     setGravePlotDialog(false);
-  //     setGravePlot(emptyGravePlot);
-  //   }
-  // };
+      setGravePlotDialog(false);
+      setGravePlot(emptyGravePlot);
+    }
+  };
+
+  const saveGravePlotLocation = () => {
+    setSubmitted(true);
+    gravePlot.southWest[0] = southWest1;
+    gravePlot.southWest[1] = southWest2;
+
+    gravePlot.northEast[0] = northEast1;
+    gravePlot.northEast[1] = northEast2;
+
+    let _graveplot = { ...gravePlot };
+
+    if (_graveplot.id) {
+      GravePlot.updateLoc(_graveplot.id, _graveplot)
+        .then((response) => {
+          console.log(response.data);
+          toast.current.show({
+            severity: "success",
+            summary: "Successful",
+            detail: "Grave Plot Location Updated",
+            life: 3000,
+          });
+          retrieveAllGravePlots();
+        })
+        .catch((e) => {
+          console.log(e);
+          toast.current.show({
+            severity: "error",
+            summary: "Error!",
+            detail: "There is an error updating the grave plot information.",
+            life: 3000,
+          });
+        });
+    }
+    setDeceasedProfileDialog(false);
+    setGravePlot(emptyGravePlot);
+  };
+
+  const editGravePlotLoc = (gravePlot: IGravePlotData) => {
+    setGravePlot({ ...gravePlot });
+    setDeceasedProfileDialog(true);
+  };
 
   const editGravePlot = (graveplot: IGravePlotData) => {
     setGravePlot({ ...graveplot });
@@ -192,6 +245,23 @@ const GravePlots: React.FC = () => {
     setGravePlot(graveplot);
     setDeleteDeceasedDialog(true);
   };
+
+  const deceasedDialogProfilePictureFooter = (
+    <>
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={saveGravePlotLocation}
+      />
+    </>
+  );
 
   const deleteGravePlot = () => {
     let _graveplot = { ...gravePlot };
@@ -302,6 +372,15 @@ const GravePlots: React.FC = () => {
     console.log(_graveplots);
   };
 
+  const onDropDownChange2 = (e: DropdownChangeParams) => {
+    let _graveplot = { ...gravePlot };
+
+    _graveplot.block["name"] = e.value;
+    _graveplot.block.id = _graveplot.block.name;
+    setGravePlot(_graveplot);
+    console.log(_graveplot.block.id);
+  };
+
   const onDropDownChange = (e: DropdownChangeParams) => {
     let _graveplot = { ...gravePlot };
 
@@ -346,11 +425,20 @@ const GravePlots: React.FC = () => {
     );
   };
 
-  const lotAddressTemplate = (rowData: IGravePlotData) => {
+  const blockTemplate = (rowData: IGravePlotData) => {
     return (
       <>
-        <span className="p-column-title">Lot Address</span>
-        {rowData.lot_address}
+        <span className="p-column-title">Block</span>
+        {rowData.block.name}
+      </>
+    );
+  };
+
+  const lotTemplate = (rowData: IGravePlotData) => {
+    return (
+      <>
+        <span className="p-column-title">Lot</span>
+        {rowData.lot}
       </>
     );
   };
@@ -362,22 +450,6 @@ const GravePlots: React.FC = () => {
       </>
     );
   };
-  // const southWestBodyTemplate = (rowData: IGravePlotData) => {
-  //   return (
-  //     <>
-  //       <span className="p-column-title">South West</span>
-  //       {rowData.southWest}
-  //     </>
-  //   );
-  // };
-  // const northEastBodyTemplate = (rowData: IGravePlotData) => {
-  //   return (
-  //     <>
-  //       <span className="p-column-title">North East</span>
-  //       {rowData.northEast}
-  //     </>
-  //   );
-  // };
 
   const openMapTemplate = (rowData: IGravePlotData) => {
     return (
@@ -396,11 +468,18 @@ const GravePlots: React.FC = () => {
     return (
       <div className="actions">
         <Button
+          icon="pi pi-map"
+          className="p-button-rounded p-button-info mr-2"
+          onClick={() => editGravePlotLoc(rowData)}
+          placeholder="Top"
+          tooltip="Edit grave plot location"
+        />
+        <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-success mr-2"
           onClick={() => editGravePlot(rowData)}
           placeholder="Top"
-          tooltip="Edit deceased detail information"
+          tooltip="Edit grave plot information"
         />
         <Button
           icon="pi pi-trash"
@@ -444,12 +523,12 @@ const GravePlots: React.FC = () => {
         className="p-button-text"
         onClick={hideDialog}
       />
-      {/* <Button
+      <Button
         label="Save"
         icon="pi pi-check"
         className="p-button-text"
-        onClick={saveDeceased}
-      /> */}
+        onClick={saveGravePlot}
+      />
     </>
   );
 
@@ -522,9 +601,16 @@ const GravePlots: React.FC = () => {
             exportable={false}
           ></Column>
           <Column
-            field="lot_address"
-            header="Lot Address"
-            body={lotAddressTemplate}
+            field="block"
+            header="Block"
+            body={blockTemplate}
+            sortable
+            style={{ minWidth: "6rem" }}
+          ></Column>
+          <Column
+            field="lot"
+            header="Lot"
+            body={lotTemplate}
             sortable
             style={{ minWidth: "6rem" }}
           ></Column>
@@ -535,20 +621,6 @@ const GravePlots: React.FC = () => {
             sortable
             style={{ minWidth: "6rem" }}
           ></Column>
-          {/* <Column
-            field="southWest"
-            header="South West"
-            body={southWestBodyTemplate}
-            sortable
-            style={{ minWidth: "6rem" }}
-          ></Column>
-          <Column
-            field="northEast"
-            header="North East"
-            body={northEastBodyTemplate}
-            sortable
-            style={{ minWidth: "6rem" }}
-          ></Column> */}
           <Column
             field="openMap"
             header="Open Lot"
@@ -574,19 +646,30 @@ const GravePlots: React.FC = () => {
         footer={deceasedDialogFooter}
         onHide={hideDialog}
       >
+        <div className="field">
+          <label>Grave Block</label>
+          <Dropdown
+            optionValue={"id"}
+            value={gravePlot.block.name}
+            options={blocks}
+            onChange={onDropDownChange2}
+            placeholder="Select a Grave Plot"
+            optionLabel={"name"}
+          />
+        </div>
         <div className="field col">
-          <label htmlFor="name">Lot Address</label>
+          <label htmlFor="name">Grave Lot</label>
           <InputText
-            id="Lot Address"
-            value={gravePlot.lot_address}
-            onChange={(e) => onInputChange(e, "lot_address")}
+            id="Lot"
+            value={gravePlot.lot}
+            onChange={(e) => onInputChange(e, "lot")}
             required
             autoFocus
             className={classNames({
-              "p-invalid": submitted && !gravePlot.lot_address,
+              "p-invalid": submitted && !gravePlot.lot,
             })}
           />
-          {submitted && !gravePlot.lot_address && (
+          {submitted && !gravePlot.lot && (
             <small className="p-error">Lot Address is required.</small>
           )}
         </div>
@@ -601,6 +684,29 @@ const GravePlots: React.FC = () => {
             optionLabel="name"
           />
         </div>
+        <div className="field col">
+          <label htmlFor="name">Map</label>
+          <EditFeatureModal
+            southWest={[setSouthWest1, setSouthWest2]}
+            northEast={[setNorthEast1, setNorthEast2]}
+          />
+        </div>
+      </Dialog>
+
+      <Dialog
+        visible={deceasedProfileDialog}
+        style={{ width: "450px" }}
+        header="Edit Grave Plot Location"
+        modal
+        maximizable
+        className="p-fluid"
+        footer={deceasedDialogProfilePictureFooter}
+        onHide={hideDialog}
+      >
+        <EditFeatureModal
+          southWest={[setSouthWest1, setSouthWest2]}
+          northEast={[setNorthEast1, setNorthEast2]}
+        />
       </Dialog>
 
       <Dialog
@@ -618,7 +724,11 @@ const GravePlots: React.FC = () => {
           />
           {gravePlot && (
             <span>
-              Are you sure you want to delete <b>{gravePlot.lot_address}</b>?
+              Are you sure you want to delete{" "}
+              <b>
+                B{gravePlot.block.name} L{gravePlot.lot}
+              </b>
+              ?
             </span>
           )}
         </div>
@@ -636,7 +746,9 @@ const GravePlots: React.FC = () => {
         <GraveShowerModal
           southWest={gravePlot.southWest}
           northEast={gravePlot.northEast}
-          name={gravePlot.lot_address}
+          blockName={gravePlot.block.name}
+          lotName={gravePlot.lot}
+          availability={gravePlot.status.name}
         />
       </Dialog>
 

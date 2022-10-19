@@ -5,13 +5,29 @@ import "./map.css";
 const GraveShower: React.FC<{
   southWest: any[];
   northEast: any[];
-  name: any;
-}> = ({ southWest, northEast, name }) => {
+  blockName: any;
+  lotName: any;
+  availability: any;
+}> = ({ southWest, northEast, blockName, lotName, availability }) => {
   const map = useMap();
   const grave = new LatLngBounds(
     [parseFloat(southWest[0]), parseFloat(southWest[1])],
     [parseFloat(northEast[0]), parseFloat(northEast[1])]
   );
+
+  const color = (status: any) => {
+    if (status === "available") {
+      return `green`;
+    }
+    if (status === "occupied") {
+      return "blue";
+    }
+    if (status === "reserved") {
+      return "black";
+    }
+    return "red";
+  };
+
   return (
     <div>
       <Rectangle
@@ -21,9 +37,12 @@ const GraveShower: React.FC<{
             map.flyToBounds(grave);
           },
         }}
+        pathOptions={{ color: color(availability) }}
       >
         <Popup keepInView={true}>
-          <h1 className="text-lg font-semibold text-gray-600 ">{name}</h1>
+          <h1 className="text-lg font-semibold text-gray-600 ">
+            B{blockName} L{lotName}
+          </h1>
         </Popup>
       </Rectangle>
     </div>

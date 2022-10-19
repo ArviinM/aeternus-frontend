@@ -9,12 +9,13 @@ import {
   ZoomControl,
 } from "react-leaflet";
 import "./map.css";
-import GravePlotService from "../../services/graveplot.service";
-import IGravePlotData from "../../types/graveplot.type";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { TabTitle } from "../../utils/GenerateFunctions";
+
 import GraveMarker from "./GraveMarker";
+import EditFeature from "./EditFeature";
+import { useState } from "react";
+
+import "leaflet/dist/leaflet.css";
+import "leaflet-draw/dist/leaflet.draw.css";
 
 const bounds = new LatLngBounds(
   [14.331085, 121.092627],
@@ -25,57 +26,27 @@ const bounds2 = new LatLngBounds(
   [14.329605, 121.096482]
 );
 
-// const blackOptions = { color: "green" };
+interface Coordinates {
+  southWest: [any, any];
+  northEast: [any, any];
+}
 
-const LeafletModal: React.FC = () => {
-  TabTitle("Aeternus – Cemetery Map");
-  const { id } = useParams();
+const EditFeatureModal: React.FC<Coordinates> = (props: Coordinates) => {
+  const [southWest1, setSouthWest1] = useState<any>();
+  const [southWest2, setSouthWest2] = useState<any>();
 
-  const [gravePlots, setGravePlots] = useState<Array<IGravePlotData>>([]);
-  const [currentGravePlot, setCurrentGravePlot] =
-    useState<IGravePlotData | null>(null);
+  const [northEast1, setNorthEast1] = useState<any>();
+  const [northEast2, setNorthEast2] = useState<any>();
 
-  useEffect(() => {
-    if (id) getGravePlot(id);
-  }, [id]);
+  props.southWest[0](southWest1);
+  props.southWest[1](southWest2);
 
-  useEffect(() => {
-    retrieveGravePlots();
-  }, []);
-
-  const getGravePlot = (id: string) => {
-    GravePlotService.get(id)
-      .then((response: any) => {
-        setCurrentGravePlot({
-          id: response.data.id,
-          block: response.data.block,
-          lot: response.data.lot,
-          status: response.data.status,
-          southWest: response.data.southWest,
-          northEast: response.data.northEast,
-        });
-        console.log(response.data);
-      })
-      .catch((e: Error) => {
-        console.log(e);
-      });
-  };
-
-  const retrieveGravePlots = () => {
-    GravePlotService.getAll()
-      .then((response: any) => {
-        setGravePlots(response.data);
-        console.log(response.data);
-      })
-      .catch((e: Error) => {
-        console.log(e);
-      });
-  };
-
+  props.northEast[0](northEast1);
+  props.northEast[1](northEast2);
   return (
     <div>
       <MapContainer
-        className="leaflet-container4"
+        className="leaflet-container6"
         center={[14.330071016060707, 121.09468013122873]}
         zoom={19}
         maxZoom={24}
@@ -91,6 +62,11 @@ const LeafletModal: React.FC = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
+        {/* {Add Edit Controls} */}
+        <EditFeature
+          southWest={[setSouthWest1, setSouthWest2]}
+          northEast={[setNorthEast1, setNorthEast2]}
+        />
         {/* display markers */}
         <GraveMarker />
 
@@ -129,4 +105,4 @@ const LeafletModal: React.FC = () => {
   );
 };
 
-export default LeafletModal;
+export default EditFeatureModal;

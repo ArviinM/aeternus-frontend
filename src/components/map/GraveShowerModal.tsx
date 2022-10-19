@@ -24,8 +24,10 @@ const bounds2 = new LatLngBounds(
 const GraveShowerModal: React.FC<{
   southWest: any[];
   northEast: any[];
-  name: any;
-}> = ({ southWest, northEast, name }) => {
+  blockName: any;
+  lotName: any;
+  availability: any;
+}> = ({ southWest, northEast, blockName, lotName, availability }) => {
   return (
     <div>
       <MapContainer
@@ -46,7 +48,13 @@ const GraveShowerModal: React.FC<{
         />
 
         {/* display specific grave plot only */}
-        <GraveShower southWest={southWest} northEast={northEast} name={name} />
+        <GraveShower
+          southWest={southWest}
+          northEast={northEast}
+          blockName={blockName}
+          lotName={lotName}
+          availability={availability}
+        />
 
         <LayersControl>
           <LayersControl.Overlay name="Drone Map from CIO" checked>

@@ -8,13 +8,24 @@ const getAll = () => {
 const get = (id: any) => {
   return http.get<IGravePlotData>(`/grave-plots/${id}`);
 };
+
+const getBlocks = (block: any) => {
+  return http.get<IGravePlotData>(`/grave-plots/block/${block}`);
+};
+
 const create = (data: any) => {
   return http.post<IGravePlotData>("/grave-plots", data, {
     headers: authHeaders(),
   });
 };
-const update = (id: any, data: any) => {
-  return http.put<any>(`/grave-plots/${id}`, data, {
+const updateName = (id: any, data: any) => {
+  return http.put<any>(`/grave-plots/update-name/${id}`, data, {
+    headers: authHeaders(),
+  });
+};
+
+const updateLoc = (id: any, data: any) => {
+  return http.put<any>(`/grave-plots/update-loc/${id}`, data, {
     headers: authHeaders(),
   });
 };
@@ -32,8 +43,10 @@ const findByName = (first_name: string) => {
 const GravePlotService = {
   getAll,
   get,
+  getBlocks,
   create,
-  update,
+  updateName,
+  updateLoc,
   remove,
   removeAll,
   findByName,

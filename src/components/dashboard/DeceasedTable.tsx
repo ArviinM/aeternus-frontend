@@ -42,11 +42,21 @@ const DeceasedTable: React.FC = () => {
     birth_date: undefined,
     death_date: undefined,
     obituary: "",
-    grave_plot: { _id: "", lot_address: "" },
+    grave_plot: { _id: "", block: { id: "", name: "" }, lot: "" },
   };
+
+  const blocks = [
+    { name: "1", id: "634f61364e1560f278e4543f" },
+    { name: "2", id: "634f61364e1560f278e45440" },
+    { name: "3", id: "634f61364e1560f278e45441" },
+    { name: "4", id: "634f61364e1560f278e45442" },
+  ];
 
   const [allDeceased, setAllDeceased] = useState<Array<IDeceasedData>>([]);
   const [allGravePlots, setAllGravePlots] = useState<Array<IGravePlotData>>([]);
+  const [allBlocks, setAllBlocks] = useState<Array<any>>([]);
+
+  const [disabled, setDisabled] = useState(true);
 
   const [deceased, setDeceased] = useState<IDeceasedData>(emptyDeceased);
   const [obituaryDialog, setObituaryDialog] = useState(false);
@@ -107,6 +117,7 @@ const DeceasedTable: React.FC = () => {
     setDeceasedDialog(false);
     setObituaryDialog(false);
     setDeceasedProfileDialog(false);
+    setDeceased(emptyDeceased);
   };
 
   const hideDeleteDeceasedDialog = () => {
@@ -371,11 +382,41 @@ const DeceasedTable: React.FC = () => {
   const onDropDownChange = (e: DropdownChangeParams) => {
     let _deceased = { ...deceased };
 
-    _deceased.grave_plot["lot_address"] = e.value;
-    _deceased.grave_plot._id = _deceased.grave_plot.lot_address;
+    _deceased.grave_plot.block["name"] = e.value;
+    _deceased.grave_plot._id = _deceased.grave_plot.block.name;
     setDeceased(_deceased);
     console.log(_deceased.grave_plot._id);
+
+    GravePlot.getBlocks(_deceased.grave_plot._id)
+      .then((response: any) => {
+        setAllBlocks(response.data);
+        console.log(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+
+    setDisabled(false);
   };
+
+  const onDropDownChange2 = (e: DropdownChangeParams) => {
+    let _deceased = { ...deceased };
+
+    _deceased.grave_plot.lot = e.value;
+    _deceased.grave_plot._id = _deceased.grave_plot.lot;
+    setDeceased(_deceased);
+  };
+
+  // let lot = {name: ""};
+
+  // const gravePlotTemplate = (rowData: IDeceasedData) => {
+  //   return (
+  //     <>
+  //       <span className="p-column-title">Grave Plot</span>
+  //       Block {rowData.grave_plot.block} Lot {rowData.grave_plot.lot}
+  //     </>
+  //   );
+  // };
 
   const leftToolbarTemplate = () => {
     return (
@@ -482,13 +523,12 @@ const DeceasedTable: React.FC = () => {
     );
   };
 
-  const gravePlotTemplate = (rowData: IDeceasedData) => {
-    return (
-      <>
-        <span className="p-column-title">Grave Plot</span>
-        {rowData.grave_plot.lot_address}
-      </>
-    );
+  const graveBlockTemplate = (rowData: IDeceasedData) => {
+    return <div>Block {rowData.grave_plot.block.name}</div>;
+  };
+
+  const graveLotTemplate = (rowData: IDeceasedData) => {
+    return <div>Lot {rowData.grave_plot.lot}</div>;
   };
 
   const obituaryTemplate = (rowData: IDeceasedData) => {
@@ -697,11 +737,18 @@ const DeceasedTable: React.FC = () => {
             body={deathDateTemplate}
           ></Column>
           <Column
-            field="grave_plot"
-            header="Grave Plot"
+            field="block.name"
+            header="Grave Block"
             sortable
-            style={{ minWidth: "10rem" }}
-            body={gravePlotTemplate}
+            style={{ minWidth: "2rem" }}
+            body={graveBlockTemplate}
+          ></Column>
+          <Column
+            field="lot"
+            header="Grave Lot"
+            sortable
+            style={{ minWidth: "2rem" }}
+            body={graveLotTemplate}
           ></Column>
           <Column
             field="obituary"
@@ -713,7 +760,7 @@ const DeceasedTable: React.FC = () => {
           <Column
             body={actionBodyTemplate}
             exportable={false}
-            style={{ minWidth: "8rem" }}
+            style={{ minWidth: "12rem" }}
           ></Column>
         </DataTable>
       </div>
@@ -847,17 +894,45 @@ const DeceasedTable: React.FC = () => {
           />
         </div>
         <div className="field">
-          <label>Grave Plot</label>
+          <label>Grave Block</label>
 
           <Dropdown
-            optionValue="id"
-            value={deceased.grave_plot.lot_address}
-            options={allGravePlots}
+            optionValue={"id"}
+            value={deceased.grave_plot.block.name}
+            options={blocks}
             onChange={onDropDownChange}
             placeholder="Select a Grave Plot"
-            optionLabel="lot_address"
+            optionLabel={"name"}
           />
         </div>
+        {disabled ? (
+          <div className="field">
+            <label>Grave Lot</label>
+
+            <Dropdown
+              optionValue={"id"}
+              value={deceased.grave_plot.lot}
+              options={allBlocks}
+              onChange={onDropDownChange2}
+              placeholder="Select a Grave Plot"
+              optionLabel={"lot"}
+              disabled={true}
+            />
+          </div>
+        ) : (
+          <div className="field">
+            <label>Grave Lot</label>
+
+            <Dropdown
+              optionValue={"id"}
+              value={deceased.grave_plot.lot}
+              options={allBlocks}
+              onChange={onDropDownChange2}
+              placeholder="Select a Grave Plot"
+              optionLabel={"lot"}
+            />
+          </div>
+        )}
 
         <div className="field">
           <label htmlFor="description">Obituary</label>
