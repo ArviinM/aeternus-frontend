@@ -42,7 +42,14 @@ const DeceasedTable: React.FC = () => {
     birth_date: undefined,
     death_date: undefined,
     obituary: "",
-    grave_plot: { _id: "", block: { id: "", name: "" }, lot: "" },
+    grave_plot: {
+      _id: "",
+      block: { id: "", name: "" },
+      lot: "",
+      status: { id: "", name: "" },
+      southWest: ["", ""],
+      northEast: ["", ""],
+    },
   };
 
   const blocks = [
@@ -774,7 +781,7 @@ const DeceasedTable: React.FC = () => {
         className="p-fluid"
         onHide={hideDialog}
       >
-        {deceased.obituary}
+        <p className="whitespace-pre-line">{deceased.obituary}</p>
       </Dialog>
 
       <Dialog

@@ -8,20 +8,18 @@ import { Button } from "primereact/button";
 import { Toolbar } from "primereact/toolbar";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
-import { Calendar, CalendarChangeParams } from "primereact/calendar";
 import { Dropdown, DropdownChangeParams } from "primereact/dropdown";
-import Deceased from "../../services/deceased.service";
 import GravePlot from "../../services/graveplot.service";
 
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
+import "primereact/resources/primereact.css";
 
 import "./dashboard.scss";
 
 import IDeceasedData from "../../types/deceased.type";
 import IGravePlotData from "../../types/graveplot.type";
-import { InputTextarea } from "primereact/inputtextarea";
 
 import { FilterMatchMode } from "primereact";
 import { TabTitle } from "../../utils/GenerateFunctions";
@@ -46,6 +44,8 @@ const GravePlots: React.FC = () => {
 
   const [allDeceased, setAllDeceased] = useState<Array<IDeceasedData>>([]);
   const [allGravePlots, setAllGravePlots] = useState<Array<IGravePlotData>>([]);
+
+  const [visibleLeft, setVisibleLeft] = useState(false);
 
   const [gravePlot, setGravePlot] = useState<IGravePlotData>(emptyGravePlot);
   const [obituaryDialog, setObituaryDialog] = useState(false);
@@ -493,7 +493,7 @@ const GravePlots: React.FC = () => {
   const renderHeader = () => {
     return (
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
-        <h5 className="m-0">Manage Deceased Information</h5>
+        <h5 className="m-0">Manage Grave Plots</h5>
 
         <span className="block mt-2 md:mt-0 p-input-icon-left">
           <i className="pi pi-search" />
@@ -639,7 +639,7 @@ const GravePlots: React.FC = () => {
       <Dialog
         visible={gravePlotDialog}
         style={{ width: "450px" }}
-        header="Deceased Details"
+        header="Grave Plot Details"
         modal
         maximizable
         className="p-fluid"
@@ -682,13 +682,6 @@ const GravePlots: React.FC = () => {
             onChange={onDropDownChange}
             placeholder="Select Status"
             optionLabel="name"
-          />
-        </div>
-        <div className="field col">
-          <label htmlFor="name">Map</label>
-          <EditFeatureModal
-            southWest={[setSouthWest1, setSouthWest2]}
-            northEast={[setNorthEast1, setNorthEast2]}
           />
         </div>
       </Dialog>

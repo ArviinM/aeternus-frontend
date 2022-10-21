@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Deceased from "../../services/deceased.service";
 import GravePlot from "../../services/graveplot.service";
 import User from "../../services/auth.service";
@@ -6,14 +6,6 @@ import User from "../../services/auth.service";
 import IDeceasedData from "../../types/deceased.type";
 import IGravePlotData from "../../types/graveplot.type";
 import IUser from "../../types/user.type";
-
-import { Menu } from "primereact/menu";
-import { Button } from "primereact/button";
-import { Chart } from "primereact/chart";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-// import { ProductService } from '../service/ProductService';
-// import Product from "../models/Product";
 
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";

@@ -5,7 +5,7 @@ import LeafletModal from "../map/LeafletModal";
 
 const CemMapModal: React.FC<{ closeModal: any }> = ({ closeModal }) => {
   return (
-    <div className="relative z-[100000] overflow-hidden">
+    <div className="relative z-[500] overflow-hidden">
       <div className="home-hero-guided-modal">
         <div className="home-hero-guided-modal-controls" id="controls">
           <div className="home-hero-guided-modal-controls-inside">

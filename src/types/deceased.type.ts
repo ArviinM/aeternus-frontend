@@ -7,5 +7,12 @@ export default interface IDeceasedData {
   birth_date: any;
   death_date: any;
   obituary: string;
-  grave_plot: { _id: string; block: { id: string; name: string }; lot: string };
+  grave_plot: {
+    _id: string;
+    block: { id: string; name: string };
+    lot: string;
+    status: { id: string; name: string };
+    southWest: [any, any];
+    northEast: [any, any];
+  };
 }

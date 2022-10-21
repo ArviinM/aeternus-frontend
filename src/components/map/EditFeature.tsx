@@ -10,30 +10,15 @@ interface Coordinates {
 
 const EditFeature: React.FC<Coordinates> = (props: Coordinates) => {
   const _onCreated = (e: any) => {
-    let type = e.layerType;
     let layer = e.layer;
-    if (type === "marker") {
-      // Do marker specific actions
-      console.log("_onCreated: marker created", e);
-    } else {
-      console.log("_onCreated: something else created:", type, e);
-    }
-
-    console.log("Geojson", layer.toGeoJSON());
-
     let test = layer.getLatLngs();
 
-    console.log("coords rectangle", layer.getLatLngs());
-    console.log("coords lat", test[0][0].lat);
-    console.log("coords long", test[0][0].lng);
     // Do whatever else you need to. (save to db; etc)
     props.southWest[0](test[0][0].lat);
     props.southWest[1](test[0][0].lng);
 
     props.northEast[0](test[0][2].lat);
     props.northEast[1](test[0][2].lng);
-
-    // this._onChange();
   };
 
   const _onDrawStart = (e: any) => {

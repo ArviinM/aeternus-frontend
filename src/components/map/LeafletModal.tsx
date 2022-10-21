@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TabTitle } from "../../utils/GenerateFunctions";
 import GraveMarker from "./GraveMarker";
+import DeceasedMarker from "./DeceasedMarker";
 
 const bounds = new LatLngBounds(
   [14.331085, 121.092627],
@@ -92,7 +93,8 @@ const LeafletModal: React.FC = () => {
         />
 
         {/* display markers */}
-        <GraveMarker />
+        {/* <GraveMarker /> */}
+        <DeceasedMarker />
 
         <LayersControl>
           <LayersControl.Overlay name="Drone Map from CIO" checked>
