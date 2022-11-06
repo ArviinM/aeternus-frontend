@@ -5,4 +5,16 @@ export default interface IGravePlotData {
   status: { id: string; name: string };
   southWest: [any, any];
   northEast: [any, any];
+  deceased: [
+    {
+      id?: any | null;
+      first_name: string;
+      middle_name: string;
+      last_name: string;
+      profile_picture: any;
+      birth_date: any;
+      death_date: any;
+      obituary: string;
+    }
+  ];
 }

@@ -14,6 +14,8 @@ import { Home as HomeIcon } from "@mui/icons-material";
 
 import "../components.css";
 import { Sidebar } from "primereact";
+import { TabView, TabPanel } from "primereact/tabview";
+
 import IDeceasedData from "../../types/deceased.type";
 
 export default function DeceasedMarker() {
@@ -24,6 +26,18 @@ export default function DeceasedMarker() {
     status: { id: "", name: "" },
     southWest: ["", ""],
     northEast: ["", ""],
+    deceased: [
+      {
+        id: "",
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        profile_picture: "",
+        birth_date: undefined,
+        death_date: undefined,
+        obituary: "",
+      },
+    ],
   };
 
   let emptyDeceased: IDeceasedData = {
@@ -53,6 +67,8 @@ export default function DeceasedMarker() {
   const [gravePlots, setGravePlots] = useState<Array<IGravePlotData>>([]);
   const [gravePlot, setGravePlot] = useState<IGravePlotData>(emptyGravePlot);
 
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const color = (status: any) => {
     if (status === "available") {
       return `green`;
@@ -68,12 +84,23 @@ export default function DeceasedMarker() {
 
   useEffect(() => {
     retrieveAllDeceased();
+    retrieveGravePlots();
   }, []);
 
   const retrieveAllDeceased = () => {
     Deceased.getAllDeceased()
       .then((response: any) => {
         setAllDeceased(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveGravePlots = () => {
+    GravePlotService.getAll()
+      .then((response: any) => {
+        setGravePlots(response.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -87,20 +114,6 @@ export default function DeceasedMarker() {
 
   const [visibleLeft, setVisibleLeft] = useState(false);
 
-  let date = new Date(deceased.birth_date);
-  let formattedDate = date.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-
-  let date2 = new Date(deceased.death_date);
-  let formattedDate2 = date2.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-
   return (
     <div>
       <Sidebar
@@ -110,32 +123,60 @@ export default function DeceasedMarker() {
         baseZIndex={100000}
         className="p-sidebar-md"
       >
-        <img src={deceased.profile_picture} alt={deceased.first_name} />
-        <h3 className="m-1 text-3xl font-bold">
-          {deceased.first_name} {deceased.last_name}
-        </h3>
-        <h4 className="m-1 text-xl">
-          {formattedDate} - {formattedDate2}
-        </h4>
-        <h3 className="m-1 text-2xl">Obituary</h3>
-        <p className="m-1 text-xl whitespace-pre-line"> {deceased.obituary} </p>
+        {/* */}
         {/* <p className="capitalize">{gravePlot.status.name}</p> */}
+
+        <TabView
+          activeIndex={activeIndex}
+          onTabChange={(e) => setActiveIndex(e.index)}
+          scrollable
+        >
+          {gravePlot.deceased.map((deceased, index) => (
+            <TabPanel
+              header={deceased.first_name.charAt(0) + ". " + deceased.last_name}
+              key={index}
+            >
+              <img src={deceased.profile_picture} alt={deceased.first_name} />
+              <h3 className="m-1 text-3xl font-bold">
+                {deceased.first_name} {deceased.last_name}
+              </h3>
+              <h4 className="m-1 text-xl">
+                {new Date(deceased.birth_date).toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+                -{" "}
+                {new Date(deceased.death_date).toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </h4>
+              <h3 className="m-1 text-2xl">Obituary</h3>
+              <p className="m-1 text-xl whitespace-pre-line">
+                {" "}
+                {deceased.obituary}{" "}
+              </p>{" "}
+            </TabPanel>
+          ))}
+        </TabView>
       </Sidebar>
 
-      {allDeceased.map((allDeceased, index) => (
+      {gravePlots.map((gravePlots, index) => (
         <div>
           <Rectangle
             key={index}
-            pathOptions={{ color: color(allDeceased.grave_plot.status.name) }}
+            pathOptions={{ color: color(gravePlots.status.name) }}
             bounds={
               new LatLngBounds(
                 [
-                  parseFloat(allDeceased.grave_plot.southWest[0]),
-                  parseFloat(allDeceased.grave_plot.southWest[1]),
+                  parseFloat(gravePlots.southWest[0]),
+                  parseFloat(gravePlots.southWest[1]),
                 ],
                 [
-                  parseFloat(allDeceased.grave_plot.northEast[0]),
-                  parseFloat(allDeceased.grave_plot.northEast[1]),
+                  parseFloat(gravePlots.northEast[0]),
+                  parseFloat(gravePlots.northEast[1]),
                 ]
               )
             }
@@ -144,29 +185,43 @@ export default function DeceasedMarker() {
                 map.flyToBounds(
                   new LatLngBounds(
                     [
-                      parseFloat(allDeceased.grave_plot.southWest[0]),
-                      parseFloat(allDeceased.grave_plot.southWest[1]),
+                      parseFloat(gravePlots.southWest[0]),
+                      parseFloat(gravePlots.southWest[1]),
                     ],
                     [
-                      parseFloat(allDeceased.grave_plot.northEast[0]),
-                      parseFloat(allDeceased.grave_plot.northEast[1]),
+                      parseFloat(gravePlots.northEast[0]),
+                      parseFloat(gravePlots.northEast[1]),
                     ]
                   )
                 );
                 setVisibleLeft(true);
                 //setGravePlot(gravePlots);
-                setDeceased(allDeceased);
+                setGravePlot(gravePlots);
               },
             }}
           >
             <Popup keepInView={true} key={index}>
               <h1 className="font-semibold text-sm text-gray-600 ">
-                B{allDeceased.grave_plot.block.name} L
-                {allDeceased.grave_plot.lot}
+                B{gravePlots.block.name} L{gravePlots.lot}
               </h1>
-              <p className="text-gray-600 capitalize m-auto p-auto ">
-                • {deceased.first_name.charAt(0)} {deceased.last_name}
-              </p>
+
+              {gravePlots.deceased.map((deceased, index) => (
+                <p
+                  className="text-gray-600 capitalize m-auto p-auto"
+                  key={index}
+                >
+                  • {deceased.first_name.charAt(0)}. {deceased.last_name}
+                </p>
+              ))}
+
+              {/* <p className="text-gray-600 capitalize m-auto p-auto" key={index}>
+                • {gravePlots.deceased[index].first_name.charAt(0)}.{" "}
+                {gravePlots.deceased[index].last_name}
+              </p> */}
+
+              {/* <p className="text-gray-600 capitalize m-auto p-auto ">
+                • {gravePlots.deceased.first_name.charAt(0)}. {gravePlots.deceased.last_name}
+              </p> */}
             </Popup>
           </Rectangle>
         </div>

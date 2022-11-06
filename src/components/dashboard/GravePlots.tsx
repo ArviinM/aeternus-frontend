@@ -40,6 +40,18 @@ const GravePlots: React.FC = () => {
     status: { id: "", name: "" },
     southWest: ["", ""],
     northEast: ["", ""],
+    deceased: [
+      {
+        id: "",
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        profile_picture: "",
+        birth_date: undefined,
+        death_date: undefined,
+        obituary: "",
+      },
+    ],
   };
 
   const [allDeceased, setAllDeceased] = useState<Array<IDeceasedData>>([]);
@@ -78,9 +90,9 @@ const GravePlots: React.FC = () => {
   const [showDeceasedPhoto2, setShowDeceasedPhoto2] = useState(false);
 
   const statuses = [
-    { name: "Available", id: "6320c2735dcc565b5c2ab179" },
-    { name: "Reserved", id: "6320c2735dcc565b5c2ab17a" },
-    { name: "Occupied", id: "6320c2735dcc565b5c2ab17b" },
+    { name: "Available", id: "6363f91e750f685635b02904" },
+    { name: "Reserved", id: "6363f91e750f685635b02905" },
+    { name: "Occupied", id: "6363f91e750f685635b02906" },
   ];
 
   const retrieveAllGravePlots = () => {
@@ -682,6 +694,14 @@ const GravePlots: React.FC = () => {
             onChange={onDropDownChange}
             placeholder="Select Status"
             optionLabel="name"
+          />
+        </div>
+
+        <div className="field col">
+          <label htmlFor="name">Plot the Grave</label>
+          <EditFeatureModal
+            southWest={[setSouthWest1, setSouthWest2]}
+            northEast={[setNorthEast1, setNorthEast2]}
           />
         </div>
       </Dialog>

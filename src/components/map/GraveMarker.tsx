@@ -21,6 +21,18 @@ export default function GraveMarker() {
     status: { id: "", name: "" },
     southWest: ["", ""],
     northEast: ["", ""],
+    deceased: [
+      {
+        id: "",
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        profile_picture: "",
+        birth_date: undefined,
+        death_date: undefined,
+        obituary: "",
+      },
+    ],
   };
 
   const map = useMap();
