@@ -10,6 +10,8 @@ import Footer from "./components/navigation/Footer";
 import NotFound from "./components/authentication/NotFound";
 import PrivateRoute from "./components/authentication/PrivateRoute";
 import Login from "./components/authentication/Login";
+import Register from "./components/authentication/Register";
+import CemeteryMap from "./components/pages/CemeteryMap";
 
 const NavbarLayout = () => (
   <>
@@ -26,8 +28,10 @@ const App: React.FC = () => {
         <Route element={<NavbarLayout />}>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/cemetery-map" element={<CemeteryMap />} />
         </Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         <Route
           path="/dashboard/*"

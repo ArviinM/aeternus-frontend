@@ -71,9 +71,9 @@ const Navbar: React.FC = () => {
               </NavLink>
             </div>
 
-            <div className="hidden xl:flex justify-between text-[max(0.86rem,min(1.44737vw,1.1rem))] tracking-wide z-99 uppercase">
+            <div className="hidden items-center xl:flex text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide z-99 uppercase">
               <NavLink
-                to={"/home"}
+                to={"/" && "/home"}
                 // className="hover:text-white text-gray-300  dark:text-gray-300 mx-1 lg:mx-1 xl:mx-4 relative group"
                 className={({ isActive }) =>
                   isActive
@@ -146,17 +146,17 @@ const Navbar: React.FC = () => {
             <MenuItems showMenu={showMenu} active={active} />
             <div className="hidden xl:flex">
               {currentUser ? (
-                <div className=" items-center text-[max(0.86rem,min(1.44737vw,1.1rem))] tracking-wide">
+                <div className=" items-center text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide">
                   <Link
                     to={"/dashboard"}
-                    className="px-1 md:px-4 py-3 mx-1 lg:mx-1 xl:mx-4 text-gray-300 text-[max(0.86rem,min(1.44737vw,1.1rem))] tracking-wide relative group"
+                    className="px-1 md:px-4 py-3 mx-1 lg:mx-1 xl:mx-4 text-gray-300 text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide relative group"
                   >
                     Hello, {currentUser.username}!
                     <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gray-50 transition-all group-hover:w-full"></span>
                   </Link>
                   <a
                     href="/login"
-                    className="bg-[#ffc500] hover:bg-[#e0ad02]  px-4 md:px-10 py-3 mx-1 lg:mx-1 xl:mx-4 text-white text-[max(0.86rem,min(1.44737vw,1.1rem))] tracking-wide"
+                    className="bg-[#ffc500] hover:bg-[#e0ad02]  px-4 md:px-10 py-3 mx-1 lg:mx-1 xl:mx-4 text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide"
                     onClick={logOut}
                   >
                     LOG OUT
@@ -166,14 +166,14 @@ const Navbar: React.FC = () => {
                 <div className=" items-center uppercase ">
                   <Link
                     to={"/login"}
-                    className="px-1 md:px-4 py-3 mx-1 lg:mx-1 xl:mx-4 text-gray-300 text-[max(0.86rem,min(1.44737vw,1.1rem))] tracking-wide relative group"
+                    className="px-1 md:px-4 py-3 mx-1 lg:mx-1 xl:mx-4 text-gray-300 text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide relative group"
                   >
                     Sign In
                     <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gray-50 transition-all group-hover:w-full"></span>
                   </Link>
                   <Link
                     to={"/register"}
-                    className="bg-[#ffc500] hover:bg-[#e0ad02]  px-4 md:px-10 py-3 mx-1 lg:mx-1 xl:mx-4 text-white text-[max(0.86rem,min(1.44737vw,1.1rem))] tracking-wide"
+                    className="bg-[#ffc500] hover:bg-[#e0ad02]  px-4 md:px-10 py-3 mx-1 lg:mx-1 xl:mx-4 text-white text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide"
                   >
                     Sign Up
                   </Link>

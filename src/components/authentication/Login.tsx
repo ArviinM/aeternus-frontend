@@ -61,17 +61,19 @@ const Login: React.FC = () => {
       <Toast ref={toast} />
       <div className="hidden lg:block relative flex-1 w-2/5">
         <img
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover brightness-75"
           src="http://localhost:5000/public/login-bg.jpg"
           alt="logo-bg"
         />
 
         <div className="h-3/6">
-          <img
-            className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
-            src="aeternus-logo-dark-circle.png"
-            alt="logo-bg"
-          />
+          <a href="http://localhost:3000/">
+            <img
+              className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
+              src="aeternus-logo-dark-circle.png"
+              alt="logo-bg"
+            />
+          </a>
         </div>
         <div className="h-3/6 tracking-wider">
           <div className="mt-8 w-full max-w-lg m-auto relative px-10 lg:px-6">
@@ -90,10 +92,10 @@ const Login: React.FC = () => {
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 w-3/5">
         <div className="mx-auto w-max">
           <div>
-            <h2 className="mt-6 text-5xl font-extrabold font-primary text-blue-600 text-center ">
+            <h2 className="sm:mt-6 mt-2 text-3xl font-extrabold font-primary text-blue-600 text-center sm:text-5xl ">
               Welcome To Aeternus
             </h2>
-            <h2 className="mt-1 text-lg font-secondary text-gray-900 text-center ">
+            <h2 className="mt-1 sm:text-lg text-base font-secondary text-gray-900 text-center ">
               Sign in by entering the information below
             </h2>
           </div>
