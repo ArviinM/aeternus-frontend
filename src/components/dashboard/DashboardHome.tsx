@@ -57,7 +57,7 @@ const DashboardHome: React.FC = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1  md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1  md:grid-cols-3 gap-3">
       <div className="">
         <div className="card mb-0">
           <div className="flex justify-between mb-3">
@@ -136,7 +136,7 @@ const DashboardHome: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="">
+      {/* <div className="">
         <div className="card mb-0">
           <div className="flex justify-between mb-3">
             <div>
@@ -157,7 +157,7 @@ const DashboardHome: React.FC = () => {
             <span className="text-gray-600">responded</span>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

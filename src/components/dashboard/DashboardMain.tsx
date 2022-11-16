@@ -12,6 +12,11 @@ import DashboardHome from "./DashboardHome";
 import { Route, Routes } from "react-router-dom";
 import { TabTitle } from "../../utils/GenerateFunctions";
 import GravePlots from "./GravePlots";
+import UserService from "../../services/auth.service";
+import EventBus from "../../common/EventBus";
+import IUser from "../../types/user.type";
+import CemMap from "../map/CemMap";
+import DashboardUserProfile from "./DashboardUserProfile";
 
 const DashboardMain: React.FC = () => {
   TabTitle("Aeternus – Dashboard");
@@ -25,6 +30,9 @@ const DashboardMain: React.FC = () => {
   const [mobileTopbarMenuActive, setMobileTopbarMenuActive] =
     useState<boolean>(false);
 
+  const [showAdmin, setShowAdmin] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined);
+
   PrimeReact.ripple = true;
 
   let menuClick = false;
@@ -37,6 +45,24 @@ const DashboardMain: React.FC = () => {
       removeClass(document.body, "body-overflow-hidden");
     }
   }, [mobileMenuActive]);
+
+  useEffect(() => {
+    const user = UserService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+      setShowAdmin(user.roles.includes("ROLE_ADMIN"));
+    }
+    EventBus.on("logout", logOut);
+    return () => {
+      EventBus.remove("logout", logOut);
+    };
+  }, []);
+
+  const logOut = () => {
+    UserService.logout();
+    setShowAdmin(false);
+    setCurrentUser(undefined);
+  };
 
   const onInputStyleChange = (inputStyle: string) => {
     setInputStyle(inputStyle);
@@ -160,6 +186,11 @@ const DashboardMain: React.FC = () => {
           icon: "pi pi-fw pi-home",
           to: "/dashboard/home",
         },
+        {
+          label: "Cemetery Map",
+          icon: "pi pi-fw pi-map-marker",
+          to: "/dashboard/cem-map",
+        },
       ],
     },
     {
@@ -179,36 +210,113 @@ const DashboardMain: React.FC = () => {
         { label: "User", icon: "pi pi-fw pi-user", to: "/users" },
       ],
     },
+    {
+      label: "User Profile",
+      items: [
+        {
+          label: "Profile",
+          icon: "pi pi-fw pi-user",
+          to: "/dashboard/user-profile",
+        },
+        {
+          label: "Sign Out",
+          icon: "pi pi-fw pi-sign-out",
+          command: () => {
+            logOut();
+            window.location.href = "http://localhost:3000/";
+          },
+        },
+      ],
+    },
+  ];
+
+  const menu2 = [
+    {
+      label: "Home",
+      items: [
+        {
+          label: "Cemetery Map",
+          icon: "pi pi-fw pi-map-marker",
+          to: "/dashboard/cem-map",
+        },
+        {
+          label: "Profile",
+          icon: "pi pi-fw pi-user",
+          to: "/dashboard/user-profile",
+        },
+        {
+          label: "Sign Out",
+          icon: "pi pi-fw pi-sign-out",
+          command: () => {
+            logOut();
+            window.location.href = "http://localhost:3000/";
+          },
+        },
+      ],
+    },
+    // {
+    //   label: "Information",
+    //   icon: "pi pi-fw pi-database",
+    //   items: [
+    //     {
+    //       label: "Deceased",
+    //       icon: "pi pi-fw pi-book",
+    //       to: "/dashboard/deceased-table",
+    //     },
+    //     {
+    //       label: "Grave Plots",
+    //       icon: "pi pi-fw pi-map",
+    //       to: "/dashboard/grave-plots",
+    //     },
+    //     { label: "User", icon: "pi pi-fw pi-user", to: "/users" },
+    //   ],
+    // },
   ];
 
   return (
     <div className={wrapperClass} onClick={onWrapperClick}>
-      <DashboardTopBar
-        onToggleMenuClick={onToggleMenuClick}
-        layoutColorMode={layoutColorMode}
-        mobileTopbarMenuActive={mobileTopbarMenuActive}
-        onMobileTopbarMenuClick={onMobileTopbarMenuClick}
-        onMobileSubTopbarMenuClick={onMobileSubTopbarMenuClick}
-      />
-
-      <div className="layout-sidebar" onClick={onSidebarClick}>
-        <DashboardMenu
-          model={menu}
-          onMenuItemClick={onMenuItemClick}
+      {currentUser && (
+        <DashboardTopBar
+          onToggleMenuClick={onToggleMenuClick}
           layoutColorMode={layoutColorMode}
+          mobileTopbarMenuActive={mobileTopbarMenuActive}
+          onMobileTopbarMenuClick={onMobileTopbarMenuClick}
+          onMobileSubTopbarMenuClick={onMobileSubTopbarMenuClick}
         />
-      </div>
-
-      <div className="layout-main-container">
-        <div className="layout-main">
-          <Routes>
-            <Route path="/home" element={<DashboardHome />} />
-            <Route path="/deceased-table" element={<DeceasedTable />} />
-            <Route path="/grave-plots" element={<GravePlots />} />
-          </Routes>
+      )}
+      {currentUser && (
+        <div className="layout-sidebar" onClick={onSidebarClick}>
+          <DashboardMenu
+            model={menu2}
+            onMenuItemClick={onMenuItemClick}
+            layoutColorMode={layoutColorMode}
+          />
         </div>
-      </div>
+      )}
 
+      {showAdmin && (
+        <div className="layout-sidebar" onClick={onSidebarClick}>
+          <DashboardMenu
+            model={menu}
+            onMenuItemClick={onMenuItemClick}
+            layoutColorMode={layoutColorMode}
+          />
+        </div>
+      )}
+
+      {currentUser && (
+        <div className="layout-main-container">
+          <div className="layout-main">
+            <Routes>
+              <Route path="/home" element={<DashboardHome />} />
+              <Route path="/cem-map" element={<CemMap />} />
+              <Route path="/user-profile" element={<DashboardUserProfile />} />
+              <Route path="/deceased-table" element={<DeceasedTable />} />
+              <Route path="/grave-plots" element={<GravePlots />} />
+            </Routes>
+          </div>
+        </div>
+      )}
       <CSSTransition
         classNames="layout-mask"
         timeout={{ enter: 200, exit: 200 }}

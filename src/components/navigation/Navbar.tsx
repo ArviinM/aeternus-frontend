@@ -73,7 +73,7 @@ const Navbar: React.FC = () => {
 
             <div className="hidden items-center xl:flex text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide z-99 uppercase">
               <NavLink
-                to={"/" && "/home"}
+                to={"" || ("/" && "/home")}
                 // className="hover:text-white text-gray-300  dark:text-gray-300 mx-1 lg:mx-1 xl:mx-4 relative group"
                 className={({ isActive }) =>
                   isActive
@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
               {currentUser ? (
                 <div className=" items-center text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide">
                   <Link
-                    to={"/dashboard"}
+                    to={"/dashboard/home"}
                     className="px-1 md:px-4 py-3 mx-1 lg:mx-1 xl:mx-4 text-gray-300 text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide relative group"
                   >
                     Hello, {currentUser.username}!
@@ -156,10 +156,10 @@ const Navbar: React.FC = () => {
                   </Link>
                   <a
                     href="/login"
-                    className="bg-[#ffc500] hover:bg-[#e0ad02]  px-4 md:px-10 py-3 mx-1 lg:mx-1 xl:mx-4 text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide"
+                    className="bg-[#ffc500] hover:bg-[#e0ad02] uppercase px-4 md:px-10 py-3 mx-1 lg:mx-1 xl:mx-4 text-white text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide"
                     onClick={logOut}
                   >
-                    LOG OUT
+                    Sign Out
                   </a>
                 </div>
               ) : (

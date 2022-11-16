@@ -32,9 +32,15 @@ const Login: React.FC = () => {
     setMessage("");
     setLoading(true);
 
+    const currentUser = UserService.getCurrentUser();
+
     UserService.login(username, password).then(
       () => {
-        navigate("/dashboard/home");
+        if (currentUser.roles.includes("ROLE_ADMIN")) {
+          navigate("/dashboard/home");
+        } else {
+          navigate("/dashboard/user-profile");
+        }
       },
       (error) => {
         const resMessage =
@@ -121,6 +127,7 @@ const Login: React.FC = () => {
                           name="username"
                           type="text"
                           autoComplete="username"
+                          placeholder="e.g. JohnDoe"
                           required
                           className="appearance-none font-primary block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
@@ -145,6 +152,7 @@ const Login: React.FC = () => {
                           name="password"
                           type="password"
                           autoComplete="current-password"
+                          placeholder="Password"
                           required
                           className="appearance-none font-primary block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
@@ -189,7 +197,7 @@ const Login: React.FC = () => {
                       >
                         Sign in
                       </button>
-                      {localStorage.getItem("user")}
+                      {/* {localStorage.getItem("user")} */}
                     </div>
 
                     <div className="text-md font-primary text-center">

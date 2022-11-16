@@ -20,11 +20,6 @@ export const login = (username: string, password: string) => {
       }
       return response.data;
     });
-  // .catch((error) => {
-  //   if (error.response.data) {
-  //     console.log(error.response.data);
-  //   }
-  // });
 };
 
 export const changePassword = (

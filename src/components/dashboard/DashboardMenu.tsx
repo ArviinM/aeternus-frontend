@@ -11,6 +11,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.css";
 
 import "./dashboard.scss";
+import UserService from "../../services/auth.service";
 
 interface AppSubmenuProps {
   className?: string;
@@ -68,7 +69,6 @@ const AppSubmenu: React.FC<AppSubmenuProps> = (props: AppSubmenuProps) => {
 
   const renderLink = (item: any, i: number) => {
     let content = renderLinkContent(item);
-
     if (item.to) {
       return (
         <NavLink

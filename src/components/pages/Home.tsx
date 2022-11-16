@@ -47,7 +47,7 @@ const Home: React.FC = () => {
         {openCemMapModal && <CemMapModal closeModal={setOpenCemMapModal} />}
         <div className="home-main">
           <div className="second padding-samp">
-            <button className="padding-samp2 button-main">
+            <button className="padding-samp2 button-main disabled">
               <span className="text-center navigation-media">
                 <img
                   className="img-main"
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
               </span>
               <span className="span-body">
                 <span className="span-title font-primary">
-                  Find an Orbituary
+                  Find an Obituary
                 </span>
                 <span className="span-subtitle font-subtitle">
                   Find a loved one, share a memory, send a gift.
@@ -194,7 +194,7 @@ const items: Item[] = [
   {
     name: "Explore our Cemetary Interactive Map",
     description: "Aeternus • A Cemetery Mapping and Information System",
-    imgPath: "http://localhost:5000/public/cmis-plot-example.png",
+    imgPath: "http://localhost:5000/public/cmis-plot-example-2.png",
     subtitle: "",
   },
 ];
