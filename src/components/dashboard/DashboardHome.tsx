@@ -105,7 +105,7 @@ const DashboardHome: React.FC = () => {
     ],
     datasets: [
       {
-        label: "Number of Deceased per Month",
+        label: "Number of deceased info added per month",
         data: [
           chart[0]?.data["january-2022"],
           chart[0]?.data["february-2022"],
