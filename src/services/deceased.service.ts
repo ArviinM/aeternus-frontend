@@ -8,6 +8,10 @@ const getAllDeceased = () => {
   return http.get<Array<IDeceasedData>>("/deceased");
 };
 
+const getAllDeceasedChart = () => {
+  return http.get<Array<IDeceasedData>>("/deceased-chart");
+};
+
 const getOneDeceased = (id: any) => {
   return http.get<IDeceasedData>(`/deceased/${id}`);
 };
@@ -44,6 +48,7 @@ const deleteAllDeceased = () => {
 
 const DeceasedService = {
   getAllDeceased,
+  getAllDeceasedChart,
   getOneDeceased,
   createDeceased,
   updateDeceased,
