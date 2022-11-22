@@ -39,12 +39,18 @@ const DashboardHome: React.FC = () => {
     };
   }
 
+  interface IPieData {
+    personas: number;
+    age: string;
+  }
+
   const [chart, setChart] = useState<Array<IChartData>>([]);
+  const [pieChart, setPieChart] = useState<Array<IPieData>>([]);
 
   const retrieveAllDeceased = () => {
     Deceased.getAllDeceased()
       .then((response: any) => {
-        setAllDeceased(response.data);
+        setAllDeceased(response?.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -54,7 +60,17 @@ const DashboardHome: React.FC = () => {
   const retrieveAllDeceasedChart = () => {
     Deceased.getAllDeceasedChart()
       .then((response: any) => {
-        setChart(response.data);
+        setChart(response?.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveAllDeceasedAge = () => {
+    Deceased.getAllDeceasedAge()
+      .then((response: any) => {
+        setPieChart(response?.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -64,7 +80,7 @@ const DashboardHome: React.FC = () => {
   const retrieveAllGravePlots = () => {
     GravePlot.getAll()
       .then((response: any) => {
-        setAllGravePlots(response.data);
+        setAllGravePlots(response?.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -74,7 +90,7 @@ const DashboardHome: React.FC = () => {
   const retrieveAllUsers = () => {
     User.getAllUsers()
       .then((response: any) => {
-        setAllUsers(response.data);
+        setAllUsers(response?.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -82,10 +98,11 @@ const DashboardHome: React.FC = () => {
   };
 
   useEffect(() => {
+    retrieveAllDeceasedChart();
+    retrieveAllDeceasedAge();
     retrieveAllDeceased();
     retrieveAllGravePlots();
     retrieveAllUsers();
-    retrieveAllDeceasedChart();
   }, []);
 
   const barData = {
@@ -127,6 +144,39 @@ const DashboardHome: React.FC = () => {
       },
     ],
   };
+
+  const pie = {
+    labels: pieChart.map((x) => x.age),
+    datasets: [
+      {
+        data: pieChart.map((x) => x.personas),
+        backgroundColor: [
+          "#42A5F5",
+          "#66BB6A",
+          "#FFA726",
+          "#FF6384",
+          "#7E57C2",
+        ],
+        hoverBackgroundColor: [
+          "#64B5F6",
+          "#81C784",
+          "#FFB74D",
+          "#FFB1C2",
+          "7142C2",
+        ],
+      },
+    ],
+  };
+
+  const [lightOptions] = useState({
+    plugins: {
+      legend: {
+        labels: {
+          color: "#495057",
+        },
+      },
+    },
+  });
 
   return (
     <div className="grid">
@@ -232,15 +282,15 @@ const DashboardHome: React.FC = () => {
         </div>
       </div> */}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 my-3">
-        <div className="card">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-3">
+        <div className="card col-span-2">
           <h5>Deceased Overview</h5>
           <Chart type="bar" data={barData} />
         </div>
 
-        <div className="card">
-          <h5>Sales Overview</h5>
-          <Chart type="bar" data={barData} />
+        <div className="card justify-center">
+          <h5>Average Age Bracket of Cadaver</h5>
+          <Chart type="pie" data={pie} options={lightOptions} />
         </div>
       </div>
     </div>

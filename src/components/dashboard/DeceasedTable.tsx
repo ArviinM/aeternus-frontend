@@ -87,8 +87,7 @@ const DeceasedTable: React.FC = () => {
   const retrieveAllDeceased = () => {
     Deceased.getAllDeceased()
       .then((response: any) => {
-        setAllDeceased(response.data);
-        console.log(response.data);
+        setAllDeceased(response?.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -98,7 +97,7 @@ const DeceasedTable: React.FC = () => {
   const retrieveAllGravePlots = () => {
     GravePlot.getAll()
       .then((response: any) => {
-        setAllGravePlots(response.data);
+        setAllGravePlots(response?.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -140,13 +139,10 @@ const DeceasedTable: React.FC = () => {
 
     if (deceased.first_name.trim()) {
       let _deceased = { ...deceased };
-      console.log(_deceased.id);
-      console.log(_deceased);
 
       if (_deceased.id) {
         Deceased.updateDeceased(_deceased.id, _deceased)
           .then((response) => {
-            console.log(response.data);
             toast.current.show({
               severity: "success",
               summary: "Successful",
@@ -177,7 +173,6 @@ const DeceasedTable: React.FC = () => {
 
         Deceased.createDeceased(formData)
           .then((response) => {
-            console.log(response.data);
             toast.current.show({
               severity: "success",
               summary: "Successful",
@@ -213,7 +208,6 @@ const DeceasedTable: React.FC = () => {
 
       Deceased.updateDeceasedPhoto(deceased.id, formData)
         .then((response) => {
-          console.log(response.data);
           toast.current.show({
             severity: "success",
             summary: "Successful",
@@ -264,7 +258,6 @@ const DeceasedTable: React.FC = () => {
     if (deceased.id) {
       Deceased.deleteOneDeceased(deceased.id)
         .then((response) => {
-          console.log(response.data);
           toast.current.show({
             severity: "success",
             summary: "Successful",
@@ -310,7 +303,7 @@ const DeceasedTable: React.FC = () => {
       index.forEach((e) => {
         Deceased.deleteOneDeceased(e)
           .then((response) => {
-            console.log(response.data);
+            console.log(response?.data);
             retrieveAllDeceased();
           })
           .catch((e) => {
@@ -396,8 +389,8 @@ const DeceasedTable: React.FC = () => {
 
     GravePlot.getBlocks(_deceased.grave_plot._id)
       .then((response: any) => {
-        setAllBlocks(response.data);
-        console.log(response.data);
+        setAllBlocks(response?.data);
+        console.log(response?.data);
       })
       .catch((e: Error) => {
         console.log(e);

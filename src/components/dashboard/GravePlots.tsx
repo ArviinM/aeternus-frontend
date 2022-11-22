@@ -98,7 +98,7 @@ const GravePlots: React.FC = () => {
   const retrieveAllGravePlots = () => {
     GravePlot.getAll()
       .then((response: any) => {
-        setAllGravePlots(response.data);
+        setAllGravePlots(response?.data);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -150,13 +150,10 @@ const GravePlots: React.FC = () => {
 
     if (gravePlot.lot.trim()) {
       let _graveplot = { ...gravePlot };
-      console.log(_graveplot.id);
-      console.log(_graveplot);
 
       if (_graveplot.id) {
         GravePlot.updateName(_graveplot.id, _graveplot)
           .then((response) => {
-            console.log(response.data);
             toast.current.show({
               severity: "success",
               summary: "Successful",
@@ -177,7 +174,6 @@ const GravePlots: React.FC = () => {
       } else {
         GravePlot.create(_graveplot)
           .then((response) => {
-            console.log(response.data);
             toast.current.show({
               severity: "success",
               summary: "Successful",
@@ -215,7 +211,6 @@ const GravePlots: React.FC = () => {
     if (_graveplot.id) {
       GravePlot.updateLoc(_graveplot.id, _graveplot)
         .then((response) => {
-          console.log(response.data);
           toast.current.show({
             severity: "success",
             summary: "Successful",
@@ -281,7 +276,6 @@ const GravePlots: React.FC = () => {
     if (_graveplot.id) {
       GravePlot.remove(_graveplot.id)
         .then((response) => {
-          console.log(response.data);
           toast.current.show({
             severity: "success",
             summary: "Successful",
@@ -327,7 +321,6 @@ const GravePlots: React.FC = () => {
       index.forEach((e) => {
         GravePlot.remove(e)
           .then((response) => {
-            console.log(response.data);
             retrieveAllGravePlots();
           })
           .catch((e) => {
@@ -368,8 +361,6 @@ const GravePlots: React.FC = () => {
 
     setFilters(_filters);
     setGlobalFilterValue(value);
-    console.log(_filters);
-    console.log(value);
   };
 
   const onInputChange = (
@@ -381,7 +372,6 @@ const GravePlots: React.FC = () => {
     // @ts-ignore
     _graveplots[`${name}`] = val;
     setGravePlot(_graveplots);
-    console.log(_graveplots);
   };
 
   const onDropDownChange2 = (e: DropdownChangeParams) => {
@@ -390,7 +380,6 @@ const GravePlots: React.FC = () => {
     _graveplot.block["name"] = e.value;
     _graveplot.block.id = _graveplot.block.name;
     setGravePlot(_graveplot);
-    console.log(_graveplot.block.id);
   };
 
   const onDropDownChange = (e: DropdownChangeParams) => {
@@ -399,7 +388,6 @@ const GravePlots: React.FC = () => {
     _graveplot.status["name"] = e.value;
     _graveplot.status.id = _graveplot.status.name;
     setGravePlot(_graveplot);
-    console.log(_graveplot.status.id);
   };
 
   const leftToolbarTemplate = () => {
