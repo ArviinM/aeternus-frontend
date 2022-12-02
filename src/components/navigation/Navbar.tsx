@@ -27,7 +27,6 @@ const Navbar: React.FC = () => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
-      console.log(currentUser);
       setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
     }

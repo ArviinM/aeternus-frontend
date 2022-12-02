@@ -12,6 +12,8 @@ import PrivateRoute from "./components/authentication/PrivateRoute";
 import Login from "./components/authentication/Login";
 import Register from "./components/authentication/Register";
 import CemeteryMap from "./components/pages/CemeteryMap";
+import PasswordReset from "./components/authentication/PasswordReset";
+import ChangePassword from "./components/authentication/ChangePassword";
 
 const NavbarLayout = () => (
   <>
@@ -32,6 +34,11 @@ const App: React.FC = () => {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/password-reset" element={<PasswordReset />} />
+        <Route
+          path="/forgot-password/:id/:token"
+          element={<ChangePassword />}
+        />
 
         <Route
           path="/dashboard/*"

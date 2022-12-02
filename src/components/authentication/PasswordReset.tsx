@@ -6,8 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { TabTitle } from "../../utils/GenerateFunctions";
 import { Toast } from "primereact/toast";
 
-const Login: React.FC = () => {
-  TabTitle("Aeternus – Login");
+const PasswordReset: React.FC = () => {
+  TabTitle("Aeternus – Recover Password");
   let navigate = useNavigate();
   const Props = useParams();
 
@@ -15,32 +15,34 @@ const Login: React.FC = () => {
   const toast = useRef<any>(null);
   const [message, setMessage] = useState<string>("");
   const initialValues: {
-    username: string;
-    password: string;
+    email: string;
   } = {
-    username: "",
-    password: "",
+    email: "",
   };
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required("This field is required!"),
-    password: Yup.string().required("This field is required!"),
+    email: Yup.string().required("This field is required!"),
   });
 
-  const handleLogin = (formValue: { username: string; password: string }) => {
-    const { username, password } = formValue;
+  const handleButton = (formValue: { email: string }) => {
+    const { email } = formValue;
 
     setMessage("");
     setLoading(true);
 
-    const currentUser = UserService.getCurrentUser();
+    // const currentUser = UserService.getCurrentUser();
 
-    UserService.login(username, password).then(
-      () => {
-        if (currentUser?.roles?.includes("ROLE_ADMIN")) {
-          navigate("/dashboard/home");
-        } else {
-          navigate("/dashboard/user-profile");
-        }
+    UserService.passwordReset(email).then(
+      (res) => {
+        console.log(res);
+        toast.current.show({
+          severity: "success",
+          summary: "Email Sent!",
+          detail:
+            "We have sent an email to " +
+            email +
+            ". Please click the link when you get it!",
+          life: 5000,
+        });
       },
       (error) => {
         const resMessage =
@@ -99,16 +101,16 @@ const Login: React.FC = () => {
         <div className="mx-auto w-max">
           <div>
             <h2 className="sm:mt-6 mt-2 text-3xl font-extrabold font-primary text-blue-600 text-center sm:text-5xl ">
-              Welcome To Aeternus
+              Recover Password
             </h2>
             <h2 className="mt-1 sm:text-lg text-base font-secondary text-gray-900 text-center ">
-              Sign in by entering the information below
+              Don't worry, happens to the best of us.
             </h2>
           </div>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={handleLogin}
+            onSubmit={handleButton}
           >
             <Form>
               <div className="mt-8 w-full max-w-sm lg:w-96 m-auto">
@@ -116,77 +118,26 @@ const Login: React.FC = () => {
                   <div className="space-y-6">
                     <div>
                       <label
-                        htmlFor="username"
+                        htmlFor="email"
                         className="block text-md font-medium font-primary text-gray-700"
                       >
-                        Username
+                        Your Email
                       </label>
                       <div className="mt-1">
                         <Field
-                          id="username"
-                          name="username"
-                          type="text"
-                          autoComplete="username"
-                          placeholder="e.g. JohnDoe"
+                          id="email"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          placeholder="e.g. johndoe@email.com"
                           required
                           className="appearance-none font-primary block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
                         <ErrorMessage
-                          name="username"
+                          name="email"
                           component="p"
                           className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
                         />
-                      </div>
-                    </div>
-
-                    <div className="space-y-1">
-                      <label
-                        htmlFor="password"
-                        className="block text-md font-medium font-primary text-gray-700"
-                      >
-                        Password
-                      </label>
-                      <div className="mt-1">
-                        <Field
-                          id="password"
-                          name="password"
-                          type="password"
-                          autoComplete="current-password"
-                          placeholder="Password"
-                          required
-                          className="appearance-none font-primary block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        />
-                        <ErrorMessage
-                          name="password"
-                          component="p"
-                          className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <input
-                          id="remember-me"
-                          name="remember-me"
-                          type="checkbox"
-                          className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                        />
-                        <label
-                          htmlFor="remember-me"
-                          className="ml-2 block text-md font-primary text-gray-900"
-                        >
-                          Remember me
-                        </label>
-                      </div>
-
-                      <div className="text-md">
-                        <a
-                          href="http://localhost:3000/password-reset"
-                          className="font-medium font-primary  text-blue-600 hover:text-blue-500"
-                        >
-                          Forgot your password?
-                        </a>
                       </div>
                     </div>
 
@@ -195,9 +146,8 @@ const Login: React.FC = () => {
                         type="submit"
                         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-md font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >
-                        Sign in
+                        Email Me a Recovery Link
                       </button>
-                      {/* {localStorage.getItem("user")} */}
                     </div>
 
                     <div className="text-md font-primary text-center">
@@ -222,4 +172,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default PasswordReset;

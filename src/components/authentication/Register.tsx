@@ -23,6 +23,7 @@ const Register: React.FC = () => {
     contact_no: string;
     email: string;
     password: string;
+    confirm_password: string;
   } = {
     first_name: "",
     last_name: "",
@@ -31,6 +32,7 @@ const Register: React.FC = () => {
     contact_no: "",
     email: "",
     password: "",
+    confirm_password: "",
   };
   const validationSchema = Yup.object().shape({
     first_name: Yup.string().required("This field is required!"),
@@ -39,7 +41,12 @@ const Register: React.FC = () => {
     address: Yup.string().required("This field is required!"),
     contact_no: Yup.string().required("This field is required!"),
     email: Yup.string().required("This field is required!"),
-    password: Yup.string().required("This field is required!"),
+    password: Yup.string()
+      .required("This field is required!")
+      .min(4, "Password must be at 4 characters long"),
+    confirm_password: Yup.string()
+      .required("This field is required!")
+      .oneOf([Yup.ref("password")], "Passwords does not match"),
   });
 
   const handleRegister = (formValue: {
@@ -329,7 +336,7 @@ const Register: React.FC = () => {
                           className="appearance-none font-primary block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
                         <ErrorMessage
-                          name="password"
+                          name="confirm_password"
                           component="p"
                           className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
                         />

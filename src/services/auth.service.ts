@@ -22,10 +22,20 @@ export const login = (username: string, password: string) => {
     });
 };
 
+export const passwordReset = (email: string) => {
+  return http
+    .post(API_URL + "password-reset", {
+      email,
+    })
+    .then((response) => {
+      return response.data;
+    });
+};
+
 export const changePassword = (
   id: any,
   password: string,
-  newPassword: string
+  newPassword?: string
 ) => {
   return http.put(
     API_URL + `changePassword/${id}`,
@@ -34,12 +44,23 @@ export const changePassword = (
   );
 };
 
-export const addRole = (id: any, role: string) => {
+export const adminChangePW = (id: any, password: string) => {
   return http.put(
-    API_URL + `addRole/${id}`,
-    { role },
+    API_URL + `admin-change-pw/${id}`,
+    { password },
     { headers: authHeaders() }
   );
+};
+
+export const addRole = (id: any, role: string) => {
+  return http.put(API_URL + `addRole/${id}`, role, { headers: authHeaders() });
+};
+
+export const updateUser = (id: any, data: any) => {
+  console.log(data);
+  return http.put(API_URL + `user-update/${id}`, data, {
+    headers: authHeaders(),
+  });
 };
 
 export const logout = () => {
@@ -56,6 +77,14 @@ export const getAllUsers = () => {
   return http.get<Array<IUser>>(API_URL + "allUsers", {
     headers: authHeaders(),
   });
+};
+
+export const getUserValid = (id: any, token: any) => {
+  return http.get(API_URL + `forgot-password/${id}/${token}`);
+};
+
+export const userChangePW = (id: any, token: any, password: string) => {
+  return http.put(API_URL + `user-change-pw/${id}/${token}`, { password });
 };
 
 export const getRole = (id: any) => {
@@ -80,5 +109,10 @@ const UserService = {
   getAllUsers,
   getRole,
   deleteUser,
+  updateUser,
+  adminChangePW,
+  passwordReset,
+  getUserValid,
+  userChangePW,
 };
 export default UserService;

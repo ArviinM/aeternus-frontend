@@ -18,7 +18,6 @@ import "primereact/resources/primereact.css";
 
 import "./dashboard.scss";
 
-import IDeceasedData from "../../types/deceased.type";
 import IGravePlotData from "../../types/graveplot.type";
 
 import { FilterMatchMode } from "primereact";
@@ -54,18 +53,13 @@ const GravePlots: React.FC = () => {
     ],
   };
 
-  const [allDeceased, setAllDeceased] = useState<Array<IDeceasedData>>([]);
   const [allGravePlots, setAllGravePlots] = useState<Array<IGravePlotData>>([]);
 
-  const [visibleLeft, setVisibleLeft] = useState(false);
-
   const [gravePlot, setGravePlot] = useState<IGravePlotData>(emptyGravePlot);
-  const [obituaryDialog, setObituaryDialog] = useState(false);
   const [graveMapDialog, setGraveMapDialog] = useState(false);
   const [gravePlotDialog, setGravePlotDialog] = useState(false);
 
   const [deceasedProfileDialog, setDeceasedProfileDialog] = useState(false);
-  const [allBlocks, setAllBlocks] = useState<Array<any>>([]);
 
   const [deleteDeceasedDialog, setDeleteDeceasedDialog] = useState(false);
   const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
@@ -86,8 +80,8 @@ const GravePlots: React.FC = () => {
   const toast = useRef<any>(null);
   const dt = useRef<any>(null);
 
-  const [showDeceasedPhoto, setShowDeceasedPhoto] = useState(false);
-  const [showDeceasedPhoto2, setShowDeceasedPhoto2] = useState(false);
+  const [showGraveMap, setShowGraveMap] = useState(false);
+  const [showGraveMap2, setShowGraveMap2] = useState(false);
 
   const statuses = [
     { name: "Available", id: "6363f91e750f685635b02904" },
@@ -118,8 +112,7 @@ const GravePlots: React.FC = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const openNew = () => {
-    setShowDeceasedPhoto(false);
-    setShowDeceasedPhoto2(true);
+    setShowGraveMap(true);
     setGravePlot(emptyGravePlot);
     setSubmitted(false);
     setGravePlotDialog(true);
@@ -241,6 +234,7 @@ const GravePlots: React.FC = () => {
   const editGravePlot = (graveplot: IGravePlotData) => {
     setGravePlot({ ...graveplot });
     setGravePlotDialog(true);
+    setShowGraveMap(false);
   };
 
   const viewGravePlotLocation = (graveplot: IGravePlotData) => {
@@ -386,7 +380,9 @@ const GravePlots: React.FC = () => {
     let _graveplot = { ...gravePlot };
 
     _graveplot.status["name"] = e.value;
+    console.log(_graveplot.status);
     _graveplot.status.id = _graveplot.status.name;
+    console.log(_graveplot.status);
     setGravePlot(_graveplot);
   };
 
@@ -685,13 +681,15 @@ const GravePlots: React.FC = () => {
           />
         </div>
 
-        <div className="field col">
-          <label htmlFor="name">Plot the Grave</label>
-          <EditFeatureModal
-            southWest={[setSouthWest1, setSouthWest2]}
-            northEast={[setNorthEast1, setNorthEast2]}
-          />
-        </div>
+        {showGraveMap && (
+          <div className="field col">
+            <label htmlFor="name">Plot the Grave</label>
+            <EditFeatureModal
+              southWest={[setSouthWest1, setSouthWest2]}
+              northEast={[setNorthEast1, setNorthEast2]}
+            />
+          </div>
+        )}
       </Dialog>
 
       <Dialog

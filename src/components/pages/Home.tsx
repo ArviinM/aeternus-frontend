@@ -194,7 +194,7 @@ const items: Item[] = [
   {
     name: "Explore our Cemetary Interactive Map",
     description: "Aeternus • A Cemetery Mapping and Information System",
-    imgPath: "http://localhost:5000/public/cmis-plot-example-2.png",
+    imgPath: "http://localhost:5000/public/cmis-plot-example-2.jpg",
     subtitle: "",
   },
 ];

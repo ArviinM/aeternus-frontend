@@ -17,6 +17,8 @@ import EventBus from "../../common/EventBus";
 import IUser from "../../types/user.type";
 import CemMap from "../map/CemMap";
 import DashboardUserProfile from "./DashboardUserProfile";
+import UserTable from "./UserTable";
+import UserServiceRequestTable from "./UserServiceRequestTable";
 
 const DashboardMain: React.FC = () => {
   TabTitle("Aeternus – Dashboard");
@@ -207,7 +209,11 @@ const DashboardMain: React.FC = () => {
           icon: "pi pi-fw pi-map",
           to: "/dashboard/grave-plots",
         },
-        { label: "User", icon: "pi pi-fw pi-user", to: "/users" },
+        {
+          label: "Users",
+          icon: "pi pi-fw pi-users",
+          to: "/dashboard/user-table",
+        },
       ],
     },
     {
@@ -234,6 +240,11 @@ const DashboardMain: React.FC = () => {
     {
       label: "Home",
       items: [
+        {
+          label: "Request Services",
+          icon: "pi pi-fw pi-pencil",
+          to: "/dashboard/user-service-request",
+        },
         {
           label: "Cemetery Map",
           icon: "pi pi-fw pi-map-marker",
@@ -312,7 +323,12 @@ const DashboardMain: React.FC = () => {
               <Route path="/cem-map" element={<CemMap />} />
               <Route path="/user-profile" element={<DashboardUserProfile />} />
               <Route path="/deceased-table" element={<DeceasedTable />} />
+              <Route path="/user-table" element={<UserTable />} />
               <Route path="/grave-plots" element={<GravePlots />} />
+              <Route
+                path="/user-service-request"
+                element={<UserServiceRequestTable />}
+              />
             </Routes>
           </div>
         </div>

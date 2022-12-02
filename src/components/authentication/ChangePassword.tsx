@@ -1,46 +1,76 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import UserService from "../../services/auth.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { TabTitle } from "../../utils/GenerateFunctions";
 import { Toast } from "primereact/toast";
+import { string } from "yup/lib/locale";
 
-const Login: React.FC = () => {
-  TabTitle("Aeternus – Login");
+const ChangePassword: React.FC = () => {
+  TabTitle("Aeternus – New Password");
   let navigate = useNavigate();
   const Props = useParams();
+
+  const { id, token } = useParams();
+
+  const retrieveUserValidation = () => {
+    UserService.getUserValid(id, token)
+      .then((response: any) => {
+        console.log("User Validated");
+      })
+      .catch((e: Error) => {
+        navigate("*");
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    retrieveUserValidation();
+  }, []);
 
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useRef<any>(null);
   const [message, setMessage] = useState<string>("");
   const initialValues: {
-    username: string;
     password: string;
+    newPassword: string;
   } = {
-    username: "",
     password: "",
+    newPassword: "",
   };
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required("This field is required!"),
-    password: Yup.string().required("This field is required!"),
+    password: Yup.string()
+      .required("This field is required!")
+      .min(4, "Password must be at 4 characters long"),
+    newPassword: Yup.string()
+      .required("This field is required!")
+      .oneOf([Yup.ref("password")], "Passwords does not match"),
   });
 
-  const handleLogin = (formValue: { username: string; password: string }) => {
-    const { username, password } = formValue;
+  const handleButton = (formValue: {
+    password: string;
+    newPassword: string;
+  }) => {
+    const { password, newPassword } = formValue;
 
     setMessage("");
     setLoading(true);
 
-    const currentUser = UserService.getCurrentUser();
+    // const currentUser = UserService.getCurrentUser();
 
-    UserService.login(username, password).then(
-      () => {
-        if (currentUser?.roles?.includes("ROLE_ADMIN")) {
-          navigate("/dashboard/home");
-        } else {
-          navigate("/dashboard/user-profile");
-        }
+    UserService.userChangePW(id, token, password).then(
+      (res) => {
+        console.log(res);
+        toast.current.show({
+          severity: "success",
+          summary: "Password Changed!",
+          detail: "You have successfully changed your password!",
+          life: 5000,
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 5000);
       },
       (error) => {
         const resMessage =
@@ -68,7 +98,7 @@ const Login: React.FC = () => {
       <div className="hidden lg:block relative flex-1 w-2/5">
         <img
           className="absolute inset-0 h-full w-full object-cover brightness-75"
-          src="http://localhost:5000/public/login-bg.jpg"
+          src="http://localhost:5000/public/password-bg.jpg"
           alt="logo-bg"
         />
 
@@ -76,8 +106,8 @@ const Login: React.FC = () => {
           <a href="http://localhost:3000/">
             <img
               className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
-              src="aeternus-logo-dark-circle.png"
-              alt="logo-bg"
+              src="http://localhost:5000/public/logo/aeternus-logo-dark-circle.png"
+              alt="logo-dark"
             />
           </a>
         </div>
@@ -99,16 +129,17 @@ const Login: React.FC = () => {
         <div className="mx-auto w-max">
           <div>
             <h2 className="sm:mt-6 mt-2 text-3xl font-extrabold font-primary text-blue-600 text-center sm:text-5xl ">
-              Welcome To Aeternus
+              Change Password
             </h2>
             <h2 className="mt-1 sm:text-lg text-base font-secondary text-gray-900 text-center ">
-              Sign in by entering the information below
+              In order to protect your account make sure your password is
+              strong!
             </h2>
           </div>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={handleLogin}
+            onSubmit={handleButton}
           >
             <Form>
               <div className="mt-8 w-full max-w-sm lg:w-96 m-auto">
@@ -116,43 +147,18 @@ const Login: React.FC = () => {
                   <div className="space-y-6">
                     <div>
                       <label
-                        htmlFor="username"
-                        className="block text-md font-medium font-primary text-gray-700"
-                      >
-                        Username
-                      </label>
-                      <div className="mt-1">
-                        <Field
-                          id="username"
-                          name="username"
-                          type="text"
-                          autoComplete="username"
-                          placeholder="e.g. JohnDoe"
-                          required
-                          className="appearance-none font-primary block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        />
-                        <ErrorMessage
-                          name="username"
-                          component="p"
-                          className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-1">
-                      <label
                         htmlFor="password"
                         className="block text-md font-medium font-primary text-gray-700"
                       >
-                        Password
+                        New Password
                       </label>
                       <div className="mt-1">
                         <Field
                           id="password"
                           name="password"
                           type="password"
-                          autoComplete="current-password"
-                          placeholder="Password"
+                          autoComplete="password"
+                          placeholder=""
                           required
                           className="appearance-none font-primary block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
@@ -163,30 +169,28 @@ const Login: React.FC = () => {
                         />
                       </div>
                     </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <input
-                          id="remember-me"
-                          name="remember-me"
-                          type="checkbox"
-                          className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    <div>
+                      <label
+                        htmlFor="newPassword"
+                        className="block text-md font-medium font-primary text-gray-700"
+                      >
+                        Re-enter your password
+                      </label>
+                      <div className="mt-1">
+                        <Field
+                          id="newPassword"
+                          name="newPassword"
+                          type="password"
+                          autoComplete="password"
+                          placeholder=""
+                          required
+                          className="appearance-none font-primary block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
-                        <label
-                          htmlFor="remember-me"
-                          className="ml-2 block text-md font-primary text-gray-900"
-                        >
-                          Remember me
-                        </label>
-                      </div>
-
-                      <div className="text-md">
-                        <a
-                          href="http://localhost:3000/password-reset"
-                          className="font-medium font-primary  text-blue-600 hover:text-blue-500"
-                        >
-                          Forgot your password?
-                        </a>
+                        <ErrorMessage
+                          name="newPassword"
+                          component="p"
+                          className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
+                        />
                       </div>
                     </div>
 
@@ -195,21 +199,8 @@ const Login: React.FC = () => {
                         type="submit"
                         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-md font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >
-                        Sign in
+                        Change Password
                       </button>
-                      {/* {localStorage.getItem("user")} */}
-                    </div>
-
-                    <div className="text-md font-primary text-center">
-                      <label htmlFor="">
-                        Don't have an account?{" "}
-                        <a
-                          className="underline text-base font-medium"
-                          href="http://localhost:3000/register"
-                        >
-                          Register here!
-                        </a>
-                      </label>
                     </div>
                   </div>
                 </div>
@@ -222,4 +213,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default ChangePassword;

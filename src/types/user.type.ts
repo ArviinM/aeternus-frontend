@@ -7,5 +7,6 @@ export default interface IUser {
   contact_no: string;
   email: string;
   password: string;
+  newPassword?: string;
   roles?: Array<string>;
 }
