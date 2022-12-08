@@ -3,7 +3,7 @@ import "../components.css";
 
 const HomeServices: React.FC = () => {
   return (
-    <div className="padding-samp4 bg-[#ffc500]">
+    <div className="md:padding-samp4 padding-samp41 bg-[#ffc500]">
       <div className="widget-container2 ">
         <div className="mx-auto max-w-[152rem] pt-0 ">
           <div className="steps2 ">
@@ -16,10 +16,10 @@ const HomeServices: React.FC = () => {
                 ></img>
               </div>
               <div className="m-0 p-0">
-                <h3 className="text-center text-[#282828] font-subtitle font-bold text-[max(1.2rem,min(2.5vw,3.5rem))] mt-0 mr-0 ml-0 mb-[0.4rem]">
+                <h3 className="text-center text-[#282828] font-subtitle  text-[max(1.2rem,min(2.5vw,3.5rem))] mt-0 mr-0 ml-0 mb-[0.4rem]">
                   Cemetery Mapping
                 </h3>
-                <div className="mt-[0.4rem] mr-0 ml-0 mb-0 text-center font-secondary font-bold text-[max(0.6rem,min(1.44737vw,1.2rem))]">
+                <div className="mt-[0.4rem] text-[#282828] mr-0 ml-0 mb-0 text-center font-gilroy_regular  text-[max(0.6rem,min(2.54737vw,2.5473rem))]  md:text-[max(0.6rem,min(1.44737vw,1.2rem))]">
                   <p>
                     Visualise your cemetery burial plot maps with a full,
                     stunning overview. The graphic interface allows for easy
@@ -29,7 +29,7 @@ const HomeServices: React.FC = () => {
                 <div className="steps__step__link">
                   <a
                     href="/"
-                    className="text-black font-bold font-primary text-[max(0.6rem,min(1.44737vw,1.2rem))] block decoration-transparent"
+                    className="text-[#282828] font-primary2 text-[max(0.6rem,min(2.54737vw,2.5473rem))]  md:text-[max(0.6rem,min(1.44737vw,1.2rem))] block decoration-transparent"
                   >
                     Learn More
                   </a>
@@ -45,10 +45,10 @@ const HomeServices: React.FC = () => {
                 ></img>
               </div>
               <div className="m-0 p-0">
-                <h3 className="text-center text-[#282828] font-subtitle font-bold text-[max(1.2rem,min(2.5vw,3.5rem))] mt-0 mr-0 ml-0 mb-[0.4rem]">
+                <h3 className="text-center text-[#282828] font-subtitle text-[max(1.2rem,min(2.5vw,3.5rem))] mt-0 mr-0 ml-0 mb-[0.4rem]">
                   24/7/365 Care
                 </h3>
-                <div className="mt-[0.4rem] mr-0 ml-0 mb-0 text-center font-secondary font-bold text-[max(0.6rem,min(1.44737vw,1.2rem))]">
+                <div className="mt-[0.4rem] text-[#282828] mr-0 ml-0 mb-0 text-center font-gilroy_regular text-[max(0.6rem,min(2.54737vw,2.5473rem))]  md:text-[max(0.6rem,min(1.44737vw,1.2rem))]">
                   <p>
                     For generations we have stood by our commitment to caring
                     for our community. We're here for you anytime you need us.
@@ -57,7 +57,7 @@ const HomeServices: React.FC = () => {
                 <div className="steps__step__link">
                   <a
                     href="/"
-                    className="text-black font-bold font-primary text-[max(0.6rem,min(1.44737vw,1.2rem))] block decoration-transparent"
+                    className="text-[#282828] font-primary2 text-[max(0.6rem,min(2.54737vw,2.5473rem))]  md:text-[max(0.6rem,min(1.44737vw,1.2rem))] block decoration-transparent"
                   >
                     Learn More
                   </a>
@@ -73,10 +73,10 @@ const HomeServices: React.FC = () => {
                 ></img>
               </div>
               <div className="m-0 p-0">
-                <h3 className="text-center text-[#282828] font-subtitle font-bold text-[max(1.2rem,min(2.5vw,3.5rem))] mt-0 mr-0 ml-0 mb-[0.4rem]">
+                <h3 className="text-center text-[#282828] font-subtitle  text-[max(1.2rem,min(2.5vw,3.5rem))] mt-0 mr-0 ml-0 mb-[0.4rem]">
                   Virtual Appointments
                 </h3>
-                <div className="mt-[0.4rem] mr-0 ml-0 mb-0 text-center font-secondary font-bold text-[max(0.6rem,min(1.44737vw,1.2rem))]">
+                <div className="mt-[0.4rem] text-[#282828] mr-0 ml-0 mb-0 text-center font-gilroy_regular  text-[max(0.6rem,min(2.54737vw,2.5473rem))]  md:text-[max(0.6rem,min(1.44737vw,1.2rem))]">
                   <p>
                     All arrangements can now be made remotely. We'll work
                     together however you feel comfortable, whether it's by
@@ -86,7 +86,7 @@ const HomeServices: React.FC = () => {
                 <div className="steps__step__link">
                   <a
                     href="/"
-                    className="text-black font-bold font-primary text-[max(0.6rem,min(1.44737vw,1.2rem))] block decoration-transparent"
+                    className="text-[#282828] font-primary2 text-[max(0.6rem,min(2.54737vw,2.5473rem))]  md:text-[max(0.6rem,min(1.44737vw,1.2rem))] block decoration-transparent"
                   >
                     Learn More
                   </a>

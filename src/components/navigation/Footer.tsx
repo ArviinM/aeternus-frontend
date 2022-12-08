@@ -1,22 +1,23 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import ScrollToTop from "react-scroll-to-top";
 import { ReactComponent as MySVG } from "./backToTop.svg";
 
 const Footer: React.FC = () => {
   return (
-    <div className="bg-white sm:p-6  font-primary">
+    <div className="bg-[#282828] md:padding-samp4 padding-samp41 font-primary">
       <ScrollToTop smooth component={<MySVG />} />
-      <footer className="px-4 mx-auto max-w-screen-xl bg-white sm:p-6 ">
+      <footer className="mx-auto bg-[#282828] ">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0 col-span-2">
             <a href="/" className="flex items-center">
               <img
-                src="/aeternus-logo-dark.png"
+                src="/aeternus-logo-light.png"
                 className="mr-3 h-20"
                 alt="CMIS Logo"
               />
             </a>
-            <p className="mt-4 text-gray-600  w-80">
+            <p className="mt-4 text-gray-100 font-primary2 w-80">
               Aeternus is a Cemetery Mapping and Information System is about
               mapping and providing information to users of the cemetery with
               the use of technology.
@@ -24,56 +25,56 @@ const Footer: React.FC = () => {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase ">
+              <h2 className="mb-6 text-sm font-semibold text-gray-100 uppercase ">
                 Resources
               </h2>
-              <ul className="text-gray-600 ">
+              <ul className="text-gray-500 ">
                 <li className="mb-4">
-                  <a href="/" className="hover:underline">
+                  <a href="/" className="hover:underline hover:text-[#ffc500]">
                     Home
                   </a>
                 </li>
                 <li className="mb-4">
-                  <a href="/" className="hover:underline">
+                  <a href="/" className="hover:underline hover:text-[#ffc500]">
                     Cemetery Map
                   </a>
                 </li>
                 <li>
-                  <a href="/" className="hover:underline">
+                  <a href="/" className="hover:underline hover:text-[#ffc500]">
                     About Us
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase ">
+              <h2 className="mb-6 text-sm font-semibold text-gray-100 uppercase ">
                 Follow us
               </h2>
-              <ul className="text-gray-600 ">
+              <ul className="text-gray-500 ">
                 <li className="mb-4">
-                  <a href="/" className="hover:underline ">
+                  <a href="/" className="hover:underline hover:text-[#ffc500] ">
                     Facebook
                   </a>
                 </li>
                 <li>
-                  <a href="/" className="hover:underline">
+                  <a href="/" className="hover:underline hover:text-[#ffc500]">
                     LinkedIn
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase ">
+              <h2 className="mb-6 text-sm font-semibold text-gray-100 uppercase ">
                 Legal
               </h2>
-              <ul className="text-gray-600 ">
+              <ul className="text-gray-500 ">
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
+                  <a href="#" className="hover:underline hover:text-[#ffc500]">
                     Privacy Policy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline">
+                  <a href="#" className="hover:underline hover:text-[#ffc500]">
                     Terms &amp; Conditions
                   </a>
                 </li>
@@ -81,17 +82,17 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-        <hr className="my-6 border-gray-200 sm:mx-auto  lg:my-8" />
+        <hr className="my-6 border-gray-300 sm:mx-auto  lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-500 sm:text-center ">
+          <span className="text-sm text-gray-400 sm:text-center ">
             © 2022{" "}
-            <a href="/" className="hover:underline">
+            <a href="/" className="hover:underline hover:text-[#ffc500]">
               Aeternus™
             </a>
             &nbsp; All Rights Reserved.
           </span>
           <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
-            <a href="#" className="text-gray-500 hover:text-gray-900 ">
+            <a href="#" className="text-gray-400 hover:text-[#ffc500] ">
               <svg
                 className="w-5 h-5"
                 fill="currentColor"
@@ -105,7 +106,7 @@ const Footer: React.FC = () => {
                 ></path>
               </svg>
             </a>
-            <a href="#" className="text-gray-500 hover:text-gray-900 ">
+            <a href="#" className="text-gray-400 hover:text-[#ffc500] ">
               <svg
                 className="w-5 h-5"
                 fill="currentColor"
@@ -119,7 +120,7 @@ const Footer: React.FC = () => {
                 ></path>
               </svg>
             </a>
-            <a href="#" className="text-gray-500 hover:text-gray-900 ">
+            <a href="#" className="text-gray-400 hover:text-[#ffc500] ">
               <svg
                 className="w-5 h-5"
                 fill="currentColor"
@@ -129,7 +130,7 @@ const Footer: React.FC = () => {
                 <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
               </svg>
             </a>
-            <a href="#" className="text-gray-500 hover:text-gray-900 ">
+            <a href="#" className="text-gray-400 hover:text-[#ffc500] ">
               <svg
                 className="w-5 h-5"
                 fill="currentColor"
@@ -143,7 +144,7 @@ const Footer: React.FC = () => {
                 ></path>
               </svg>
             </a>
-            <a href="#" className="text-gray-500 hover:text-gray-900 ">
+            <a href="#" className="text-gray-400 hover:text-[#ffc500] ">
               <svg
                 className="w-5 h-5"
                 fill="currentColor"

@@ -6,6 +6,12 @@ const getAllUserServiceRequest = (id: any) => {
   return http.get<IUserServiceRequest>(`/service-request/find/${id}`);
 };
 
+const getAllServiceRequest = () => {
+  return http.get<IUserServiceRequest>(`/service-request`, {
+    headers: authHeaders(),
+  });
+};
+
 //create service request data
 const createUserServiceRequest = (data: any) => {
   return http.post<IUserServiceRequest>("/service-request/", data, {
@@ -25,6 +31,7 @@ const deleteUserServiceRequest = (id: any) => {
 
 const UserServiceRequest = {
   getAllUserServiceRequest,
+  getAllServiceRequest,
   createUserServiceRequest,
   updateUserServiceRequest,
   deleteUserServiceRequest,

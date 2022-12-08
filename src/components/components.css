@@ -81,11 +81,15 @@
   --gutter-lg-x-half: var(--gutter-lg-half);
   --gutter-sm-x-half: max(0.2rem, min(0.5208vw, 1rem));
   --gutter-xlg-half: max(1.3rem, min(1.6275vw, 3rem));
+  --gutter-xlg-half1: max(0.5rem, min(1.6275vw, 3rem));
+
   --gutter-sm-half: max(0.5rem, min(0.5208vw, 1rem));
   --gutter-y: var(--gutter);
   --padding: max(2.5rem, min(6.51vw, 6.5rem));
   --container-padding-vertical: var(--padding);
   --container-padding-horizontal: var(--padding);
+  --container-padding-vertical2: 4rem;
+  --container-padding-horizontal2: 2rem;
   --container-medium-max-width: 126rem;
   --gutter-sm: max(0.5rem, min(1.0416vw, 1rem));
   --gutter-sm-y: var(--gutter-sm);
@@ -98,7 +102,7 @@
 }
 
 .padding-samp2 {
-  padding: calc(var(--gutter-xlg-half) + 0.6rem) var(--gutter-xlg-half);
+  padding: calc(var(--gutter-xlg-half1) + 0.4rem) var(--gutter-xlg-half1);
 }
 
 .navigation-media {
@@ -120,9 +124,14 @@
   overflow: hidden;
 }
 
-.padding-samp4 {
+/* .padding-samp4 {
   padding: var(--container-padding-vertical) var(--container-padding-horizontal);
 }
+
+.padding-samp41 {
+  padding: var(--container-padding-vertical2)
+    var(--container-padding-horizontal2);
+} */
 
 .widget-container {
   margin-left: auto;

@@ -4,19 +4,41 @@
 
 @font-face {
   font-family: Gilroy-Light;
-  src: url(../src/font/Gilroy-Light.otf);
+  src: url(../src/font/Gilroy-Light.ttf);
 }
 @font-face {
   font-family: Gilroy-ExtraBold;
-  src: url(../src/font/Gilroy-ExtraBold.otf);
+  src: url(../src/font/Gilroy-ExtraBold.ttf);
+}
+
+@font-face {
+  font-family: Gilroy-Bold;
+  src: url(../src/font/Gilroy-Bold.ttf);
+}
+
+@font-face {
+  font-family: Gilroy-Regular;
+  src: url(../src/font/Gilroy-Regular.ttf);
+}
+@font-face {
+  font-family: Gilroy-Medium;
+  src: url(../src/font/Gilroy-Medium.ttf);
 }
 @font-face {
   font-family: Canela-Regular;
-  src: url(../src/font/Canela-Regular-Trial.otf);
+  src: url(../src/font/Canela-RegularItalic.otf);
 }
 @font-face {
   font-family: Canela-Bold;
-  src: url(../src/font/Canela-Bold-Trial.otf);
+  src: url(../src/font/Canela-Bold.otf);
+}
+@font-face {
+  font-family: Canela-Black;
+  src: url(../src/font/Canela-Black.otf);
+}
+@font-face {
+  font-family: Canela-Light;
+  src: url(../src/font/Canela-Light.otf);
 }
 
 @font-face {
@@ -24,6 +46,57 @@
   src: url(../src/font/ChicBudapestRegular.ttf);
 }
 
+@font-face {
+  font-family: Helvetica;
+  src: url(../src/font/Helvetica.ttf);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  :root {
+    --gutter: max(1rem, min(1.5625vw, 1.5rem));
+    --gutter-lg-half: max(0.75rem, min(1.302vw, 1.5rem));
+    --gutter-lg-x-half: var(--gutter-lg-half);
+    --gutter-sm-x-half: max(0.2rem, min(0.5208vw, 1rem));
+    --gutter-xlg-half: max(1.3rem, min(1.6275vw, 3rem));
+    --gutter-sm-half: max(0.5rem, min(0.5208vw, 1rem));
+    --gutter-y: var(--gutter);
+    --padding: max(2.5rem, min(6.51vw, 6.5rem));
+    --padding2: max(1.8rem, min(6.51vw, 3.5rem));
+    --container-padding-vertical: var(--padding);
+    --container-padding-horizontal: var(--padding);
+    --container-padding-vertical3: var(--padding2);
+    --container-padding-horizontal3: var(--padding2);
+    --container-padding-vertical2: 3rem;
+    --container-padding-horizontal2: 1rem;
+    --container-medium-max-width: 126rem;
+    --gutter-sm: max(0.5rem, min(1.0416vw, 1rem));
+    --gutter-sm-y: var(--gutter-sm);
+    --gutter-xlg: max(2rem, min(3.255vw, 5rem));
+    --gutter-xlg-y: var(--gutter-xlg);
+  }
+
+  .padding-samp4 {
+    padding: var(--container-padding-vertical)
+      var(--container-padding-horizontal);
+  }
+
+  .padding-samp5 {
+    padding: var(--container-padding-vertical3)
+      var(--container-padding-horizontal3);
+  }
+
+  .padding-samp41 {
+    padding: var(--container-padding-vertical2)
+      var(--container-padding-horizontal2);
+  }
+
+  .page-intro-contact {
+    display: flex;
+    margin-top: var(--gutter-xlg-y);
+    justify-content: space-evenly;
+  }
+}

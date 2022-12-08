@@ -19,6 +19,7 @@ import CemMap from "../map/CemMap";
 import DashboardUserProfile from "./DashboardUserProfile";
 import UserTable from "./UserTable";
 import UserServiceRequestTable from "./UserServiceRequestTable";
+import ServiceRequestTable from "./ServiceRequestTable";
 
 const DashboardMain: React.FC = () => {
   TabTitle("Aeternus – Dashboard");
@@ -214,6 +215,11 @@ const DashboardMain: React.FC = () => {
           icon: "pi pi-fw pi-users",
           to: "/dashboard/user-table",
         },
+        {
+          label: "Service Requests",
+          icon: "pi pi-fw pi-heart-fill",
+          to: "/dashboard/service-request",
+        },
       ],
     },
     {
@@ -328,6 +334,10 @@ const DashboardMain: React.FC = () => {
               <Route
                 path="/user-service-request"
                 element={<UserServiceRequestTable />}
+              />
+              <Route
+                path="/service-request"
+                element={<ServiceRequestTable />}
               />
             </Routes>
           </div>

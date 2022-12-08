@@ -14,6 +14,9 @@ import Register from "./components/authentication/Register";
 import CemeteryMap from "./components/pages/CemeteryMap";
 import PasswordReset from "./components/authentication/PasswordReset";
 import ChangePassword from "./components/authentication/ChangePassword";
+import ContactUs from "./components/pages/ContactUs";
+import WhatWeDo from "./components/pages/WhatWeDo";
+import AboutUs from "./components/pages/AboutUs";
 
 const NavbarLayout = () => (
   <>
@@ -31,6 +34,9 @@ const App: React.FC = () => {
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/cemetery-map" element={<CemeteryMap />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/what-we-do" element={<WhatWeDo />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

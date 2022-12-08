@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     <div className="font-sans text-center bg-gray-500 -z-50 ">
       <Carousel
         autoPlay={true}
-        animation="fade"
+        animation="slide"
         duration={3500}
         fullHeightHover={true}
         cycleNavigation={true}
@@ -59,7 +59,7 @@ const Home: React.FC = () => {
                 <span className="span-title font-primary">
                   Find an Obituary
                 </span>
-                <span className="span-subtitle font-subtitle">
+                <span className="span-subtitle font-canela_regular my-2">
                   Find a loved one, share a memory, send a gift.
                 </span>
               </span>
@@ -87,7 +87,7 @@ const Home: React.FC = () => {
                 <span className="span-title font-primary">
                   Lost a loved one
                 </span>
-                <span className="span-subtitle font-subtitle">
+                <span className="span-subtitle font-canela_regular my-2">
                   Cannot find a loved one, locate at cemetery map.
                 </span>
               </span>
@@ -106,7 +106,7 @@ const Home: React.FC = () => {
               </span>
               <span className="pr-6 flex-[1] pl-6">
                 <span className="span-title font-primary">Grave Services</span>
-                <span className="span-subtitle font-subtitle">
+                <span className="span-subtitle font-canela_regular my-2">
                   Need cleaning, grass cutting and watering?
                 </span>
               </span>
@@ -121,7 +121,7 @@ const Home: React.FC = () => {
             <div className="font-primary leading-[1]  tracking-widest mb-5 text-[#abacaa] ">
               WE AT AETERNUS
             </div>
-            <h2 className="text-[max(2.4rem,min(4.21053vw,4.4rem))] font-bold font-subtitle leading-[1.3] ">
+            <h2 className="text-[max(2.4rem,min(4.21053vw,4.4rem))] font-subtitle leading-[1.3] ">
               We create maps and routes, obituaries, providing services to your
               deceased loved ones' grave.
             </h2>
@@ -159,10 +159,10 @@ function Project({ item }: ProjectProps) {
             <p className="mb-5 animate-textShow font-primary uppercase tracking-widest text-[#abacaa]">
               {item.description}
             </p>
-            <h1 className="mb-2 text-[max(3.5rem,min(5.20833vw,5.3rem))] font-bold animate-textShow2 font-title leading-[1.3] text-white">
+            <h1 className="text-[max(3.5rem,min(5.20833vw,5.3rem))] animate-textShow2 font-title leading-[1.3] text-white">
               {item.name}
             </h1>
-            <p className="mb-5 animate-textShow font-cursive lowercase text-[max(3.5rem,min(7.8125vw,5rem))] text-[#ffc500]">
+            <p className="-mt-16 animate-textShow font-cursive text-[max(3.5rem,min(7.8125vw,5rem))] text-[#ffc500]">
               {item.subtitle}
             </p>
           </div>
@@ -176,8 +176,8 @@ const items: Item[] = [
   {
     name: "Biñan City Cemetery",
     description: "Welcome to",
-    imgPath: "http://localhost:5000/public/binan-city-4.jpg",
-    subtitle: "a place of peace",
+    imgPath: "http://localhost:5000/public/binan-city-5.jpg",
+    subtitle: "A place of peace",
   },
   {
     name: "Helping Families Connect, Honor, Locate, & Remember",
@@ -192,9 +192,9 @@ const items: Item[] = [
     subtitle: "",
   },
   {
-    name: "Explore our Cemetary Interactive Map",
+    name: "Explore our Cemetery Interactive Map",
     description: "Aeternus • A Cemetery Mapping and Information System",
-    imgPath: "http://localhost:5000/public/cmis-plot-example-2.jpg",
+    imgPath: "http://localhost:5000/public/map.jpg",
     subtitle: "",
   },
 ];

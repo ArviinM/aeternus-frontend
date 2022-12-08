@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, ChangeEvent } from "react";
+import classNames from "classnames";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Toast } from "primereact/toast";
@@ -8,7 +9,7 @@ import { Toolbar } from "primereact/toolbar";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Dropdown, DropdownChangeParams } from "primereact/dropdown";
-import { MultiSelect } from "primereact/multiselect";
+import { MultiSelect, MultiSelectChangeParams } from "primereact/multiselect";
 
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -18,9 +19,10 @@ import "primereact/resources/primereact.css";
 import "./dashboard.scss";
 import IGravePlotData from "../../types/graveplot.type";
 
-import { FilterMatchMode } from "primereact";
+import { FilterMatchMode, Password } from "primereact";
 import { TabTitle } from "../../utils/GenerateFunctions";
-import UserService from "../../services/auth.service";
+import IUser from "../../types/user.type";
+import UserService, { deleteUser } from "../../services/auth.service";
 import GravePlot from "../../services/graveplot.service";
 import UserServiceRequest from "../../services/service_request.service";
 import IUserServiceRequest from "../../types/service_request.type";
@@ -30,10 +32,22 @@ interface IFilter {
   name?: any;
 }
 
-const UserServiceRequestTable: React.FC = () => {
+const ServiceRequestTable: React.FC = () => {
   TabTitle("Aeternus – User Service Request Table");
 
   let currentUser = UserService.getCurrentUser();
+
+  let emptyUser: IUser = {
+    id: "",
+    first_name: "",
+    last_name: "",
+    username: "",
+    address: "",
+    contact_no: "",
+    email: "",
+    password: "",
+    roles: [],
+  };
 
   let emptyUserReq: IUserServiceRequest = {
     id: "",
@@ -54,10 +68,14 @@ const UserServiceRequestTable: React.FC = () => {
   >([]);
 
   const [userServiceDialog, setUserServiceDialog] = useState(false);
+  const [requestDialog, setRequestDialog] = useState(false);
+
   const [allGravePlots, setAllGravePlots] = useState<Array<IGravePlotData>>([]);
 
   const [deleteUserDialog, setDeleteUserDialog] = useState(false);
   const [deleteSelectedUserDialog, setSelectedUserDialog] = useState(false);
+
+  const [selectedUser, setSelectedUser] = useState<IUser[]>([]);
 
   const [submitted, setSubmitted] = useState(false);
 
@@ -83,10 +101,26 @@ const UserServiceRequestTable: React.FC = () => {
     { name: "4", id: "634f61364e1560f278e45442" },
   ];
 
-  const retrieveAllUserServiceRequest = () => {
-    const getCurrentUser = UserService.getCurrentUser();
+  const request = [
+    { name: "Finished", id: "63898000f2a77430132ee52e" },
+    { name: "Pending", id: "63898000f2a77430132ee530" },
+    { name: "Cancelled", id: "63898000f2a77430132ee52f" },
+  ];
 
-    UserServiceRequest.getAllUserServiceRequest(getCurrentUser.id)
+  // const retrieveAllUserServiceRequest = () => {
+  //   const getCurrentUser = UserService.getCurrentUser();
+
+  //   UserServiceRequest.getAllUserServiceRequest(getCurrentUser.id)
+  //     .then((response: any) => {
+  //       setAllUserRequest(response?.data);
+  //     })
+  //     .catch((e: Error) => {
+  //       console.log(e);
+  //     });
+  // };
+
+  const retrieveAllServiceRequest = () => {
+    UserServiceRequest.getAllServiceRequest()
       .then((response: any) => {
         setAllUserRequest(response?.data);
       })
@@ -106,7 +140,8 @@ const UserServiceRequestTable: React.FC = () => {
   };
 
   useEffect(() => {
-    retrieveAllUserServiceRequest();
+    // retrieveAllUserServiceRequest();
+    retrieveAllServiceRequest();
     retrieveAllGravePlots();
     initFilters();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -121,6 +156,7 @@ const UserServiceRequestTable: React.FC = () => {
     setUserServiceDialog(false);
     setUserService(emptyUserReq);
     setSelectedService([]);
+    setRequestDialog(false);
   };
 
   const hideDeleteUserDialog = () => {
@@ -135,34 +171,61 @@ const UserServiceRequestTable: React.FC = () => {
     setSubmitted(true);
 
     if (userService.service) {
-      //let _userService = { ...userService };
+      let _userService = { ...userService };
 
-      let _userService = {
-        service: selectedService,
-        user: { id: currentUser.id },
-        request: { id: "63898000f2a77430132ee530" },
-        graveplot: { id: userService.graveplot.id },
-      };
-
-      UserServiceRequest.createUserServiceRequest(_userService)
-        .then((response) => {
-          toast.current.show({
-            severity: "success",
-            summary: "Successful",
-            detail: "User Service Created",
-            life: 3000,
-          });
-          retrieveAllUserServiceRequest();
+      console.log(_userService);
+      if (_userService.id) {
+        UserServiceRequest.updateUserServiceRequest(_userService.id, {
+          request: { id: _userService.request.id },
         })
-        .catch((e) => {
-          console.log(e);
-          toast.current.show({
-            severity: "error",
-            summary: "Error!",
-            detail: "There is an error creating the user information. " + e,
-            life: 5000,
+          .then((response) => {
+            toast.current.show({
+              severity: "success",
+              summary: "Successful",
+              detail: "Request Status changed!",
+              life: 5000,
+            });
+            // retrieveAllUserServiceRequest();
+            retrieveAllServiceRequest();
+          })
+          .catch((e) => {
+            console.log(e);
+            toast.current.show({
+              severity: "error",
+              summary: "Error!",
+              detail: "There is an error creating the user information. " + e,
+              life: 5000,
+            });
           });
-        });
+      } else {
+        let __userService = {
+          service: selectedService,
+          user: { id: _userService.id },
+          request: { id: "63898000f2a77430132ee530" },
+          graveplot: { id: _userService.graveplot.id },
+        };
+
+        UserServiceRequest.createUserServiceRequest(__userService)
+          .then((response) => {
+            toast.current.show({
+              severity: "success",
+              summary: "Successful",
+              detail: "User Service Created",
+              life: 3000,
+            });
+            retrieveAllServiceRequest();
+          })
+          .catch((e) => {
+            console.log(e);
+            toast.current.show({
+              severity: "error",
+              summary: "Error!",
+              detail: "There is an error creating the user information. " + e,
+              life: 5000,
+            });
+          });
+      }
+      setRequestDialog(false);
       setUserServiceDialog(false);
       setUserService(emptyUserReq);
     }
@@ -178,6 +241,11 @@ const UserServiceRequestTable: React.FC = () => {
     setDeleteUserDialog(true);
   };
 
+  const editRequestStatus = (service: IUserServiceRequest) => {
+    setUserService({ ...service });
+    setRequestDialog(true);
+  };
+
   const deleteUser = () => {
     let _userService = { ...userService };
 
@@ -190,7 +258,8 @@ const UserServiceRequestTable: React.FC = () => {
             detail: "Service Request Deleted!",
             life: 3000,
           });
-          retrieveAllUserServiceRequest();
+          // retrieveAllUserServiceRequest();
+          retrieveAllServiceRequest();
         })
         .catch((e) => {
           console.log(e);
@@ -203,7 +272,8 @@ const UserServiceRequestTable: React.FC = () => {
         });
     }
 
-    retrieveAllUserServiceRequest();
+    // retrieveAllUserServiceRequest();
+    retrieveAllServiceRequest();
     setDeleteUserDialog(false);
     setUserService(emptyUserReq);
   };
@@ -228,14 +298,15 @@ const UserServiceRequestTable: React.FC = () => {
       index.forEach((e) => {
         UserServiceRequest.deleteUserServiceRequest(e)
           .then((response) => {
-            retrieveAllUserServiceRequest();
+            // retrieveAllUserServiceRequest();
+            retrieveAllServiceRequest();
           })
           .catch((e) => {
             console.log(e);
             toast.current.show({
               severity: "error",
               summary: "Error!",
-              detail: "There is an error deleting the Service Request.",
+              detail: "There is an error deleting the service request.",
               life: 3000,
             });
           });
@@ -244,7 +315,7 @@ const UserServiceRequestTable: React.FC = () => {
       toast.current.show({
         severity: "success",
         summary: "Successful",
-        detail: "Service Request deleted!",
+        detail: "Service Request deleted",
         life: 3000,
       });
 
@@ -301,6 +372,15 @@ const UserServiceRequestTable: React.FC = () => {
     console.log(_userService.graveplot.id);
   };
 
+  const onDropDownChange3 = (e: DropdownChangeParams) => {
+    let _userService = { ...userService };
+
+    _userService.request.name = e.value;
+    _userService.request.id = _userService.request.name;
+    setUserService(_userService);
+    console.log(_userService.request.id);
+  };
+
   const leftToolbarTemplate = () => {
     return (
       <React.Fragment>
@@ -336,6 +416,18 @@ const UserServiceRequestTable: React.FC = () => {
     );
   };
 
+  const userRequestBodyTemplate = (rowData: IUserServiceRequest) => {
+    return (
+      <>
+        <span className="p-column-title">User Name</span>
+        {/* {rowData.service.map((e) => (
+          <li>{e}</li>
+        ))} */}
+        {rowData.user.username}
+      </>
+    );
+  };
+
   const serviceBodyTemplate = (rowData: IUserServiceRequest) => {
     return (
       <>
@@ -368,13 +460,13 @@ const UserServiceRequestTable: React.FC = () => {
   const actionBodyTemplate = (rowData: IUserServiceRequest) => {
     return (
       <div className="actions">
-        {/* <Button
-          icon="pi pi-user-edit"
+        <Button
+          icon="pi pi-pencil"
           className="p-button-rounded p-button-success mr-2"
-          onClick={() => editUserServiceRequest(rowData)}
+          onClick={() => editRequestStatus(rowData)}
           placeholder="Top"
-          tooltip="Edit user information"
-        /> */}
+          tooltip="Edit Request Status"
+        />
 
         <Button
           icon="pi pi-trash"
@@ -411,6 +503,23 @@ const UserServiceRequestTable: React.FC = () => {
   };
 
   const userDialogFooter = (
+    <>
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={saveUser}
+      />
+    </>
+  );
+
+  const requestFooterDialog = (
     <>
       <Button
         label="Cancel"
@@ -494,6 +603,13 @@ const UserServiceRequestTable: React.FC = () => {
             selectionMode="multiple"
             headerStyle={{ width: "3rem" }}
             exportable={false}
+          ></Column>
+          <Column
+            field="username"
+            header="Username"
+            body={userRequestBodyTemplate}
+            sortable
+            style={{ minWidth: "10rem" }}
           ></Column>
           <Column
             field="service"
@@ -593,6 +709,30 @@ const UserServiceRequestTable: React.FC = () => {
       </Dialog>
 
       <Dialog
+        visible={requestDialog}
+        style={{ width: "450px" }}
+        header="Request Status"
+        modal
+        maximizable
+        className="p-fluid"
+        footer={requestFooterDialog}
+        onHide={hideDialog}
+      >
+        <div className="field">
+          <label>Change Request Status</label>
+
+          <Dropdown
+            optionValue={"id"}
+            value={userService.request.name}
+            options={request}
+            onChange={onDropDownChange3}
+            placeholder="Select a Request"
+            optionLabel={"name"}
+          />
+        </div>
+      </Dialog>
+
+      <Dialog
         visible={deleteUserDialog}
         style={{ width: "450px" }}
         header="Confirm"
@@ -638,4 +778,4 @@ const UserServiceRequestTable: React.FC = () => {
   );
 };
 
-export default UserServiceRequestTable;
+export default ServiceRequestTable;

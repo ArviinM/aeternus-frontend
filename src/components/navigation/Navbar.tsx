@@ -95,14 +95,14 @@ const Navbar: React.FC = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gray-50 transition-all group-hover:w-full"></span>
               </NavLink>
               <NavLink
-                to={"/deceased-table-test"}
+                to={"/what-we-do"}
                 className={({ isActive }) =>
                   isActive
                     ? "text-white mx-1 lg:mx-1 xl:mx-4 relative group underline underline-offset-[9px] decoration-white"
                     : "text-gray-300 hover:text-white mx-1 lg:mx-1 xl:mx-4 relative group"
                 }
               >
-                Our Services
+                What We Do
                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gray-50 transition-all group-hover:w-full"></span>
               </NavLink>
 
