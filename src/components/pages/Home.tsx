@@ -133,6 +133,34 @@ const Home: React.FC = () => {
       </div>
       <PictureCarousel />
       <HomeServices />
+      <div className="padding-samp5 bg-white  ">
+        <div className="w-[96%] max-w-[126rem] mx-auto ">
+          <div className="text-center mx-auto w-2/3">
+            <div className="font-primary leading-[1]  tracking-widest mb-5 text-[#abacaa] ">
+              CONTACT US
+            </div>
+            <h2 className="text-[max(2.4rem,min(4.21053vw,4.4rem))] font-subtitle leading-[1.5] ">
+              Get In Touch
+            </h2>
+            <p className="font-gilroy_medium leading-[1.4] text-[max(1.6rem,min(1.77632vw,0.8rem))] text-[#828282]">
+              We'll be pleased to welcome your visit at any of our warm and
+              comfortable offices. We invite you to come in and see for yourself
+              how we're revolutionizing the way you think about funeral and
+              cemetery services.
+            </p>
+          </div>
+          <div className="page-intro-contact font-primary text-[#185adb]">
+            <span className="text-[max(1.2rem,min(1.77632vw,0.8rem))]">
+              <i className="pi pi-phone mx-2 text-[#185adb] font-bold "></i>
+              <a className="inline ">Call (+63) 99217300312</a>
+            </span>
+            <span className="text-[max(1.2rem,min(1.77632vw,0.8rem))] ">
+              <i className="pi pi-envelope mx-2 text-[#185adb] font-bold "></i>
+              <a className="inline">Send as a message</a>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
