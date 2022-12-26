@@ -68,7 +68,7 @@ const Register: React.FC = () => {
         toast.current.show({
           severity: "Success",
           summary: "Success",
-          detail: "Successfully Registered!",
+          detail: "Great! You have successfully registered!",
           life: 5000,
         });
 
@@ -88,7 +88,7 @@ const Register: React.FC = () => {
           severity: "error",
           summary: "Error!",
           detail: resMessage,
-          life: 5000,
+          life: 10000,
         });
       }
     );

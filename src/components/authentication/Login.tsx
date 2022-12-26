@@ -56,7 +56,7 @@ const Login: React.FC = () => {
           severity: "error",
           summary: "Error!",
           detail: resMessage,
-          life: 5000,
+          life: 10000,
         });
       }
     );
