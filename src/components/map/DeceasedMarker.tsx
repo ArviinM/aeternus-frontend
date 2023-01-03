@@ -194,9 +194,12 @@ export default function DeceasedMarker() {
                     ]
                   )
                 );
-                setVisibleLeft(true);
-                //setGravePlot(gravePlots);
                 setGravePlot(gravePlots);
+                if (!gravePlots.deceased[0]) {
+                  setVisibleLeft(false);
+                } else {
+                  setVisibleLeft(true);
+                }
               },
             }}
           >

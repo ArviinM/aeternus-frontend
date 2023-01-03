@@ -8,9 +8,11 @@ import CemMapModal from "../modal/CemMapModal";
 
 import "../components.css";
 import "./home.scss";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
   const [openCemMapModal, setOpenCemMapModal] = useState(false);
+  let navigate = useNavigate();
   TabTitle("Aeternus – Home");
   return (
     <div className="font-sans text-center bg-gray-500 -z-50 ">
@@ -96,7 +98,12 @@ const Home: React.FC = () => {
             {/* </Link> */}
           </div>
           <div className="second padding-samp">
-            <button className="padding-samp2 button-main">
+            <button
+              className="padding-samp2 button-main"
+              onClick={() => {
+                navigate("/what-we-do");
+              }}
+            >
               <span className="text-center navigation-media">
                 <img
                   className="img-main"
