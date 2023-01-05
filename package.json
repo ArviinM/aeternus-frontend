@@ -23,6 +23,7 @@
     "formik": "^2.2.9",
     "leaflet": "^1.9.1",
     "leaflet-draw": "^1.0.4",
+    "leaflet-geosearch": "^3.7.0",
     "primeflex": "^3.2.1",
     "primeicons": "^6.0.1",
     "primereact": "^8.6.1",

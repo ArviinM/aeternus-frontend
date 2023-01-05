@@ -77,6 +77,9 @@
     --gutter-sm-y: var(--gutter-sm);
     --gutter-xlg: max(2rem, min(3.255vw, 5rem));
     --gutter-xlg-y: var(--gutter-xlg);
+    --grid-gutter-half: 1rem;
+    --input-placelabel-bottom: 0.6rem;
+    --input-placelabel-top: 2.4rem;
   }
 
   .padding-samp4 {
@@ -98,5 +101,57 @@
     display: flex;
     margin-top: var(--gutter-xlg-y);
     justify-content: space-evenly;
+  }
+
+  .eyebrow {
+    color: #abacaa;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    margin-bottom: var(--gutter-y);
+    text-transform: uppercase;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: calc(var(--grid-gutter-half) * -1);
+    margin-left: calc(var(--grid-gutter-half) * -1);
+  }
+
+  .column-test {
+    flex: 0 0 auto;
+    width: 50%;
+    padding-right: var(--grid-gutter-half);
+    padding-left: var(--grid-gutter-half);
+  }
+  .column-test2 {
+    flex: 0 0 auto;
+    width: 100%;
+    padding-right: var(--grid-gutter-half);
+    padding-left: var(--grid-gutter-half);
+  }
+
+  .place-label {
+    padding-bottom: var(--input-placelabel-bottom);
+    padding-top: var(--input-placelabel-bottom);
+  }
+
+  .input-design {
+    background: #fff;
+    border: 2px solid #c6c6c6;
+    border-radius: 0.4rem;
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 400;
+    height: 6.4rem;
+    padding: 0.7;
+    width: 100%;
+  }
+
+  .margin-disclaimer {
+    margin: var(--gutter) auto;
+    text-align: center;
   }
 }

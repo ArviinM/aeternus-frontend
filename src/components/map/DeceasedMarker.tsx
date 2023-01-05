@@ -40,29 +40,9 @@ export default function DeceasedMarker() {
     ],
   };
 
-  let emptyDeceased: IDeceasedData = {
-    id: "",
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    profile_picture: "",
-    birth_date: undefined,
-    death_date: undefined,
-    obituary: "",
-    grave_plot: {
-      _id: "",
-      block: { id: "", name: "" },
-      lot: "",
-      status: { id: "", name: "" },
-      southWest: ["", ""],
-      northEast: ["", ""],
-    },
-  };
-
   const map = useMap();
 
   const [allDeceased, setAllDeceased] = useState<Array<IDeceasedData>>([]);
-  const [deceased, setDeceased] = useState<IDeceasedData>(emptyDeceased);
 
   const [gravePlots, setGravePlots] = useState<Array<IGravePlotData>>([]);
   const [gravePlot, setGravePlot] = useState<IGravePlotData>(emptyGravePlot);

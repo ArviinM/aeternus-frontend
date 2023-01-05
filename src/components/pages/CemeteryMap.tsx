@@ -43,8 +43,8 @@ const CemeteryMap: React.FC = () => {
       <div className="padding-samp4 bg-white text-gray-900  ">
         <div className="w-[96%] max-w-[126rem] mx-auto ">
           <div className="text-center">
-            <div className="font-primary leading-[1] tracking-wide mb-5 ">
-              Click the Grave Plot to see details and information of the plot.
+            <div className="font-primary leading-[1] tracking-wide mb-5 uppercase text-[#000]">
+              Click a Grave Plot to see details and information of the plot
             </div>
             <div>
               <CemMap />
