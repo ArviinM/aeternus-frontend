@@ -14,6 +14,7 @@ module.exports = {
         title: ["Canela-Black", "serif"],
         subtitle: ["Canela-Bold", "serif"],
         canela_regular: ["Canela-Regular", "serif"],
+        canela_light: ["Canela-Light", "serif"],
         cursive: ["ChicBudapestRegular", "serif"],
         regular: ["Helvetica", "serif"],
       },

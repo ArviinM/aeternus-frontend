@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react/jsx-pascal-case */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import Carousel from "react-material-ui-carousel";
@@ -8,6 +10,9 @@ import CemMap from "../map/CemMap";
 import "../components.css";
 import "./home.scss";
 import "primeicons/primeicons.css";
+import PictureCarousel from "./PictureCarousel";
+import Services_WWD from "./Services_WWD";
+import { Link } from "react-router-dom";
 
 const WhatWeDo: React.FC = () => {
   TabTitle("Aeternus – What We Do?");
@@ -42,6 +47,115 @@ const WhatWeDo: React.FC = () => {
           return <Project item={item} key={index} />;
         })}
       </Carousel>
+      <div className="padding-samp4 bg-white  ">
+        <div className="w-[96%] max-w-[126rem] mx-auto ">
+          <div className="text-center mx-auto w-2/3">
+            <div className="font-primary leading-[1]  tracking-widest mb-5 text-[#abacaa] ">
+              WE'RE HERE FOR YOU
+            </div>
+            <h2 className="text-[max(2.4rem,min(4.21053vw,4.4rem))] font-subtitle leading-[1] text-[#282828]">
+              We clean, water, and cut grasses for your plots.
+            </h2>
+            <p className="font-gilroy_medium leading-[1.4] text-[max(1.6rem,min(1.77632vw,0.8rem))] text-[#828282]">
+              Our best sepulterero's are on it's way and prepared to clean your
+              plot!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-[#F9F9F9]">
+        <div className="widget-container2 py-10">
+          <div className="title">
+            <a className="title_a">
+              <img
+                className="img_a"
+                src="https://images.unsplash.com/photo-1627740283098-1c544d3a479d"
+                alt="cleaning"
+              ></img>
+            </a>
+            <div className="title_media">
+              <div>
+                <h3 className="h3_title font-canela_light font-bold tracking-wide ">
+                  Plot Cleaning
+                </h3>
+                <p className="p_title font-secondary tracking-wide">
+                  Cleaning your plot can be a satisfying, positive experience
+                  that can instantly signal to everyone around that you care for
+                  your plot.
+                </p>
+                <Link
+                  to={"/login"}
+                  type="submit"
+                  className="w-[50%]  flex justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-md font-primary text-black bg-[#ffc500] hover:bg-[#9b7b0c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffc500]"
+                >
+                  Clean Now
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="widget-container2 py-5">
+          <div className="title">
+            <a className="title_a">
+              <img
+                className="img_a"
+                src="https://images.unsplash.com/photo-1635439954067-78d5811d7789"
+                alt="watering"
+              ></img>
+            </a>
+            <div className="title_media">
+              <div>
+                <h3 className="h3_title font-canela_light font-bold tracking-wide ">
+                  Plot Watering
+                </h3>
+                <p className="p_title font-secondary tracking-wide">
+                  Watering your plot grows good quality of grass and maintain a
+                  balance in height of the grass.
+                </p>
+                <Link
+                  to={"/login"}
+                  type="submit"
+                  className="w-[50%]  flex justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-md font-primary text-black bg-[#ffc500] hover:bg-[#9b7b0c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffc500]"
+                >
+                  Water Now
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="widget-container2 py-10">
+          <div className="title">
+            <a className="title_a">
+              <img
+                className="img_a"
+                src="https://images.unsplash.com/photo-1629608934925-725d09a4eb9a"
+                alt="grass cutting"
+              ></img>
+            </a>
+            <div className="title_media">
+              <div>
+                <h3 className="h3_title font-canela_light font-bold tracking-wide ">
+                  Plot Grass Cutting
+                </h3>
+                <p className="p_title font-secondary tracking-wide">
+                  Cutting your grass creates immense eveness on would you like
+                  it to look like.
+                </p>
+                <Link
+                  to={"/login"}
+                  type="submit"
+                  className="w-[50%]  flex justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-md font-primary text-black bg-[#ffc500] hover:bg-[#9b7b0c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffc500]"
+                >
+                  Inquire Now
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <Services_WWD /> */}
       <div className="padding-samp5 bg-white  ">
         <div className="w-[96%] max-w-[126rem] mx-auto ">
           <div className="text-center mx-auto w-2/3">
