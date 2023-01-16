@@ -3,9 +3,9 @@ import "../components.css";
 
 const HomeServices: React.FC = () => {
   return (
-    <div className="md:padding-samp4 padding-samp41 bg-[#ffc500]">
+    <div className="md:padding-samp7 padding-samp41 bg-[#ffc500]">
       <div className="widget-container2 ">
-        <div className="mx-auto max-w-[152rem] pt-0 ">
+        <div className="mx-auto max-w-[160rem] pt-0 ">
           <div className="steps2 ">
             <div className="steps_step steps--odd">
               <div className="">

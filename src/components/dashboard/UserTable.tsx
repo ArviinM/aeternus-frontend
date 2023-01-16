@@ -581,6 +581,8 @@ const UserTable: React.FC = () => {
           <Column
             field="first_name"
             header="First Name"
+            filter
+            filterPlaceholder="Search by first name..."
             body={firstNameBodyTemplate}
             sortable
             style={{ minWidth: "6rem" }}
@@ -588,6 +590,8 @@ const UserTable: React.FC = () => {
           <Column
             field="last_name"
             header="Last Name"
+            filter
+            filterPlaceholder="Search by last name..."
             body={lastNameBodyTemplate}
             sortable
             style={{ minWidth: "6rem" }}
@@ -595,6 +599,8 @@ const UserTable: React.FC = () => {
           <Column
             field="username"
             header="Username"
+            filter
+            filterPlaceholder="Search by username..."
             body={userNameBodyTemplate}
             sortable
             style={{ minWidth: "6rem" }}
@@ -604,6 +610,8 @@ const UserTable: React.FC = () => {
             header="Address"
             body={addressBodyTemplate}
             sortable
+            filter
+            filterPlaceholder="Search by address..."
             style={{ minWidth: "6rem" }}
           ></Column>
           <Column
@@ -618,6 +626,8 @@ const UserTable: React.FC = () => {
             header="Email"
             body={emailBodyTemplate}
             sortable
+            filter
+            filterPlaceholder="Search by email..."
             style={{ minWidth: "6rem" }}
           ></Column>
           <Column

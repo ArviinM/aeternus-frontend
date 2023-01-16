@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable jsx-a11y/anchor-has-content */
 import { LatLngBounds } from "leaflet";
 import React, { useEffect, useState } from "react";
 import { Popup, Rectangle, useMap } from "react-leaflet";
@@ -133,6 +135,23 @@ export default function DeceasedMarker() {
                   year: "numeric",
                 })}
               </h4>
+              <a
+                href={
+                  "https://www.google.com/maps/dir/?api=1&destination=" +
+                  gravePlot.northEast[0] +
+                  "%2C" +
+                  gravePlot.northEast[1] +
+                  "&travelmode=driving"
+                }
+                target="_blank"
+              >
+                <button
+                  type="submit"
+                  className="w-[50%]  flex justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-md font-primary text-black bg-[#ffc500] hover:bg-[#9b7b0c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffc500]"
+                >
+                  Locate Me
+                </button>
+              </a>
               <h3 className="m-1 text-2xl">Obituary</h3>
               <p className="m-1 text-xl whitespace-pre-line">
                 {" "}

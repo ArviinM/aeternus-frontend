@@ -80,6 +80,7 @@
   --gutter-lg-half: max(0.75rem, min(1.302vw, 1.5rem));
   --gutter-lg-x-half: var(--gutter-lg-half);
   --gutter-sm-x-half: max(0.2rem, min(0.5208vw, 1rem));
+  --gutter-sm-x-half2: max(0.1rem, min(0.3208vw, 0.5rem));
   --gutter-xlg-half: max(1.3rem, min(1.6275vw, 3rem));
   --gutter-xlg-half1: max(0.5rem, min(1.6275vw, 3rem));
 
@@ -124,6 +125,12 @@
   overflow: hidden;
 }
 
+.container-word {
+  padding-left: var(--gutter-sm-x-half2);
+  padding-right: var(--gutter-sm-x-half2);
+  overflow: hidden;
+}
+
 /* .padding-samp4 {
   padding: var(--container-padding-vertical) var(--container-padding-horizontal);
 }
@@ -134,6 +141,13 @@
 } */
 
 .widget-container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.widget-word-container {
   margin-left: auto;
   margin-right: auto;
   position: relative;

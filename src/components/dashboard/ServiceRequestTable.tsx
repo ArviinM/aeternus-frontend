@@ -607,6 +607,8 @@ const ServiceRequestTable: React.FC = () => {
           <Column
             field="username"
             header="Username"
+            filter
+            filterPlaceholder="Search by username..."
             body={userRequestBodyTemplate}
             sortable
             style={{ minWidth: "10rem" }}

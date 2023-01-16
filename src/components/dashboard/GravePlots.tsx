@@ -620,7 +620,6 @@ const GravePlots: React.FC = () => {
           <Column
             field="openMap"
             header="Open Lot"
-            sortable
             style={{ minWidth: "5rem" }}
             body={openMapTemplate}
           ></Column>

@@ -24,15 +24,15 @@ const DashboardHome: React.FC = () => {
 
   interface IChartData {
     data: {
-      "january-2022": number;
-      "february-2022": number;
-      "march-2022": number;
-      "april-2022": number;
-      "may-2022": number;
-      "june-2022": number;
-      "july-2022": number;
-      "august-2022": number;
-      "september-2022": number;
+      "january-2023": number;
+      "february-2023": number;
+      "march-2023": number;
+      "april-2023": number;
+      "may-2023": number;
+      "june-2023": number;
+      "july-2023": number;
+      "august-2023": number;
+      "september-2023": number;
       "october-2022": number;
       "november-2022": number;
       "december-2022": number;
@@ -107,6 +107,9 @@ const DashboardHome: React.FC = () => {
 
   const barData = {
     labels: [
+      "October",
+      "November",
+      "December",
       "January",
       "February",
       "March",
@@ -116,26 +119,23 @@ const DashboardHome: React.FC = () => {
       "July",
       "August",
       "September",
-      "October",
-      "November",
-      "December",
     ],
     datasets: [
       {
         label: "Number of deceased info added per month",
         data: [
-          chart[0]?.data["january-2022"],
-          chart[0]?.data["february-2022"],
-          chart[0]?.data["march-2022"],
-          chart[0]?.data["april-2022"],
-          chart[0]?.data["may-2022"],
-          chart[0]?.data["june-2022"],
-          chart[0]?.data["july-2022"],
-          chart[0]?.data["august-2022"],
-          chart[0]?.data["september-2022"],
           chart[0]?.data["october-2022"],
           chart[0]?.data["november-2022"],
           chart[0]?.data["december-2022"],
+          chart[0]?.data["january-2023"],
+          chart[0]?.data["february-2023"],
+          chart[0]?.data["march-2023"],
+          chart[0]?.data["april-2023"],
+          chart[0]?.data["may-2023"],
+          chart[0]?.data["june-2023"],
+          chart[0]?.data["july-2023"],
+          chart[0]?.data["august-2023"],
+          chart[0]?.data["september-2023"],
         ],
         fill: false,
         backgroundColor: "#2f4860",

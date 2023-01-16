@@ -132,7 +132,7 @@ const Home: React.FC = () => {
               We create maps and routes, obituaries, providing services to your
               deceased loved ones' grave.
             </h2>
-            <p className="mb-5 font-cursive leading-[1.2] text-[max(1.5rem,min(6.77083vw,4.5rem))] text-[#ffc500]">
+            <p className="mb-5 font-cursive leading-[1.2] text-[max(2.5rem,min(7.77083vw,5.5rem))] font-medium text-[#ffc500]">
               A path to peace and efficiency.
             </p>
           </div>

@@ -23,12 +23,14 @@ import IDeceasedData from "../../types/deceased.type";
 import IGravePlotData from "../../types/graveplot.type";
 import { InputTextarea } from "primereact/inputtextarea";
 
-import { FilterMatchMode } from "primereact";
+import { FilterMatchMode, FilterOperator } from "primereact";
 import { TabTitle } from "../../utils/GenerateFunctions";
 
 interface IFilter {
   global?: any;
   name?: any;
+  birth_date?: any;
+  death_date?: any;
 }
 
 const DeceasedTable: React.FC = () => {
@@ -66,6 +68,7 @@ const DeceasedTable: React.FC = () => {
   const [disabled, setDisabled] = useState(true);
 
   const [deceased, setDeceased] = useState<IDeceasedData>(emptyDeceased);
+  const [oldDeceased, oldSetDeceased] = useState<IDeceasedData>(emptyDeceased);
   const [obituaryDialog, setObituaryDialog] = useState(false);
   const [deceasedDialog, setDeceasedDialog] = useState(false);
   const [deceasedProfileDialog, setDeceasedProfileDialog] = useState(false);
@@ -104,9 +107,20 @@ const DeceasedTable: React.FC = () => {
       });
   };
 
+  const checkAvailable = () => {
+    GravePlot.checkAllAvailable()
+      .then((response: any) => {
+        //setAllGravePlots(response?.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     retrieveAllDeceased();
     retrieveAllGravePlots();
+    checkAvailable();
     initFilters();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -240,6 +254,7 @@ const DeceasedTable: React.FC = () => {
     setShowDeceasedPhoto2(false);
     setDeceased({ ...deceased });
     setDeceasedDialog(true);
+    oldSetDeceased({ ...deceased });
   };
 
   const editDeceasedProfilePicture = (deceased: IDeceasedData) => {
@@ -329,6 +344,18 @@ const DeceasedTable: React.FC = () => {
   const initFilters = () => {
     setFilters({
       global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+      name: {
+        operator: FilterOperator.AND,
+        constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
+      },
+      birth_date: {
+        operator: FilterOperator.AND,
+        constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }],
+      },
+      death_date: {
+        operator: FilterOperator.AND,
+        constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }],
+      },
     });
     setGlobalFilterValue("");
     retrieveAllDeceased();
@@ -345,8 +372,6 @@ const DeceasedTable: React.FC = () => {
 
     setFilters(_filters);
     setGlobalFilterValue(value);
-    console.log(_filters);
-    console.log(value);
   };
 
   const onInputChange = (
@@ -406,17 +431,6 @@ const DeceasedTable: React.FC = () => {
     _deceased.grave_plot._id = _deceased.grave_plot.lot;
     setDeceased(_deceased);
   };
-
-  // let lot = {name: ""};
-
-  // const gravePlotTemplate = (rowData: IDeceasedData) => {
-  //   return (
-  //     <>
-  //       <span className="p-column-title">Grave Plot</span>
-  //       Block {rowData.grave_plot.block} Lot {rowData.grave_plot.lot}
-  //     </>
-  //   );
-  // };
 
   const leftToolbarTemplate = () => {
     return (
@@ -492,43 +506,56 @@ const DeceasedTable: React.FC = () => {
     );
   };
 
-  const birthDateTemplate = (rowData: IDeceasedData) => {
-    let date = new Date(rowData.birth_date);
-    let formattedDate = date.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "long",
+  const dateFilterTemplate = (options: {
+    value: Date | Date[] | undefined;
+    filterCallback: (arg0: Date | Date[] | undefined, arg1: any) => void;
+    index: any;
+  }) => {
+    return (
+      <Calendar
+        value={options.value}
+        onChange={(e) => options.filterCallback(e.value, options.index)}
+        dateFormat="mm/dd/yy"
+        placeholder="mm/dd/yyyy"
+        mask="99/99/9999"
+      />
+    );
+  };
+
+  const formatDate = (value: Date) => {
+    return value.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "2-digit",
       year: "numeric",
     });
+  };
 
+  const birthDateTemplate = (rowData: IDeceasedData) => {
+    let date = new Date(rowData.birth_date);
     return (
       <>
         <span className="p-column-title">Birth Date</span>
-        {formattedDate}
+        {formatDate(date)}
       </>
     );
   };
 
   const deathDateTemplate = (rowData: IDeceasedData) => {
     let date = new Date(rowData.death_date);
-    let formattedDate = date.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
     return (
       <>
         <span className="p-column-title">Death Date</span>
-        {formattedDate}
+        {formatDate(date)}
       </>
     );
   };
 
   const graveBlockTemplate = (rowData: IDeceasedData) => {
-    return <div>Block {rowData.grave_plot.block.name}</div>;
+    return <>{rowData.grave_plot.block.name}</>;
   };
 
   const graveLotTemplate = (rowData: IDeceasedData) => {
-    return <div>Lot {rowData.grave_plot.lot}</div>;
+    return <>{rowData.grave_plot.lot}</>;
   };
 
   const obituaryTemplate = (rowData: IDeceasedData) => {
@@ -549,7 +576,10 @@ const DeceasedTable: React.FC = () => {
         <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-success mr-2"
-          onClick={() => editDeceased(rowData)}
+          onClick={() => {
+            oldSetDeceased(rowData);
+            editDeceased(rowData);
+          }}
           placeholder="Top"
           tooltip="Edit deceased detail information"
         />
@@ -699,6 +729,8 @@ const DeceasedTable: React.FC = () => {
           <Column
             field="first_name"
             header="First Name"
+            filter
+            filterPlaceholder="Search by first name"
             body={firstNameBodyTemplate}
             sortable
             style={{ minWidth: "6rem" }}
@@ -706,6 +738,8 @@ const DeceasedTable: React.FC = () => {
           <Column
             field="middle_name"
             header="Middle Name"
+            filter
+            filterPlaceholder="Search by middle name"
             body={middleNameBodyTemplate}
             sortable
             style={{ minWidth: "6rem" }}
@@ -713,6 +747,8 @@ const DeceasedTable: React.FC = () => {
           <Column
             field="last_name"
             header="Last Name"
+            filter
+            filterPlaceholder="Search by last name"
             body={lastNameBodyTemplate}
             sortable
             style={{ minWidth: "6rem" }}
@@ -723,16 +759,15 @@ const DeceasedTable: React.FC = () => {
             body={imageBodyTemplate}
           ></Column>
           <Column
-            field="birth_date"
             header="Birth Date"
-            sortable
+            filterField="birth_date"
             style={{ minWidth: "3rem" }}
             body={birthDateTemplate}
           ></Column>
           <Column
             field="death_date"
             header="Death Date"
-            sortable
+            filterField="death_date"
             style={{ minWidth: "3rem" }}
             body={deathDateTemplate}
           ></Column>
@@ -753,7 +788,6 @@ const DeceasedTable: React.FC = () => {
           <Column
             field="obituary"
             header="Obituary"
-            sortable
             style={{ minWidth: "5rem" }}
             body={obituaryTemplate}
           ></Column>

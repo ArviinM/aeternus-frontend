@@ -63,31 +63,31 @@ const DashboardTopBar: React.FC<AppTopbarProps> = (props: AppTopbarProps) => {
         })}
       >
         <li>
-          <button
+          {/* <button
             className="p-link layout-topbar-button"
             onClick={props.onMobileSubTopbarMenuClick}
           >
             <i className="pi pi-calendar" />
             <span>Events</span>
-          </button>
+          </button> */}
         </li>
         <li>
-          <button
+          {/* <button
             className="p-link layout-topbar-button"
             onClick={props.onMobileSubTopbarMenuClick}
           >
             <i className="pi pi-cog" />
             <span>Settings</span>
-          </button>
+          </button> */}
         </li>
         <li>
-          <button
+          {/* <button
             className="p-link layout-topbar-button"
             onClick={props.onMobileSubTopbarMenuClick}
           >
             <i className="pi pi-user" />
             <span>Profile</span>
-          </button>
+          </button> */}
         </li>
       </ul>
     </div>

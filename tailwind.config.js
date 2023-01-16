@@ -14,6 +14,8 @@ module.exports = {
         title: ["Canela-Black", "serif"],
         subtitle: ["Canela-Bold", "serif"],
         canela_regular: ["Canela-Regular", "serif"],
+        canela_medium: ["Canela-Medium", "serif"],
+        canela_medium_italic: ["Canela-Medium-Italic", "serif"],
         canela_light: ["Canela-Light", "serif"],
         cursive: ["ChicBudapestRegular", "serif"],
         regular: ["Helvetica", "serif"],
@@ -64,6 +66,22 @@ module.exports = {
           transform: "translate3d(-80%, 0, 0)",
         },
       },
+      fourImagesScrollLeft2: {
+        "0%": {
+          transform: "translate3d(0, 0, 0)",
+        },
+        "100%": {
+          transform: "translate3d(-70%, 0, 0)",
+        },
+      },
+      fourImagesScrollRight: {
+        "0%": {
+          transform: "translate3d(-90%, 0, 0)",
+        },
+        "100%": {
+          transform: "translate3d(50%, 0, 0)",
+        },
+      },
       "text-shadow-pop-right": {
         "0%": {
           "text-shadow":
@@ -91,6 +109,8 @@ module.exports = {
     },
     animation: {
       fourImagesScrollLeft: "fourImagesScrollLeft 85s linear infinite",
+      fourImagesScrollLeft2: "fourImagesScrollLeft2 50s linear infinite",
+      fourImagesScrollRight: "fourImagesScrollRight 70s linear infinite",
       float: "float 6s ease-in-out infinite",
       scroll: "scroll 20s linear infinite",
       textShow: "textShow 5.5s cubic-bezier(0.230, 1.000, 0.320, 1.000) both",

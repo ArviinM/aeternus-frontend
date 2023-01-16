@@ -5,6 +5,11 @@ import authHeaders from "./auth-header-content";
 const getAll = () => {
   return http.get<Array<IGravePlotData>>("/grave-plots");
 };
+
+const checkAllAvailable = () => {
+  return http.get<Array<IGravePlotData>>("/grave-plots/check");
+};
+
 const get = (id: any) => {
   return http.get<IGravePlotData>(`/grave-plots/${id}`);
 };
@@ -50,5 +55,6 @@ const GravePlotService = {
   remove,
   removeAll,
   findByName,
+  checkAllAvailable,
 };
 export default GravePlotService;
