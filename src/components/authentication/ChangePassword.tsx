@@ -103,7 +103,7 @@ const ChangePassword: React.FC = () => {
         />
 
         <div className="h-3/6">
-          <a href="http://localhost:3000/">
+          <a href="https://aeternus-frontend.onrender.com/">
             <img
               className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
               src="https://aeternus-api.onrender.com/public/logo/aeternus-logo-dark-circle.png"

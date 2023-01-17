@@ -73,7 +73,7 @@ const Login: React.FC = () => {
         />
 
         <div className="h-3/6">
-          <a href="http://localhost:3000/">
+          <a href="https://aeternus-frontend.onrender.com/">
             <img
               className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
               src="aeternus-logo-dark-circle.png"
@@ -182,7 +182,7 @@ const Login: React.FC = () => {
 
                       <div className="text-md">
                         <a
-                          href="http://localhost:3000/password-reset"
+                          href="https://aeternus-frontend.onrender.com/password-reset"
                           className="font-medium font-primary  text-blue-600 hover:text-blue-500"
                         >
                           Forgot your password?
@@ -205,7 +205,7 @@ const Login: React.FC = () => {
                         Don't have an account?{" "}
                         <a
                           className="underline text-base font-medium"
-                          href="http://localhost:3000/register"
+                          href="https://aeternus-frontend.onrender.com/register"
                         >
                           Register here!
                         </a>

@@ -105,7 +105,7 @@ const Register: React.FC = () => {
         />
 
         <div className="h-3/6">
-          <a href="http://localhost:3000/">
+          <a href="https://aeternus-frontend.onrender.com/">
             <img
               className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
               src="aeternus-logo-dark-circle.png"
@@ -376,7 +376,7 @@ const Register: React.FC = () => {
                         Already have an account?{" "}
                         <a
                           className="underline text-base font-medium"
-                          href="http://localhost:3000/login"
+                          href="https://aeternus-frontend.onrender.com/login"
                         >
                           Login here!
                         </a>
