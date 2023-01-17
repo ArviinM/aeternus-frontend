@@ -153,13 +153,13 @@ const Navbar: React.FC = () => {
                     Hello, {currentUser.username}!
                     <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gray-50 transition-all group-hover:w-full"></span>
                   </Link>
-                  <a
-                    href="/login"
+                  <Link
+                    to={"/login"}
                     className="bg-[#ffc500] hover:bg-[#e0ad02] uppercase px-4 md:px-10 py-3 mx-1 lg:mx-1 xl:mx-4 text-white text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide"
                     onClick={logOut}
                   >
                     Sign Out
-                  </a>
+                  </Link>
                 </div>
               ) : (
                 <div className=" items-center uppercase ">
