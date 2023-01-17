@@ -98,7 +98,7 @@ const ChangePassword: React.FC = () => {
       <div className="hidden lg:block relative flex-1 w-2/5">
         <img
           className="absolute inset-0 h-full w-full object-cover brightness-75"
-          src="http://localhost:5000/public/password-bg.jpg"
+          src="https://aeternus-api.onrender.com/public/password-bg.jpg"
           alt="logo-bg"
         />
 
@@ -106,7 +106,7 @@ const ChangePassword: React.FC = () => {
           <a href="http://localhost:3000/">
             <img
               className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
-              src="http://localhost:5000/public/logo/aeternus-logo-dark-circle.png"
+              src="https://aeternus-api.onrender.com/public/logo/aeternus-logo-dark-circle.png"
               alt="logo-dark"
             />
           </a>

@@ -70,7 +70,7 @@ const PasswordReset: React.FC = () => {
       <div className="hidden lg:block relative flex-1 w-2/5">
         <img
           className="absolute inset-0 h-full w-full object-cover brightness-75"
-          src="http://localhost:5000/public/login-bg-2.jpg"
+          src="https://aeternus-api.onrender.com/public/login-bg-2.jpg"
           alt="logo-bg"
         />
 

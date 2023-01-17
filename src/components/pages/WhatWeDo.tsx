@@ -65,9 +65,21 @@ const WhatWeDo: React.FC = () => {
       </div>
 
       <div className="bg-[#F9F9F9]">
-        <div className="widget-container2 py-10">
+        <div className="widget-container2 py-5">
           <div className="title">
-            <a className="title_a">
+            <a className="title_a shadow-2xl">
+              <video autoPlay loop muted controls>
+                <source
+                  src="https://aeternus-api.onrender.com/public/video/request-services-tutorial.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </a>
+          </div>
+        </div>
+        <div className="widget-container2 py-5">
+          <div className="title">
+            <a className="title_a shadow-xl">
               <img
                 className="img_a"
                 src="https://images.unsplash.com/photo-1627740283098-1c544d3a479d"
@@ -97,7 +109,7 @@ const WhatWeDo: React.FC = () => {
         </div>
         <div className="widget-container2 py-5">
           <div className="title">
-            <a className="title_a">
+            <a className="title_a shadow-xl">
               <img
                 className="img_a"
                 src="https://images.unsplash.com/photo-1635439954067-78d5811d7789"
@@ -126,7 +138,7 @@ const WhatWeDo: React.FC = () => {
         </div>
         <div className="widget-container2 py-10">
           <div className="title">
-            <a className="title_a">
+            <a className="title_a shadow-xl">
               <img
                 className="img_a"
                 src="https://images.unsplash.com/photo-1629608934925-725d09a4eb9a"
@@ -227,7 +239,7 @@ const items: Item[] = [
   {
     name: "What We Do?",
     description: "",
-    imgPath: "http://localhost:5000/public/what-we-do-2.jpg",
+    imgPath: "https://aeternus-api.onrender.com/public/what-we-do-2.jpg",
     subtitle: "Clean, maintain, and honor Life",
   },
 ];

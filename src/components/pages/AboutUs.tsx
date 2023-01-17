@@ -100,7 +100,7 @@ const AboutUs: React.FC = () => {
                       <img
                         className="h-full max-w-full object-cover m-auto grayscale"
                         alt="arvin_m"
-                        src="http://localhost:5000/public/staff/arvin_m.jpg"
+                        src="https://aeternus-api.onrender.com/public/staff/arvin_m.jpg"
                       />
                     </div>
                   </div>
@@ -116,7 +116,7 @@ const AboutUs: React.FC = () => {
                       <img
                         className="h-full max-w-full object-cover m-auto"
                         alt="victor"
-                        src="http://localhost:5000/public/staff/victor.jpg"
+                        src="https://aeternus-api.onrender.com/public/staff/victor.jpg"
                       />
                     </div>
                   </div>
@@ -132,7 +132,7 @@ const AboutUs: React.FC = () => {
                       <img
                         className="h-full max-w-full object-cover m-auto grayscale"
                         alt="louis"
-                        src="http://localhost:5000/public/staff/louis.jpg"
+                        src="https://aeternus-api.onrender.com/public/staff/louis.jpg"
                       />
                     </div>
                   </div>
@@ -148,7 +148,7 @@ const AboutUs: React.FC = () => {
                       <img
                         className="h-full max-w-full object-cover m-auto grayscale"
                         alt="mark"
-                        src="http://localhost:5000/public/staff/mark.jpg"
+                        src="https://aeternus-api.onrender.com/public/staff/mark.jpg"
                       />
                     </div>
                   </div>
@@ -232,7 +232,7 @@ const items: Item[] = [
   {
     name: "About Us",
     description: "",
-    imgPath: "http://localhost:5000/public/about-us.jpg",
+    imgPath: "https://aeternus-api.onrender.com/public/about-us.jpg",
     subtitle: "The Aeternus System Difference",
   },
 ];

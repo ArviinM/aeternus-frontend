@@ -361,7 +361,7 @@ const items: Item[] = [
   {
     name: "We're here for you",
     description: "",
-    imgPath: "http://localhost:5000/public/contact-us.jpg",
+    imgPath: "https://aeternus-api.onrender.com/public/contact-us.jpg",
     subtitle: "Anytime, day or night",
   },
 ];

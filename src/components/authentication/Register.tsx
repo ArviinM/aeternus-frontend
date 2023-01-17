@@ -100,7 +100,7 @@ const Register: React.FC = () => {
       <div className="hidden lg:block relative flex-1 w-2/5">
         <img
           className="absolute inset-0 h-full w-full object-cover brightness-50"
-          src="http://localhost:5000/public/register-bg.jpg"
+          src="https://aeternus-api.onrender.com/public/register-bg.jpg"
           alt="logo-bg"
         />
 

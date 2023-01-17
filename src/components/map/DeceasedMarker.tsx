@@ -141,7 +141,7 @@ export default function DeceasedMarker() {
                   gravePlot.northEast[0] +
                   "%2C" +
                   gravePlot.northEast[1] +
-                  "&travelmode=driving"
+                  "&travelmode=driving&zoom=15"
                 }
                 target="_blank"
               >
@@ -149,7 +149,7 @@ export default function DeceasedMarker() {
                   type="submit"
                   className="w-[50%]  flex justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-md font-primary text-black bg-[#ffc500] hover:bg-[#9b7b0c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffc500]"
                 >
-                  Locate Me
+                  Get Directions
                 </button>
               </a>
               <h3 className="m-1 text-2xl">Obituary</h3>
