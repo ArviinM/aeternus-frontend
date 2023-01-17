@@ -164,6 +164,7 @@ const DeceasedTable: React.FC = () => {
               life: 3000,
             });
             retrieveAllDeceased();
+            checkAvailable();
           })
           .catch((e) => {
             console.log(e);
@@ -194,6 +195,7 @@ const DeceasedTable: React.FC = () => {
               life: 3000,
             });
             retrieveAllDeceased();
+            checkAvailable();
           })
           .catch((e) => {
             console.log(e);
@@ -229,6 +231,7 @@ const DeceasedTable: React.FC = () => {
             life: 3000,
           });
           retrieveAllDeceased();
+          checkAvailable();
         })
         .catch((e) => {
           console.log(e);
@@ -280,6 +283,7 @@ const DeceasedTable: React.FC = () => {
             life: 3000,
           });
           retrieveAllDeceased();
+          checkAvailable();
         })
         .catch((e) => {
           console.log(e);
@@ -859,6 +863,7 @@ const DeceasedTable: React.FC = () => {
             // value={gravePlotPhoto}
             onChange={onFileChange}
             accept="image/*"
+            required
           />
         )}
 
@@ -884,7 +889,6 @@ const DeceasedTable: React.FC = () => {
             id="Middle Name"
             value={deceased.middle_name}
             onChange={(e) => onInputChange(e, "middle_name")}
-            required
             autoFocus
             className={classNames({
               "p-invalid": submitted && !deceased.middle_name,
@@ -915,6 +919,10 @@ const DeceasedTable: React.FC = () => {
             value={new Date(deceased.birth_date)}
             onChange={onCalendarBirthChange}
             showIcon
+            required
+            className={classNames({
+              "p-invalid": submitted && !deceased.birth_date,
+            })}
           />
         </div>
         <div className="field">
@@ -925,6 +933,10 @@ const DeceasedTable: React.FC = () => {
             value={new Date(deceased.death_date)}
             onChange={onCalendarDeathChange}
             showIcon
+            required
+            className={classNames({
+              "p-invalid": submitted && !deceased.death_date,
+            })}
           />
         </div>
         <div className="field">
@@ -937,6 +949,10 @@ const DeceasedTable: React.FC = () => {
             onChange={onDropDownChange}
             placeholder="Select a Grave Plot"
             optionLabel={"name"}
+            required
+            className={classNames({
+              "p-invalid": submitted && !deceased.grave_plot.block.name,
+            })}
           />
         </div>
         {disabled ? (
@@ -951,6 +967,10 @@ const DeceasedTable: React.FC = () => {
               placeholder="Select a Grave Plot"
               optionLabel={"lot"}
               disabled={true}
+              required
+              className={classNames({
+                "p-invalid": submitted && !deceased.grave_plot.lot,
+              })}
             />
           </div>
         ) : (
@@ -964,6 +984,10 @@ const DeceasedTable: React.FC = () => {
               onChange={onDropDownChange2}
               placeholder="Select a Grave Plot"
               optionLabel={"lot"}
+              required
+              className={classNames({
+                "p-invalid": submitted && !deceased.grave_plot.lot,
+              })}
             />
           </div>
         )}
@@ -977,6 +1001,9 @@ const DeceasedTable: React.FC = () => {
             required
             rows={20}
             cols={20}
+            className={classNames({
+              "p-invalid": submitted && !deceased.obituary,
+            })}
           />
         </div>
       </Dialog>

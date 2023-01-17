@@ -9,9 +9,11 @@ import CemMapModal from "../modal/CemMapModal";
 import "../components.css";
 import "./home.scss";
 import { useNavigate } from "react-router-dom";
+import ObituariesModal from "../modal/ObituariesModal";
 
 const Home: React.FC = () => {
   const [openCemMapModal, setOpenCemMapModal] = useState(false);
+  const [openObituariesModal, setOpenObituariesModal] = useState(false);
   let navigate = useNavigate();
   TabTitle("Aeternus – Home");
   return (
@@ -46,10 +48,18 @@ const Home: React.FC = () => {
         })}
       </Carousel>
       <div className="w-full bg-[#ffc500] ">
+        {openObituariesModal && (
+          <ObituariesModal closeModal={setOpenObituariesModal} />
+        )}
         {openCemMapModal && <CemMapModal closeModal={setOpenCemMapModal} />}
         <div className="home-main">
           <div className="second padding-samp">
-            <button className="padding-samp2 button-main disabled">
+            <button
+              className="padding-samp2 button-main disabled"
+              onClick={() => {
+                setOpenObituariesModal(true);
+              }}
+            >
               <span className="text-center navigation-media">
                 <img
                   className="img-main"
