@@ -182,9 +182,7 @@ const Login: React.FC = () => {
 
                       <div className="text-md">
                         <Link
-                          to={
-                            "https://aeternus-frontend.onrender.com/password-reset"
-                          }
+                          to={"/password-reset"}
                           className="font-medium font-primary  text-blue-600 hover:text-blue-500"
                         >
                           Forgot your password?
@@ -205,12 +203,12 @@ const Login: React.FC = () => {
                     <div className="text-md font-primary text-center">
                       <label htmlFor="">
                         Don't have an account?{" "}
-                        <a
+                        <Link
                           className="underline text-base font-medium"
-                          href="https://aeternus-frontend.onrender.com/register"
+                          to={"/register"}
                         >
                           Register here!
-                        </a>
+                        </Link>
                       </label>
                     </div>
                   </div>
