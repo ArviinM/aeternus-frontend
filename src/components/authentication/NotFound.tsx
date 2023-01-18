@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NotFound: React.FC = () => {
   return (
@@ -103,12 +104,12 @@ const NotFound: React.FC = () => {
           </span>
         </div>
         <div className="mt-6 text-center">
-          <a
-            href="/"
+          <Link
+            to={"/"}
             className="text-gray-500 font-mono text-xl bg-gray-200 p-3 rounded-md hover:shadow-md"
           >
             Go back{" "}
-          </a>
+          </Link>
         </div>
       </div>
     </div>

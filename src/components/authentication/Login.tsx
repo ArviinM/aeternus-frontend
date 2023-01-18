@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import UserService from "../../services/auth.service";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { TabTitle } from "../../utils/GenerateFunctions";
 import { Toast } from "primereact/toast";
 
@@ -181,12 +181,14 @@ const Login: React.FC = () => {
                       </div>
 
                       <div className="text-md">
-                        <a
-                          href="https://aeternus-frontend.onrender.com/password-reset"
+                        <Link
+                          to={
+                            "https://aeternus-frontend.onrender.com/password-reset"
+                          }
                           className="font-medium font-primary  text-blue-600 hover:text-blue-500"
                         >
                           Forgot your password?
-                        </a>
+                        </Link>
                       </div>
                     </div>
 
