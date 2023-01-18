@@ -385,12 +385,12 @@ const ServiceRequestTable: React.FC = () => {
     return (
       <React.Fragment>
         <div className="my-2">
-          <Button
+          {/* <Button
             label="New"
             icon="pi pi-plus"
             className="p-button-success mr-2"
             onClick={openNew}
-          />
+          /> */}
           <Button
             label="Delete"
             icon="pi pi-trash"

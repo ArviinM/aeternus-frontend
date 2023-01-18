@@ -207,32 +207,32 @@ const ContactUs: React.FC = () => {
                           <div className="row">
                             <div className="column-test max-w-full my-3">
                               <Field
-                                id="username"
-                                name="username"
+                                id="first_name"
+                                name="first_name"
                                 type="text"
-                                autoComplete="username"
+                                autoComplete="first_name"
                                 placeholder="First Name*"
                                 required
                                 className="appearance-none font-primary2 block w-full px-6 py-2 border border-gray-400 rounded-sm shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
                               />
                               <ErrorMessage
-                                name="username"
+                                name="first_name"
                                 component="p"
                                 className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
                               />
                             </div>
                             <div className="column-test max-w-full my-3">
                               <Field
-                                id="password"
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
+                                id="last_name"
+                                name="last_name"
+                                type="text"
+                                autoComplete="last_name"
                                 placeholder="Last Name*"
                                 required
                                 className="appearance-none font-primary2 block w-full px-6 py-2 border border-gray-400 rounded-sm shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
                               />
                               <ErrorMessage
-                                name="password"
+                                name="last_name"
                                 component="p"
                                 className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
                               />
@@ -241,32 +241,32 @@ const ContactUs: React.FC = () => {
                           <div className="row">
                             <div className="column-test max-w-full my-3">
                               <Field
-                                id="username"
-                                name="username"
-                                type="text"
-                                autoComplete="username"
+                                id="email"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
                                 placeholder="Email Address*"
                                 required
                                 className="appearance-none font-primary2 block w-full px-6 py-2 border border-gray-400 rounded-sm shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
                               />
                               <ErrorMessage
-                                name="username"
+                                name="email"
                                 component="p"
                                 className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
                               />
                             </div>
                             <div className="column-test max-w-full my-3">
                               <Field
-                                id="password"
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
+                                id="telephone"
+                                name="telephone"
+                                type="text"
+                                autoComplete="contact_number"
                                 placeholder="Telephone*"
                                 required
                                 className="appearance-none font-primary2 block w-full px-6 py-2 border border-gray-400 rounded-sm shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
                               />
                               <ErrorMessage
-                                name="password"
+                                name="telephone"
                                 component="p"
                                 className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
                               />
@@ -275,17 +275,17 @@ const ContactUs: React.FC = () => {
                           <div className="row">
                             <div className="column-test2 max-w-full my-3">
                               <Field
-                                id="username"
-                                name="username"
+                                id="message"
+                                name="message"
                                 as="textarea"
-                                autoComplete="username"
+                                autoComplete="message"
                                 placeholder="Message"
                                 required
                                 rows="10"
                                 className="appearance-none font-primary2 block w-full px-6 py-2 border border-gray-400 rounded-sm shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
                               />
                               <ErrorMessage
-                                name="username"
+                                name="message"
                                 component="p"
                                 className="mt-2 text-sm text-red-600 dark:text-red-500 font-secondary"
                               />
