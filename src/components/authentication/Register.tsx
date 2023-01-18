@@ -376,7 +376,7 @@ const Register: React.FC = () => {
                         Already have an account?{" "}
                         <Link
                           className="underline text-base font-medium"
-                          to={"https://aeternus-frontend.onrender.com/login"}
+                          to={"/login"}
                         >
                           Login here!
                         </Link>
