@@ -33,8 +33,8 @@ const DashboardHome: React.FC = () => {
       "july-2023": number;
       "august-2023": number;
       "september-2023": number;
-      "october-2022": number;
-      "november-2022": number;
+      "october-2023": number;
+      "november-2023": number;
       "december-2022": number;
     };
   }
@@ -124,9 +124,6 @@ const DashboardHome: React.FC = () => {
       {
         label: "Number of deceased info added per month",
         data: [
-          chart[0]?.data["october-2022"],
-          chart[0]?.data["november-2022"],
-          chart[0]?.data["december-2022"],
           chart[0]?.data["january-2023"],
           chart[0]?.data["february-2023"],
           chart[0]?.data["march-2023"],
@@ -136,6 +133,9 @@ const DashboardHome: React.FC = () => {
           chart[0]?.data["july-2023"],
           chart[0]?.data["august-2023"],
           chart[0]?.data["september-2023"],
+          chart[0]?.data["october-2023"],
+          chart[0]?.data["november-2023"],
+          chart[0]?.data["december-2022"],
         ],
         fill: false,
         backgroundColor: "#2f4860",
