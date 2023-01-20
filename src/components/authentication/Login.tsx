@@ -68,12 +68,12 @@ const Login: React.FC = () => {
       <div className="hidden lg:block relative flex-1 w-2/5">
         <img
           className="absolute inset-0 h-full w-full object-cover brightness-75"
-          src="https://aeternus-api.onrender.com/public/login-bg.jpg"
+          src="http://localhost:5000/public/login-bg.jpg"
           alt="logo-bg"
         />
 
         <div className="h-3/6">
-          <a href="https://aeternus-frontend.onrender.com/">
+          <a href="http://localhost:3000/">
             <img
               className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
               src="aeternus-logo-dark-circle.png"
@@ -165,7 +165,7 @@ const Login: React.FC = () => {
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center">
+                      {/* <div className="flex items-center">
                         <input
                           id="remember-me"
                           name="remember-me"
@@ -178,7 +178,7 @@ const Login: React.FC = () => {
                         >
                           Remember me
                         </label>
-                      </div>
+                      </div> */}
 
                       <div className="text-md">
                         <Link
@@ -200,7 +200,7 @@ const Login: React.FC = () => {
                       {/* {localStorage.getItem("user")} */}
                     </div>
 
-                    <div className="text-md font-primary text-center">
+                    {/* <div className="text-md font-primary text-center">
                       <label htmlFor="">
                         Don't have an account?{" "}
                         <Link
@@ -210,7 +210,7 @@ const Login: React.FC = () => {
                           Register here!
                         </Link>
                       </label>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

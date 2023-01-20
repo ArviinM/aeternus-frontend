@@ -1,4 +1,4 @@
-import { LatLngBounds } from "leaflet";
+import L, { LatLngBounds } from "leaflet";
 import {
   CircleMarker,
   ImageOverlay,
@@ -7,6 +7,7 @@ import {
   TileLayer,
   Tooltip,
   ZoomControl,
+  useMap,
 } from "react-leaflet";
 import "./map.css";
 import GravePlotService from "../../services/graveplot.service";
@@ -55,6 +56,7 @@ const CemMap: React.FC = () => {
           southWest: response.data.southWest,
           northEast: response.data.northEast,
           deceased: response.data.deceased,
+          lot_owner: response.data.lot_owner,
         });
         console.log(response.data);
       })
@@ -96,7 +98,6 @@ const CemMap: React.FC = () => {
         {/* display markers */}
         {/* <GraveMarker /> */}
         <DeceasedMarker />
-
         <LayersControl>
           <LayersControl.Overlay name="Drone Map from CIO" checked>
             <ImageOverlay

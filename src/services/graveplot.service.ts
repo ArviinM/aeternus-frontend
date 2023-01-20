@@ -10,6 +10,10 @@ const checkAllAvailable = () => {
   return http.get<Array<IGravePlotData>>("/grave-plots/check");
 };
 
+const checkLotOwnerReserved = () => {
+  return http.get<Array<IGravePlotData>>("/grave-plots/lot-owned");
+};
+
 const get = (id: any) => {
   return http.get<IGravePlotData>(`/grave-plots/${id}`);
 };
@@ -56,5 +60,6 @@ const GravePlotService = {
   removeAll,
   findByName,
   checkAllAvailable,
+  checkLotOwnerReserved,
 };
 export default GravePlotService;

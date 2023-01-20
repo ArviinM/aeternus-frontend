@@ -107,9 +107,6 @@ const DashboardHome: React.FC = () => {
 
   const barData = {
     labels: [
-      "October",
-      "November",
-      "December",
       "January",
       "February",
       "March",
@@ -119,6 +116,9 @@ const DashboardHome: React.FC = () => {
       "July",
       "August",
       "September",
+      "October",
+      "November",
+      "December",
     ],
     datasets: [
       {

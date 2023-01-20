@@ -56,6 +56,16 @@ export const addRole = (id: any, role: string) => {
   return http.put(API_URL + `addRole/${id}`, role, { headers: authHeaders() });
 };
 
+export const addLotOwned = (id: any, grave_plot: string) => {
+  return http.put(
+    API_URL + `lot-owner/${id}`,
+    { grave_plot },
+    {
+      headers: authHeaders(),
+    }
+  );
+};
+
 export const updateUser = (id: any, data: any) => {
   console.log(data);
   return http.put(API_URL + `user-update/${id}`, data, {
@@ -111,6 +121,7 @@ const UserService = {
   deleteUser,
   updateUser,
   adminChangePW,
+  addLotOwned,
   passwordReset,
   getUserValid,
   userChangePW,

@@ -51,18 +51,28 @@ const DeceasedTable: React.FC = () => {
       status: { id: "", name: "" },
       southWest: ["", ""],
       northEast: ["", ""],
+      lot_owner: {
+        id: "",
+        first_name: "",
+        last_name: "",
+        username: "",
+        address: "",
+        contact_no: "",
+        email: "",
+      },
     },
   };
 
   const blocks = [
-    { name: "1", id: "634f61364e1560f278e4543f" },
-    { name: "2", id: "634f61364e1560f278e45440" },
-    { name: "3", id: "634f61364e1560f278e45441" },
-    { name: "4", id: "634f61364e1560f278e45442" },
+    { name: "1", id: "63c7ad8efb9fe79294b6287c" },
+    { name: "2", id: "63c7ad8efb9fe79294b6287d" },
+    { name: "3", id: "63c7ad8efb9fe79294b6287e" },
+    { name: "4", id: "63c7ad8efb9fe79294b6287f" },
   ];
 
   const [allDeceased, setAllDeceased] = useState<Array<IDeceasedData>>([]);
   const [allGravePlots, setAllGravePlots] = useState<Array<IGravePlotData>>([]);
+  const [lotOwnerDialog, setLotOwnerDialog] = useState(false);
   const [allBlocks, setAllBlocks] = useState<Array<any>>([]);
 
   const [disabled, setDisabled] = useState(true);
@@ -117,10 +127,21 @@ const DeceasedTable: React.FC = () => {
       });
   };
 
+  const checkLotOwner = () => {
+    GravePlot.checkLotOwnerReserved()
+      .then((response: any) => {
+        //setAllGravePlots(response?.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     retrieveAllDeceased();
     retrieveAllGravePlots();
     checkAvailable();
+    checkLotOwner();
     initFilters();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -138,6 +159,7 @@ const DeceasedTable: React.FC = () => {
     setObituaryDialog(false);
     setDeceasedProfileDialog(false);
     setDeceased(emptyDeceased);
+    setLotOwnerDialog(false);
   };
 
   const hideDeleteDeceasedDialog = () => {
@@ -165,6 +187,7 @@ const DeceasedTable: React.FC = () => {
             });
             retrieveAllDeceased();
             checkAvailable();
+            checkLotOwner();
           })
           .catch((e) => {
             console.log(e);
@@ -196,6 +219,7 @@ const DeceasedTable: React.FC = () => {
             });
             retrieveAllDeceased();
             checkAvailable();
+            checkLotOwner();
           })
           .catch((e) => {
             console.log(e);
@@ -232,6 +256,7 @@ const DeceasedTable: React.FC = () => {
           });
           retrieveAllDeceased();
           checkAvailable();
+          checkLotOwner();
         })
         .catch((e) => {
           console.log(e);
@@ -250,6 +275,11 @@ const DeceasedTable: React.FC = () => {
   const viewObituary = (obituary: IDeceasedData) => {
     setDeceased({ ...obituary });
     setObituaryDialog(true);
+  };
+
+  const viewLotOwner = (deceased: IDeceasedData) => {
+    setDeceased({ ...deceased });
+    setLotOwnerDialog(true);
   };
 
   const editDeceased = (deceased: IDeceasedData) => {
@@ -284,6 +314,7 @@ const DeceasedTable: React.FC = () => {
           });
           retrieveAllDeceased();
           checkAvailable();
+          checkLotOwner();
         })
         .catch((e) => {
           console.log(e);
@@ -510,19 +541,16 @@ const DeceasedTable: React.FC = () => {
     );
   };
 
-  const dateFilterTemplate = (options: {
-    value: Date | Date[] | undefined;
-    filterCallback: (arg0: Date | Date[] | undefined, arg1: any) => void;
-    index: any;
-  }) => {
+  const lotOwnerTemplate = (rowData: IDeceasedData) => {
     return (
-      <Calendar
-        value={options.value}
-        onChange={(e) => options.filterCallback(e.value, options.index)}
-        dateFormat="mm/dd/yy"
-        placeholder="mm/dd/yyyy"
-        mask="99/99/9999"
-      />
+      <div className="actions">
+        <Button
+          icon="pi pi-info"
+          className="p-button-rounded p-button-primary"
+          onClick={() => viewLotOwner(rowData)}
+          tooltip="Open lot owner information"
+        />
+      </div>
     );
   };
 
@@ -608,7 +636,7 @@ const DeceasedTable: React.FC = () => {
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
         <h5 className="m-0">Manage Deceased Information</h5>
 
-        <span className="block mt-2 md:mt-0 p-input-icon-left">
+        {/* <span className="block mt-2 md:mt-0 p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
             type="search"
@@ -623,7 +651,7 @@ const DeceasedTable: React.FC = () => {
             className="p-button-outlined mx-2"
             onClick={clearFilter}
           />
-        </span>
+        </span> */}
       </div>
     );
   };
@@ -760,9 +788,11 @@ const DeceasedTable: React.FC = () => {
           <Column
             field="image"
             header="Image"
+            exportable={false}
             body={imageBodyTemplate}
           ></Column>
           <Column
+            field="birth_date"
             header="Birth Date"
             filterField="birth_date"
             style={{ minWidth: "3rem" }}
@@ -778,16 +808,23 @@ const DeceasedTable: React.FC = () => {
           <Column
             field="block.name"
             header="Grave Block"
-            sortable
+            exportable={false}
             style={{ minWidth: "2rem" }}
             body={graveBlockTemplate}
           ></Column>
           <Column
             field="lot"
             header="Grave Lot"
-            sortable
+            exportable={false}
             style={{ minWidth: "2rem" }}
             body={graveLotTemplate}
+          ></Column>
+          <Column
+            field="openLotOwner"
+            header="Lot Owner"
+            exportable={false}
+            style={{ minWidth: "2rem" }}
+            body={lotOwnerTemplate}
           ></Column>
           <Column
             field="obituary"
@@ -813,6 +850,38 @@ const DeceasedTable: React.FC = () => {
         onHide={hideDialog}
       >
         <p className="whitespace-pre-line">{deceased.obituary}</p>
+      </Dialog>
+
+      <Dialog
+        visible={lotOwnerDialog}
+        style={{ width: "600px" }}
+        header="Lot Owner Details"
+        modal
+        maximizable
+        className="p-fluid"
+        onHide={hideDialog}
+      >
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Owner:</span>{" "}
+          {deceased.grave_plot.lot_owner.first_name}{" "}
+          {deceased.grave_plot.lot_owner.last_name}
+        </p>
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Username:</span>{" "}
+          {deceased.grave_plot.lot_owner.username}
+        </p>
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Contact Number:</span>{" "}
+          {deceased.grave_plot.lot_owner.contact_no}
+        </p>
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Email:</span>{" "}
+          {deceased.grave_plot.lot_owner.email}
+        </p>
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Address:</span>{" "}
+          {deceased.grave_plot.lot_owner.address}
+        </p>
       </Dialog>
 
       <Dialog

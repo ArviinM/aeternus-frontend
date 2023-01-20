@@ -8,7 +8,7 @@ import CemMapModal from "../modal/CemMapModal";
 
 import "../components.css";
 import "./home.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ObituariesModal from "../modal/ObituariesModal";
 
 const Home: React.FC = () => {
@@ -53,33 +53,6 @@ const Home: React.FC = () => {
         )}
         {openCemMapModal && <CemMapModal closeModal={setOpenCemMapModal} />}
         <div className="home-main">
-          <div className="second padding-samp">
-            <button
-              className="padding-samp2 button-main disabled"
-              onClick={() => {
-                setOpenObituariesModal(true);
-              }}
-            >
-              <span className="text-center navigation-media">
-                <img
-                  className="img-main"
-                  src="https://cdn.f1connect.net/media/180358/r/64x0/icon-obituaries.png, https://cdn.f1connect.net/media/180358/icon-obituaries.png"
-                  alt="carousel-pic"
-                />
-              </span>
-              <span className="span-body">
-                <span className="span-title font-primary">
-                  Find an Obituary
-                </span>
-                <span className="span-subtitle font-canela_regular my-2">
-                  Find a loved one, share a memory, send a gift.
-                </span>
-              </span>
-              <span className="text-black text-[130%] right-[max(1rem,min(1.31579vw,2rem))]">
-                &#10095;
-              </span>
-            </button>
-          </div>
           <div className="second padding-samp ">
             {/* <Link to="/cemetery-map"> */}
             <button
@@ -129,6 +102,29 @@ const Home: React.FC = () => {
               </span>
               <span className="text-black text-[130%]">&#10095;</span>
             </button>
+          </div>
+          <div className="second padding-samp">
+            <Link
+              to={"/contact-us"}
+              className="padding-samp2 button-main disabled"
+            >
+              <span className="text-center navigation-media">
+                <img
+                  className="img-main"
+                  src="https://cdn.f1connect.net/media/180358/r/64x0/icon-obituaries.png, https://cdn.f1connect.net/media/180358/icon-obituaries.png"
+                  alt="carousel-pic"
+                />
+              </span>
+              <span className="span-body">
+                <span className="span-title font-primary">Contact Us</span>
+                <span className="span-subtitle font-canela_regular my-2">
+                  Looking for help: burial services, information updates?
+                </span>
+              </span>
+              <span className="text-black text-[130%] right-[max(1rem,min(1.31579vw,2rem))]">
+                &#10095;
+              </span>
+            </Link>
           </div>
         </div>
       </div>
@@ -221,25 +217,25 @@ const items: Item[] = [
   {
     name: "Biñan City Cemetery",
     description: "Welcome to",
-    imgPath: "https://aeternus-api.onrender.com/public/binan-city-5.jpg",
+    imgPath: "http://localhost:5000/public/binan-city-5.jpg",
     subtitle: "A place of peace",
   },
   {
     name: "Helping Families Connect, Honor, Locate, & Remember",
     description: "Aeternus • A Cemetery Mapping and Information System",
-    imgPath: "https://aeternus-api.onrender.com/public/slide-1.jpg",
+    imgPath: "http://localhost:5000/public/slide-1.jpg",
     subtitle: "",
   },
   {
     name: "Guiding Families Locating their Deceased Loved Ones Grave Plot",
     description: "Aeternus • A Cemetery Mapping and Information System",
-    imgPath: "https://aeternus-api.onrender.com/public/slide-2.jpg",
+    imgPath: "http://localhost:5000/public/slide-2.jpg",
     subtitle: "",
   },
   {
     name: "Explore our Cemetery Interactive Map",
     description: "Aeternus • A Cemetery Mapping and Information System",
-    imgPath: "https://aeternus-api.onrender.com/public/map.jpg",
+    imgPath: "http://localhost:5000/public/map.jpg",
     subtitle: "",
   },
 ];

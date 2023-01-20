@@ -55,6 +55,7 @@ const LeafletModal: React.FC = () => {
           southWest: response.data.southWest,
           northEast: response.data.northEast,
           deceased: response.data.deceased,
+          lot_owner: response.data.lot_owner,
         });
         console.log(response.data);
       })

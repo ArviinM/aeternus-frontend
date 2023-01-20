@@ -33,6 +33,15 @@ export default function GraveMarker() {
         obituary: "",
       },
     ],
+    lot_owner: {
+      id: "",
+      first_name: "",
+      last_name: "",
+      username: "",
+      address: "",
+      contact_no: "",
+      email: "",
+    },
   };
 
   const map = useMap();

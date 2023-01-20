@@ -41,6 +41,8 @@ const UserServiceRequestTable: React.FC = () => {
     user: { id: "", username: "" },
     request: { id: "", name: "" },
     graveplot: { id: "", block: { id: "", name: "" }, lot: "" },
+    createdAt: "",
+    updatedAt: "",
   };
 
   const [allUserRequest, setAllUserRequest] = useState<
@@ -69,6 +71,7 @@ const UserServiceRequestTable: React.FC = () => {
   const [allBlocks, setAllBlocks] = useState<Array<any>>([]);
   const [disabled, setDisabled] = useState(true);
   const [selectedService, setSelectedService] = useState<Array<string>>([]);
+  const [selectedGrave, setSelectedGrave] = useState<any>(null);
 
   const service = [
     { name: "Plot Grass Cutting" },
@@ -77,10 +80,10 @@ const UserServiceRequestTable: React.FC = () => {
   ];
 
   const blocks = [
-    { name: "1", id: "634f61364e1560f278e4543f" },
-    { name: "2", id: "634f61364e1560f278e45440" },
-    { name: "3", id: "634f61364e1560f278e45441" },
-    { name: "4", id: "634f61364e1560f278e45442" },
+    { name: "1", id: "63c7ad8efb9fe79294b6287c" },
+    { name: "2", id: "63c7ad8efb9fe79294b6287d" },
+    { name: "3", id: "63c7ad8efb9fe79294b6287e" },
+    { name: "4", id: "63c7ad8efb9fe79294b6287f" },
   ];
 
   const retrieveAllUserServiceRequest = () => {
@@ -140,8 +143,8 @@ const UserServiceRequestTable: React.FC = () => {
       let _userService = {
         service: selectedService,
         user: { id: currentUser.id },
-        request: { id: "63898000f2a77430132ee530" },
-        graveplot: { id: userService.graveplot.id },
+        request: { id: "63c7ad8efb9fe79294b6286c" },
+        graveplot: { id: userService.graveplot },
       };
 
       UserServiceRequest.createUserServiceRequest(_userService)
@@ -165,6 +168,8 @@ const UserServiceRequestTable: React.FC = () => {
         });
       setUserServiceDialog(false);
       setUserService(emptyUserReq);
+      setSelectedGrave(null);
+      setSelectedRequestService([]);
     }
   };
 
@@ -272,33 +277,48 @@ const UserServiceRequestTable: React.FC = () => {
     setGlobalFilterValue(value);
   };
 
-  const onDropDownChange = (e: DropdownChangeParams) => {
+  // const onDropDownChange = (e: DropdownChangeParams) => {
+  //   let _userService = { ...userService };
+
+  //   _userService.graveplot.block["name"] = e.value;
+  //   _userService.graveplot.id = _userService.graveplot.block.name;
+  //   setUserService(_userService);
+  //   console.log(_userService.graveplot.id);
+
+  //   GravePlot.getBlocks(_userService.graveplot.id)
+  //     .then((response: any) => {
+  //       setAllBlocks(response?.data);
+  //       console.log(response?.data);
+  //     })
+  //     .catch((e: Error) => {
+  //       console.log(e);
+  //     });
+
+  //   setDisabled(false);
+  // };
+
+  // const onDropDownChange2 = (e: DropdownChangeParams) => {
+  //   let _userService = { ...userService };
+
+  //   _userService.graveplot.lot = e.value;
+  //   _userService.graveplot.id = _userService.graveplot.lot;
+  //   setUserService(_userService);
+  //   console.log(_userService.graveplot.id);
+  // };
+
+  const onDropDownChange3 = (e: DropdownChangeParams) => {
     let _userService = { ...userService };
 
-    _userService.graveplot.block["name"] = e.value;
-    _userService.graveplot.id = _userService.graveplot.block.name;
+    _userService.graveplot = e.value;
+    setSelectedGrave(e.value);
+
     setUserService(_userService);
-    console.log(_userService.graveplot.id);
+    console.log(_userService);
 
-    GravePlot.getBlocks(_userService.graveplot.id)
-      .then((response: any) => {
-        setAllBlocks(response?.data);
-        console.log(response?.data);
-      })
-      .catch((e: Error) => {
-        console.log(e);
-      });
-
-    setDisabled(false);
-  };
-
-  const onDropDownChange2 = (e: DropdownChangeParams) => {
-    let _userService = { ...userService };
-
-    _userService.graveplot.lot = e.value;
-    _userService.graveplot.id = _userService.graveplot.lot;
-    setUserService(_userService);
-    console.log(_userService.graveplot.id);
+    // _userService.graveplot.lot = e.value;
+    // _userService.graveplot.id = _userService.graveplot.lot;
+    // setUserService(_userService);
+    // console.log(_userService.graveplot.id);
   };
 
   const leftToolbarTemplate = () => {
@@ -326,12 +346,12 @@ const UserServiceRequestTable: React.FC = () => {
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
-        <Button
+        {/* <Button
           label="Export"
           icon="pi pi-upload"
           className="p-button-help"
           onClick={exportCSV}
-        />
+        /> */}
       </React.Fragment>
     );
   };
@@ -365,6 +385,30 @@ const UserServiceRequestTable: React.FC = () => {
     );
   };
 
+  const formatDate = (value: Date) => {
+    return value.toLocaleString();
+  };
+
+  const updateDateTemplate = (rowData: IUserServiceRequest) => {
+    let date = new Date(rowData.updatedAt);
+    return (
+      <>
+        <span className="p-column-title">Updated Date</span>
+        {formatDate(date)}
+      </>
+    );
+  };
+
+  const createdDateTemplate = (rowData: IUserServiceRequest) => {
+    let date = new Date(rowData.createdAt);
+    return (
+      <>
+        <span className="p-column-title">Created Date</span>
+        {formatDate(date)}
+      </>
+    );
+  };
+
   const actionBodyTemplate = (rowData: IUserServiceRequest) => {
     return (
       <div className="actions">
@@ -390,7 +434,7 @@ const UserServiceRequestTable: React.FC = () => {
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
         <h5 className="m-0">Your Recent Service Requests</h5>
 
-        <span className="block mt-2 md:mt-0 p-input-icon-left">
+        {/* <span className="block mt-2 md:mt-0 p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
             type="search"
@@ -405,7 +449,7 @@ const UserServiceRequestTable: React.FC = () => {
             className="p-button-outlined mx-2"
             onClick={clearFilter}
           />
-        </span>
+        </span> */}
       </div>
     );
   };
@@ -516,6 +560,20 @@ const UserServiceRequestTable: React.FC = () => {
             sortable
             style={{ minWidth: "10rem" }}
           ></Column>
+          <Column
+            field="new_updates"
+            header="Date of Service Update"
+            body={updateDateTemplate}
+            sortable
+            style={{ minWidth: "10rem" }}
+          ></Column>
+          <Column
+            field="requested_date"
+            header="Date of Requested Service"
+            body={createdDateTemplate}
+            sortable
+            style={{ minWidth: "10rem" }}
+          ></Column>
 
           <Column
             body={actionBodyTemplate}
@@ -550,6 +608,18 @@ const UserServiceRequestTable: React.FC = () => {
         </div>
 
         <div className="field">
+          <label>Grave Test</label>
+          <Dropdown
+            optionValue={"id"}
+            value={selectedGrave}
+            options={currentUser.grave_name}
+            onChange={onDropDownChange3}
+            placeholder="Select a Grave Plot"
+            optionLabel={"name"}
+          />
+        </div>
+
+        {/* <div className="field">
           <label>Grave Block</label>
 
           <Dropdown
@@ -589,7 +659,7 @@ const UserServiceRequestTable: React.FC = () => {
               optionLabel={"lot"}
             />
           </div>
-        )}
+        )} */}
       </Dialog>
 
       <Dialog

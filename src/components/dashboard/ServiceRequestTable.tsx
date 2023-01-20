@@ -47,6 +47,16 @@ const ServiceRequestTable: React.FC = () => {
     email: "",
     password: "",
     roles: [],
+    grave_block: "",
+    grave_lot: "",
+    grave_plot: {
+      id: "",
+      block: {
+        id: "",
+        name: [],
+      },
+      lot: [],
+    },
   };
 
   let emptyUserReq: IUserServiceRequest = {
@@ -55,6 +65,8 @@ const ServiceRequestTable: React.FC = () => {
     user: { id: "", username: "" },
     request: { id: "", name: "" },
     graveplot: { id: "", block: { id: "", name: "" }, lot: "" },
+    createdAt: "",
+    updatedAt: "",
   };
 
   const [allUserRequest, setAllUserRequest] = useState<
@@ -95,16 +107,16 @@ const ServiceRequestTable: React.FC = () => {
   ];
 
   const blocks = [
-    { name: "1", id: "634f61364e1560f278e4543f" },
-    { name: "2", id: "634f61364e1560f278e45440" },
-    { name: "3", id: "634f61364e1560f278e45441" },
-    { name: "4", id: "634f61364e1560f278e45442" },
+    { name: "1", id: "63c7ad8efb9fe79294b6287c" },
+    { name: "2", id: "63c7ad8efb9fe79294b6287d" },
+    { name: "3", id: "63c7ad8efb9fe79294b6287e" },
+    { name: "4", id: "63c7ad8efb9fe79294b6287f" },
   ];
 
   const request = [
-    { name: "Finished", id: "63898000f2a77430132ee52e" },
-    { name: "Pending", id: "63898000f2a77430132ee530" },
-    { name: "Cancelled", id: "63898000f2a77430132ee52f" },
+    { name: "Finished", id: "63c7ad8efb9fe79294b6286a" },
+    { name: "Pending", id: "63c7ad8efb9fe79294b6286c" },
+    { name: "Denied", id: "63c7ad8efb9fe79294b6286b" },
   ];
 
   // const retrieveAllUserServiceRequest = () => {
@@ -201,7 +213,7 @@ const ServiceRequestTable: React.FC = () => {
         let __userService = {
           service: selectedService,
           user: { id: _userService.id },
-          request: { id: "63898000f2a77430132ee530" },
+          request: { id: "63c7ad8efb9fe79294b6286c" },
           graveplot: { id: _userService.graveplot.id },
         };
 
@@ -406,12 +418,12 @@ const ServiceRequestTable: React.FC = () => {
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
-        <Button
+        {/* <Button
           label="Export"
           icon="pi pi-upload"
           className="p-button-help"
           onClick={exportCSV}
-        />
+        /> */}
       </React.Fragment>
     );
   };
@@ -457,6 +469,30 @@ const ServiceRequestTable: React.FC = () => {
     );
   };
 
+  const formatDate = (value: Date) => {
+    return value.toLocaleString();
+  };
+
+  const updateDateTemplate = (rowData: IUserServiceRequest) => {
+    let date = new Date(rowData.updatedAt);
+    return (
+      <>
+        <span className="p-column-title">Updated Date</span>
+        {formatDate(date)}
+      </>
+    );
+  };
+
+  const createdDateTemplate = (rowData: IUserServiceRequest) => {
+    let date = new Date(rowData.createdAt);
+    return (
+      <>
+        <span className="p-column-title">Created Date</span>
+        {formatDate(date)}
+      </>
+    );
+  };
+
   const actionBodyTemplate = (rowData: IUserServiceRequest) => {
     return (
       <div className="actions">
@@ -482,7 +518,7 @@ const ServiceRequestTable: React.FC = () => {
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
         <h5 className="m-0">Your Recent Service Requests</h5>
 
-        <span className="block mt-2 md:mt-0 p-input-icon-left">
+        {/* <span className="block mt-2 md:mt-0 p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
             type="search"
@@ -497,7 +533,7 @@ const ServiceRequestTable: React.FC = () => {
             className="p-button-outlined mx-2"
             onClick={clearFilter}
           />
-        </span>
+        </span> */}
       </div>
     );
   };
@@ -631,6 +667,20 @@ const ServiceRequestTable: React.FC = () => {
             field="request"
             header="Request Status"
             body={requestBodyTemplate}
+            sortable
+            style={{ minWidth: "10rem" }}
+          ></Column>
+          <Column
+            field="new_updates"
+            header="Date of Service Update"
+            body={updateDateTemplate}
+            sortable
+            style={{ minWidth: "10rem" }}
+          ></Column>
+          <Column
+            field="requested_date"
+            header="Date of Requested Service"
+            body={createdDateTemplate}
             sortable
             style={{ minWidth: "10rem" }}
           ></Column>

@@ -44,7 +44,7 @@
 }
 
 .bg-image {
-  background-image: url(https://aeternus-api.onrender.com/public/grave-carousel.jpg);
+  background-image: url(http://localhost:5000/public/grave-carousel.jpg);
 }
 
 .back-to-home {
@@ -186,7 +186,7 @@
 }
 
 .steps--odd {
-  flex: 0 0 33.3333%;
+  flex: 0 0 100%;
   max-width: none;
 }
 

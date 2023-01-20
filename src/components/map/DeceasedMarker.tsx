@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/anchor-has-content */
-import { LatLngBounds } from "leaflet";
+import L, { LatLngBounds } from "leaflet";
 import React, { useEffect, useState } from "react";
 import { Popup, Rectangle, useMap } from "react-leaflet";
 import Control from "react-leaflet-custom-control";
@@ -40,6 +40,15 @@ export default function DeceasedMarker() {
         obituary: "",
       },
     ],
+    lot_owner: {
+      id: "",
+      first_name: "",
+      last_name: "",
+      username: "",
+      address: "",
+      contact_no: "",
+      email: "",
+    },
   };
 
   const map = useMap();
@@ -261,6 +270,56 @@ export default function DeceasedMarker() {
             }}
           >
             <HomeIcon />
+          </Button>
+        </ButtonGroup>
+      </Control>
+
+      <Control position={"bottomleft"}>
+        <ButtonGroup orientation="horizontal" variant="contained">
+          <Button
+            style={{
+              maxWidth: "90px",
+              maxHeight: "30px",
+              minWidth: "90px",
+              minHeight: "30px",
+            }}
+            sx={{ background: "green" }}
+            onClick={() => {
+              map.flyToBounds(center);
+            }}
+            disableElevation={true}
+          >
+            Available
+          </Button>
+          <Button
+            style={{
+              maxWidth: "90px",
+              maxHeight: "30px",
+              minWidth: "90px",
+              minHeight: "30px",
+            }}
+            sx={{ background: "blue" }}
+            onClick={() => {
+              map.flyToBounds(center);
+            }}
+            disableElevation={true}
+          >
+            Occupied
+          </Button>
+          <Button
+            style={{
+              maxWidth: "90px",
+              maxHeight: "30px",
+              minWidth: "90px",
+              minHeight: "30px",
+            }}
+            sx={{ background: "black" }}
+            onClick={() => {
+              map.flyToBounds(center);
+            }}
+            disableElevation={true}
+          >
+            Reserved
           </Button>
         </ButtonGroup>
       </Control>

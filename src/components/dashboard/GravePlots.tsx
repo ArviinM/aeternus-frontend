@@ -51,6 +51,15 @@ const GravePlots: React.FC = () => {
         obituary: "",
       },
     ],
+    lot_owner: {
+      id: "63c7afb7fb9fe79294b6288c",
+      first_name: "",
+      last_name: "",
+      username: "",
+      address: "",
+      contact_no: "",
+      email: "",
+    },
   };
 
   const [allGravePlots, setAllGravePlots] = useState<Array<IGravePlotData>>([]);
@@ -58,6 +67,7 @@ const GravePlots: React.FC = () => {
   const [gravePlot, setGravePlot] = useState<IGravePlotData>(emptyGravePlot);
   const [graveMapDialog, setGraveMapDialog] = useState(false);
   const [gravePlotDialog, setGravePlotDialog] = useState(false);
+  const [lotOwnerDialog, setLotOwnerDialog] = useState(false);
 
   const [deceasedProfileDialog, setDeceasedProfileDialog] = useState(false);
 
@@ -84,9 +94,9 @@ const GravePlots: React.FC = () => {
   const [showGraveMap2, setShowGraveMap2] = useState(false);
 
   const statuses = [
-    { name: "Available", id: "6363f91e750f685635b02904" },
-    { name: "Reserved", id: "6363f91e750f685635b02905" },
-    { name: "Occupied", id: "6363f91e750f685635b02906" },
+    { name: "Available", id: "63c7ad8efb9fe79294b62884" },
+    { name: "Reserved", id: "63c7ad8efb9fe79294b62885" },
+    { name: "Occupied", id: "63c7ad8efb9fe79294b62886" },
   ];
 
   const retrieveAllGravePlots = () => {
@@ -100,10 +110,10 @@ const GravePlots: React.FC = () => {
   };
 
   const blocks = [
-    { name: "1", id: "634f61364e1560f278e4543f" },
-    { name: "2", id: "634f61364e1560f278e45440" },
-    { name: "3", id: "634f61364e1560f278e45441" },
-    { name: "4", id: "634f61364e1560f278e45442" },
+    { name: "1", id: "63c7ad8efb9fe79294b6287c" },
+    { name: "2", id: "63c7ad8efb9fe79294b6287d" },
+    { name: "3", id: "63c7ad8efb9fe79294b6287e" },
+    { name: "4", id: "63c7ad8efb9fe79294b6287f" },
   ];
 
   useEffect(() => {
@@ -123,6 +133,7 @@ const GravePlots: React.FC = () => {
     setGravePlotDialog(false);
     setGraveMapDialog(false);
     setDeceasedProfileDialog(false);
+    setLotOwnerDialog(false);
   };
 
   const hideDeleteDeceasedDialog = () => {
@@ -240,6 +251,11 @@ const GravePlots: React.FC = () => {
   const viewGravePlotLocation = (graveplot: IGravePlotData) => {
     setGravePlot({ ...graveplot });
     setGraveMapDialog(true);
+  };
+
+  const viewLotOwner = (graveplot: IGravePlotData) => {
+    setGravePlot({ ...graveplot });
+    setLotOwnerDialog(true);
   };
 
   const confirmDeleteGravePlot = (graveplot: IGravePlotData) => {
@@ -411,12 +427,12 @@ const GravePlots: React.FC = () => {
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
-        <Button
+        {/* <Button
           label="Export"
           icon="pi pi-upload"
           className="p-button-help"
           onClick={exportCSV}
-        />
+        /> */}
       </React.Fragment>
     );
   };
@@ -460,6 +476,19 @@ const GravePlots: React.FC = () => {
     );
   };
 
+  const lotOwnerTemplate = (rowData: IGravePlotData) => {
+    return (
+      <div className="actions">
+        <Button
+          icon="pi pi-info"
+          className="p-button-rounded p-button-primary"
+          onClick={() => viewLotOwner(rowData)}
+          tooltip="Open lot owner information"
+        />
+      </div>
+    );
+  };
+
   const actionBodyTemplate = (rowData: IGravePlotData) => {
     return (
       <div className="actions">
@@ -491,7 +520,7 @@ const GravePlots: React.FC = () => {
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
         <h5 className="m-0">Manage Grave Plots</h5>
 
-        <span className="block mt-2 md:mt-0 p-input-icon-left">
+        {/* <span className="block mt-2 md:mt-0 p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
             type="search"
@@ -506,7 +535,7 @@ const GravePlots: React.FC = () => {
             className="p-button-outlined mx-2"
             onClick={clearFilter}
           />
-        </span>
+        </span> */}
       </div>
     );
   };
@@ -600,21 +629,18 @@ const GravePlots: React.FC = () => {
             field="block"
             header="Block"
             body={blockTemplate}
-            sortable
             style={{ minWidth: "6rem" }}
           ></Column>
           <Column
             field="lot"
             header="Lot"
             body={lotTemplate}
-            sortable
             style={{ minWidth: "6rem" }}
           ></Column>
           <Column
             field="status"
             header="Status"
             body={statusBodyTemplate}
-            sortable
             style={{ minWidth: "6rem" }}
           ></Column>
           <Column
@@ -622,6 +648,12 @@ const GravePlots: React.FC = () => {
             header="Open Lot"
             style={{ minWidth: "5rem" }}
             body={openMapTemplate}
+          ></Column>
+          <Column
+            field="openLotOwner"
+            header="Open Lot Owner"
+            style={{ minWidth: "2rem" }}
+            body={lotOwnerTemplate}
           ></Column>
           <Column
             body={actionBodyTemplate}
@@ -705,6 +737,36 @@ const GravePlots: React.FC = () => {
           southWest={[setSouthWest1, setSouthWest2]}
           northEast={[setNorthEast1, setNorthEast2]}
         />
+      </Dialog>
+
+      <Dialog
+        visible={lotOwnerDialog}
+        style={{ width: "600px" }}
+        header="Lot Owner Details"
+        modal
+        maximizable
+        className="p-fluid"
+        onHide={hideDialog}
+      >
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Owner:</span>{" "}
+          {gravePlot.lot_owner.first_name} {gravePlot.lot_owner.last_name}
+        </p>
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Username:</span>{" "}
+          {gravePlot.lot_owner.username}
+        </p>
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Contact Number:</span>{" "}
+          {gravePlot.lot_owner.contact_no}
+        </p>
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Email:</span> {gravePlot.lot_owner.email}
+        </p>
+        <p className="whitespace-pre-line">
+          <span className="font-bold">Address:</span>{" "}
+          {gravePlot.lot_owner.address}
+        </p>
       </Dialog>
 
       <Dialog

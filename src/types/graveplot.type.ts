@@ -17,4 +17,13 @@ export default interface IGravePlotData {
       obituary: string;
     }
   ];
+  lot_owner: {
+    id?: any | null;
+    first_name: string;
+    last_name: string;
+    username: string;
+    contact_no: string;
+    address: string;
+    email: string;
+  };
 }

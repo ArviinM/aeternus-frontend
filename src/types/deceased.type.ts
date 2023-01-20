@@ -14,5 +14,14 @@ export default interface IDeceasedData {
     status: { id: string; name: string };
     southWest: [any, any];
     northEast: [any, any];
+    lot_owner: {
+      id?: any | null;
+      first_name: string;
+      last_name: string;
+      username: string;
+      contact_no: string;
+      address: string;
+      email: string;
+    };
   };
 }

@@ -36,7 +36,7 @@ const HomeServices: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="steps_step steps--odd">
+            {/* <div className="steps_step steps--odd">
               <div className="">
                 <img
                   className="steps__step__img aspect-square w-[max(5rem,min(10.41667vw,12rem))]"
@@ -92,7 +92,7 @@ const HomeServices: React.FC = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -93,7 +93,7 @@ const MenuItems = ({ showMenu, active }: { showMenu: any; active: any }) => {
           <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gray-50 transition-all group-hover:w-full"></span>
         </NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink
           to="/register"
           className={({ isActive }) =>
@@ -106,7 +106,7 @@ const MenuItems = ({ showMenu, active }: { showMenu: any; active: any }) => {
           Register
           <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gray-50 transition-all group-hover:w-full"></span>
         </NavLink>
-      </li>
+      </li> */}
     </ul>
   );
 };

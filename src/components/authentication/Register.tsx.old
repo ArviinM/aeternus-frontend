@@ -7,6 +7,7 @@ import { TabTitle } from "../../utils/GenerateFunctions";
 import { Toast } from "primereact/toast";
 import { string } from "yup/lib/locale";
 
+//@ts-ignore
 const Register: React.FC = () => {
   TabTitle("Aeternus – Register");
   let navigate = useNavigate();
@@ -57,6 +58,11 @@ const Register: React.FC = () => {
     contact_no: string;
     email: string;
     password: string;
+    grave_plot: {
+      id: string;
+      block: { id: string; name: string };
+      lot: string;
+    };
   }) => {
     const data = formValue;
 
@@ -100,12 +106,12 @@ const Register: React.FC = () => {
       <div className="hidden lg:block relative flex-1 w-2/5">
         <img
           className="absolute inset-0 h-full w-full object-cover brightness-50"
-          src="https://aeternus-api.onrender.com/public/register-bg.jpg"
+          src="http://localhost:5000/public/register-bg.jpg"
           alt="logo-bg"
         />
 
         <div className="h-3/6">
-          <a href="https://aeternus-frontend.onrender.com/">
+          <a href="http://localhost:3000/">
             <img
               className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
               src="aeternus-logo-dark-circle.png"
@@ -137,6 +143,7 @@ const Register: React.FC = () => {
               Sign up by entering the information below
             </h2>
           </div>
+
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}

@@ -27,6 +27,16 @@ const DashboardUserProfile: React.FC = () => {
     password: "",
     newPassword: "",
     roles: [],
+    grave_block: "",
+    grave_lot: "",
+    grave_plot: {
+      id: "",
+      block: {
+        id: "",
+        name: [],
+      },
+      lot: [],
+    },
   };
 
   const currentUser = getCurrentUser();

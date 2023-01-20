@@ -130,7 +130,7 @@ const Navbar: React.FC = () => {
               </NavLink>
               {currentUser && (
                 <NavLink
-                  to={"/dashboard/home"}
+                  to={"/dashboard/profile"}
                   className={({ isActive }) =>
                     isActive
                       ? "text-white mx-1 lg:mx-1 xl:mx-4 relative group underline underline-offset-[9px] decoration-white"
@@ -147,7 +147,7 @@ const Navbar: React.FC = () => {
               {currentUser ? (
                 <div className=" items-center text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide">
                   <Link
-                    to={"/dashboard/home"}
+                    to={"/dashboard/profile"}
                     className="px-1 md:px-4 py-3 mx-1 lg:mx-1 xl:mx-4 text-gray-300 text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide relative group"
                   >
                     Hello, {currentUser.username}!
@@ -165,17 +165,17 @@ const Navbar: React.FC = () => {
                 <div className=" items-center uppercase ">
                   <Link
                     to={"/login"}
-                    className="px-1 md:px-4 py-3 mx-1 lg:mx-1 xl:mx-4 text-gray-300 text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide relative group"
+                    className="bg-[#ffc500] hover:bg-[#e0ad02]  px-4 md:px-10 py-3 mx-1 lg:mx-1 xl:mx-4 text-white text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide"
                   >
                     Sign In
                     <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gray-50 transition-all group-hover:w-full"></span>
                   </Link>
-                  <Link
+                  {/* <Link
                     to={"/register"}
                     className="bg-[#ffc500] hover:bg-[#e0ad02]  px-4 md:px-10 py-3 mx-1 lg:mx-1 xl:mx-4 text-white text-[max(0.7rem,min(1.44737vw,0.9rem))] tracking-wide"
                   >
                     Sign Up
-                  </Link>
+                  </Link> */}
                 </div>
               )}
             </div>

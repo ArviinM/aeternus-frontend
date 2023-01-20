@@ -23,16 +23,16 @@ const DashboardTopBar: React.FC<AppTopbarProps> = (props: AppTopbarProps) => {
         <img
           src={
             props.layoutColorMode === "light"
-              ? "https://aeternus-api.onrender.com/public/logo/aeternus-logo-big-transparent.png"
-              : "https://aeternus-api.onrender.com/public/logo/aeternus-logo-big-transparent.png"
+              ? "http://localhost:5000/public/logo/aeternus-logo-big-transparent.png"
+              : "http://localhost:5000/public/logo/aeternus-logo-big-transparent.png"
           }
           alt="logo"
         />
         <img
           src={
             props.layoutColorMode === "light"
-              ? "https://aeternus-api.onrender.com/public/logo/aeternus-text-logo-dark.png"
-              : "https://aeternus-api.onrender.com/public/logo/aeternus-text-logo-dark.png"
+              ? "http://localhost:5000/public/logo/aeternus-text-logo-dark.png"
+              : "http://localhost:5000/public/logo/aeternus-text-logo-dark.png"
           }
           alt="logo"
         />

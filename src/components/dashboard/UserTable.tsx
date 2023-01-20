@@ -10,6 +10,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Dropdown, DropdownChangeParams } from "primereact/dropdown";
 import { MultiSelect, MultiSelectChangeParams } from "primereact/multiselect";
+import GravePlot from "../../services/graveplot.service";
 
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -42,13 +43,29 @@ const UserTable: React.FC = () => {
     email: "",
     password: "",
     roles: [],
+    grave_block: "",
+    grave_lot: "",
+    grave_plot: {
+      id: "",
+      block: {
+        id: "",
+        name: [],
+      },
+      lot: [],
+    },
   };
 
   const [allUsers, setAllUsers] = useState<Array<IUser>>([]);
 
+  const [allGravePlots, setAllGravePlots] = useState<Array<IGravePlotData>>([]);
+  const [allBlocks, setAllBlocks] = useState<Array<any>>([]);
+
   const [user, setUser] = useState<IUser>(emptyUser);
+  const [user2, setUser2] = useState<IUser>(emptyUser);
   const [userDialog, setUserDialog] = useState(false);
   const [pwDialog, setPwDialog] = useState(false);
+
+  const [addLotDialog, setAddLotDialog] = useState(false);
 
   const [deleteUserDialog, setDeleteUserDialog] = useState(false);
   const [deleteSelectedUserDialog, setSelectedUserDialog] = useState(false);
@@ -60,6 +77,9 @@ const UserTable: React.FC = () => {
   const [filters, setFilters] = useState<IFilter | null>(null);
   const toast = useRef<any>(null);
   const dt = useRef<any>(null);
+  const [disabled, setDisabled] = useState(true);
+
+  const [lotOwned, setLotOwnedDialog] = useState(false);
 
   const [selectedRole, setSelectedRole] = useState<Array<string> | undefined>(
     []
@@ -69,6 +89,13 @@ const UserTable: React.FC = () => {
     { name: "admin", role: "ROLE_ADMIN" },
     { name: "user", role: "ROLE_USER" },
     { name: "moderator", role: "ROLE_MODERATOR" },
+  ];
+
+  const blocks = [
+    { name: "1", id: "63c7ad8efb9fe79294b6287c" },
+    { name: "2", id: "63c7ad8efb9fe79294b6287d" },
+    { name: "3", id: "63c7ad8efb9fe79294b6287e" },
+    { name: "4", id: "63c7ad8efb9fe79294b6287f" },
   ];
 
   const retrieveAllUsers = () => {
@@ -81,9 +108,31 @@ const UserTable: React.FC = () => {
       });
   };
 
+  const checkLotOwner = () => {
+    GravePlot.checkLotOwnerReserved()
+      .then((response: any) => {
+        //setAllGravePlots(response?.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveAllGravePlots = () => {
+    GravePlot.getAll()
+      .then((response: any) => {
+        setAllGravePlots(response?.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     retrieveAllUsers();
+    retrieveAllGravePlots();
     initFilters();
+    checkLotOwner();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const openNew = () => {
@@ -97,6 +146,8 @@ const UserTable: React.FC = () => {
     setUser(emptyUser);
     setSelectedRole([]);
     setPwDialog(false);
+    setAddLotDialog(false);
+    setLotOwnedDialog(false);
   };
 
   const hideDeleteUserDialog = () => {
@@ -108,8 +159,6 @@ const UserTable: React.FC = () => {
   };
 
   const saveUser = () => {
-    setSubmitted(true);
-
     if (user.first_name.trim() && user.last_name.trim()) {
       let _user = { ...user };
       _user.roles = selectedRole;
@@ -124,6 +173,7 @@ const UserTable: React.FC = () => {
               life: 3000,
             });
             retrieveAllUsers();
+            checkLotOwner();
             console.log(_user);
           })
           .catch((e) => {
@@ -136,6 +186,7 @@ const UserTable: React.FC = () => {
               life: 3000,
             });
           });
+        setSubmitted(true);
         setUserDialog(false);
         setUser(emptyUser);
       } else {
@@ -148,6 +199,7 @@ const UserTable: React.FC = () => {
               life: 3000,
             });
             retrieveAllUsers();
+            checkLotOwner();
           })
           .catch((e) => {
             console.log(e);
@@ -158,10 +210,12 @@ const UserTable: React.FC = () => {
               life: 5000,
             });
           });
+        setSubmitted(true);
         setUserDialog(false);
         setUser(emptyUser);
       }
     }
+    setSubmitted(true);
   };
 
   const saveUserPW = () => {
@@ -178,6 +232,7 @@ const UserTable: React.FC = () => {
             life: 3000,
           });
           retrieveAllUsers();
+          checkLotOwner();
           console.log(_user);
         })
         .catch((e) => {
@@ -196,6 +251,40 @@ const UserTable: React.FC = () => {
     setUser(emptyUser);
   };
 
+  const addLotOwned = () => {
+    setSubmitted(true);
+    let _user = { ...user };
+    console.log(_user.id);
+    console.log(_user.grave_plot);
+
+    if (_user.id) {
+      UserService.addLotOwned(_user.id, _user.grave_plot.id)
+        .then((response) => {
+          toast.current.show({
+            severity: "success",
+            summary: "Successful",
+            detail: "New Lot Added Successfully",
+            life: 3000,
+          });
+          retrieveAllUsers();
+          checkLotOwner();
+          console.log(_user);
+        })
+        .catch((e) => {
+          console.log(e);
+          toast.current.show({
+            severity: "error",
+            summary: "Error!",
+            detail: "There is an error adding a lot. " + e.message,
+            life: 3000,
+          });
+        });
+    }
+
+    setAddLotDialog(false);
+    setUser(emptyUser);
+  };
+
   const editUser = (user: IUser) => {
     setSelectedRole(user.roles);
     setUser({ ...user });
@@ -205,6 +294,18 @@ const UserTable: React.FC = () => {
   const editPassword = (user: IUser) => {
     setUser({ ...user });
     setPwDialog(true);
+  };
+
+  const addLot = (user: IUser) => {
+    setUser({ ...user });
+    console.log({ ...user });
+    setAddLotDialog(true);
+  };
+
+  const viewLotOwned = (user: IUser) => {
+    setUser({ ...user });
+
+    setLotOwnedDialog(true);
   };
 
   const confirmDeleteUser = (user: IUser) => {
@@ -228,6 +329,7 @@ const UserTable: React.FC = () => {
             life: 3000,
           });
           retrieveAllUsers();
+          checkLotOwner();
         })
         .catch((e) => {
           console.log(e);
@@ -320,6 +422,36 @@ const UserTable: React.FC = () => {
     setUser(_user);
   };
 
+  const onDropDownChange = (e: DropdownChangeParams) => {
+    let _user = { ...user };
+
+    console.log(_user);
+
+    _user.grave_plot.block["name"] = e.value;
+    _user.grave_plot.id = _user.grave_plot.block.name;
+    setUser(_user);
+    console.log(_user.grave_plot.id);
+
+    GravePlot.getBlocks(_user.grave_plot.id)
+      .then((response: any) => {
+        setAllBlocks(response?.data);
+        console.log(response?.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+
+    setDisabled(false);
+  };
+
+  const onDropDownChange2 = (e: DropdownChangeParams) => {
+    let _user = { ...user };
+
+    _user.grave_plot.lot = e.value;
+    _user.grave_plot.id = _user.grave_plot.lot;
+    setUser(_user);
+  };
+
   const leftToolbarTemplate = () => {
     return (
       <React.Fragment>
@@ -352,6 +484,19 @@ const UserTable: React.FC = () => {
           onClick={exportCSV}
         />
       </React.Fragment>
+    );
+  };
+
+  const lotOwnedTemplate = (rowData: IUser) => {
+    return (
+      <div className="actions">
+        <Button
+          icon="pi pi-info"
+          className="p-button-rounded p-button-primary"
+          onClick={() => viewLotOwned(rowData)}
+          tooltip="Open lot owned information"
+        />
+      </div>
     );
   };
 
@@ -423,28 +568,70 @@ const UserTable: React.FC = () => {
       </>
     );
   };
+  const graveBodyTemplate = (rowData: IUser) => {
+    return (
+      <>
+        <span className="p-column-title">Owned Grave</span>
+        {/* {rowData.grave_plot.block.name &&
+          rowData.grave_plot.block.name.map((block: string) => {
+            return (
+              <div>
+                Block {block}
+                {rowData.grave_plot.lot.map((lot: string) => {
+                  return <div>Lot {lot}</div>;
+                })}
+              </div>
+            );
+          })} */}
+      </>
+    );
+  };
+
+  // const Grave_Template = () => {
+  //   return (
+  //     <>
+  //       {user.grave_plot.block.name &&
+  //         user.grave_plot.block.name.map((block: string) => {
+  //           return (
+  //             <p>
+  //               Block {block}
+  //               {user.grave_plot.lot.map((lot: string) => {
+  //                 return <p>Lot {lot}</p>;
+  //               })}
+  //             </p>
+  //           );
+  //         })}
+  //     </>
+  //   );
+  // };
 
   const actionBodyTemplate = (rowData: IUser) => {
     return (
       <div className="actions">
         <Button
+          icon="pi pi-plus"
+          className="p-button-rounded p-button-info mr-2 my-2"
+          onClick={() => addLot(rowData)}
+          placeholder="Top"
+          tooltip="Add Lot Owned"
+        />
+        <Button
           icon="pi pi-user-edit"
-          className="p-button-rounded p-button-success mr-2"
+          className="p-button-rounded p-button-success mr-2 my-2"
           onClick={() => editUser(rowData)}
           placeholder="Top"
           tooltip="Edit user information"
         />
-
         <Button
           icon="pi pi-key"
-          className="p-button-rounded p-button-danger mr-2"
+          className="p-button-rounded p-button-danger mr-2 my-2"
           onClick={() => editPassword(rowData)}
           placeholder="Top"
           tooltip="Edit password"
         />
         <Button
           icon="pi pi-trash"
-          className="p-button-rounded p-button-warning"
+          className="p-button-rounded p-button-warning mr-2 my-2"
           onClick={() => confirmDeleteUser(rowData)}
         />
       </div>
@@ -456,7 +643,7 @@ const UserTable: React.FC = () => {
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
         <h5 className="m-0">Manage Registered Users</h5>
 
-        <span className="block mt-2 md:mt-0 p-input-icon-left">
+        {/* <span className="block mt-2 md:mt-0 p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
             type="search"
@@ -471,7 +658,7 @@ const UserTable: React.FC = () => {
             className="p-button-outlined mx-2"
             onClick={clearFilter}
           />
-        </span>
+        </span> */}
       </div>
     );
   };
@@ -506,6 +693,23 @@ const UserTable: React.FC = () => {
         icon="pi pi-check"
         className="p-button-text"
         onClick={saveUserPW}
+      />
+    </>
+  );
+
+  const addLotOwnedFooter = (
+    <>
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={addLotOwned}
       />
     </>
   );
@@ -634,8 +838,20 @@ const UserTable: React.FC = () => {
             field="roles"
             header="Roles"
             body={rolesBodyTemplate}
+            style={{ minWidth: "12rem" }}
+          ></Column>
+          {/* <Column
+            field="grave"
+            header="Grave Owned"
+            body={graveBodyTemplate}
             sortable
             style={{ minWidth: "12rem" }}
+          ></Column> */}
+          <Column
+            field="openLotOwned"
+            header="Open Lot Owned"
+            style={{ minWidth: "2rem" }}
+            body={lotOwnedTemplate}
           ></Column>
           <Column
             body={actionBodyTemplate}
@@ -787,6 +1003,58 @@ const UserTable: React.FC = () => {
             display="chip"
           />
         </div>
+        <div className="field">
+          <label>Grave Block</label>
+
+          <Dropdown
+            optionValue={"id"}
+            value={user.grave_block || user.grave_plot.block.name}
+            options={blocks}
+            onChange={onDropDownChange}
+            placeholder="Select a Grave Plot"
+            optionLabel={"name"}
+            required
+            className={classNames({
+              "p-invalid": submitted || !user.grave_plot.block.name,
+            })}
+          />
+        </div>
+        {disabled ? (
+          <div className="field">
+            <label>Grave Lot</label>
+
+            <Dropdown
+              optionValue={"id"}
+              value={user.grave_lot || user.grave_plot.lot}
+              options={allBlocks}
+              onChange={onDropDownChange2}
+              placeholder="Select a Grave Plot"
+              optionLabel={"lot"}
+              disabled={true}
+              required
+              className={classNames({
+                "p-invalid": submitted && !user.grave_plot.lot,
+              })}
+            />
+          </div>
+        ) : (
+          <div className="field">
+            <label>Grave Lot</label>
+
+            <Dropdown
+              optionValue={"id"}
+              value={user.grave_lot || user.grave_plot.lot}
+              options={allBlocks}
+              onChange={onDropDownChange2}
+              placeholder="Select a Grave Plot"
+              optionLabel={"lot"}
+              required
+              className={classNames({
+                "p-invalid": submitted && !user.grave_plot.lot,
+              })}
+            />
+          </div>
+        )}
       </Dialog>
 
       <Dialog
@@ -816,6 +1084,84 @@ const UserTable: React.FC = () => {
           )}
         </div>
       </Dialog>
+
+      <Dialog
+        visible={addLotDialog}
+        style={{ width: "450px" }}
+        header="Add Grave Lot Owned"
+        modal
+        maximizable
+        className="p-fluid"
+        footer={addLotOwnedFooter}
+        onHide={hideDialog}
+      >
+        <div className="field">
+          <label>Grave Block</label>
+
+          <Dropdown
+            optionValue={"id"}
+            value={user.grave_block || user.grave_plot.block.name}
+            options={blocks}
+            onChange={onDropDownChange}
+            placeholder="Select a Grave Plot"
+            optionLabel={"name"}
+            required
+            className={classNames({
+              "p-invalid": submitted && !user.grave_block,
+            })}
+          />
+        </div>
+        {disabled ? (
+          <div className="field">
+            <label>Grave Lot</label>
+
+            <Dropdown
+              optionValue={"id"}
+              value={user.grave_lot || user.grave_plot.lot}
+              options={allBlocks}
+              onChange={onDropDownChange2}
+              placeholder="Select a Grave Plot"
+              optionLabel={"lot"}
+              disabled={true}
+              required
+              className={classNames({
+                "p-invalid": submitted && !user.grave_lot,
+              })}
+            />
+          </div>
+        ) : (
+          <div className="field">
+            <label>Grave Lot</label>
+
+            <Dropdown
+              optionValue={"id"}
+              value={user.grave_lot || user.grave_plot.lot}
+              options={allBlocks}
+              onChange={onDropDownChange2}
+              placeholder="Select a Grave Plot"
+              optionLabel={"lot"}
+              required
+              className={classNames({
+                "p-invalid": submitted && !user.grave_lot,
+              })}
+            />
+          </div>
+        )}
+      </Dialog>
+
+      {/* <Dialog
+        visible={lotOwned}
+        style={{ width: "600px" }}
+        header="Lot Owned Details"
+        modal
+        maximizable
+        className="p-fluid"
+        onHide={hideDialog}
+      >
+        <>
+          <Grave_Template />
+        </>
+      </Dialog> */}
 
       <Dialog
         visible={deleteUserDialog}

@@ -235,7 +235,7 @@ const DashboardMain: React.FC = () => {
           icon: "pi pi-fw pi-sign-out",
           command: () => {
             logOut();
-            window.location.href = "https://aeternus-frontend.onrender.com/";
+            window.location.href = "http://localhost:3000/";
           },
         },
       ],
@@ -266,7 +266,7 @@ const DashboardMain: React.FC = () => {
           icon: "pi pi-fw pi-sign-out",
           command: () => {
             logOut();
-            window.location.href = "https://aeternus-frontend.onrender.com/";
+            window.location.href = "http://localhost:3000/";
           },
         },
       ],

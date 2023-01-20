@@ -10,7 +10,7 @@ import Footer from "./components/navigation/Footer";
 import NotFound from "./components/authentication/NotFound";
 import PrivateRoute from "./components/authentication/PrivateRoute";
 import Login from "./components/authentication/Login";
-import Register from "./components/authentication/Register";
+//import Register from "./components/authentication/Register";
 import CemeteryMap from "./components/pages/CemeteryMap";
 import PasswordReset from "./components/authentication/PasswordReset";
 import ChangePassword from "./components/authentication/ChangePassword";
@@ -39,7 +39,7 @@ const App: React.FC = () => {
           <Route path="/about-us" element={<AboutUs />} />
         </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {/* <Route path="/register" element={<Register />} /> */}
         <Route path="/password-reset" element={<PasswordReset />} />
         <Route
           path="/forgot-password/:id/:token"
