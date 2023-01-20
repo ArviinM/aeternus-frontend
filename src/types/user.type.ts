@@ -9,7 +9,13 @@ export default interface IUser {
   password: string;
   newPassword?: string;
   roles?: Array<string>;
-  grave_name?: Array<string>;
+  grave_name?: [];
+  grave_plot2?: [
+    {
+      id?: any | null;
+      name: string;
+    }
+  ];
   grave_block?: string;
   grave_lot?: string;
   grave_plot: {

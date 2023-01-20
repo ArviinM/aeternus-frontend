@@ -213,10 +213,6 @@ const UserServiceRequestTable: React.FC = () => {
     setUserService(emptyUserReq);
   };
 
-  const exportCSV = () => {
-    dt.current.exportCSV();
-  };
-
   const confirmDeleteSelected = () => {
     setSelectedUserDialog(true);
   };
@@ -264,48 +260,6 @@ const UserServiceRequestTable: React.FC = () => {
     setGlobalFilterValue("");
   };
 
-  const clearFilter = () => {
-    initFilters();
-  };
-
-  const onGlobalFilterChange = (e: any) => {
-    const value = e.target.value;
-    let _filters = { ...filters };
-    _filters["global"].value = value;
-
-    setFilters(_filters);
-    setGlobalFilterValue(value);
-  };
-
-  // const onDropDownChange = (e: DropdownChangeParams) => {
-  //   let _userService = { ...userService };
-
-  //   _userService.graveplot.block["name"] = e.value;
-  //   _userService.graveplot.id = _userService.graveplot.block.name;
-  //   setUserService(_userService);
-  //   console.log(_userService.graveplot.id);
-
-  //   GravePlot.getBlocks(_userService.graveplot.id)
-  //     .then((response: any) => {
-  //       setAllBlocks(response?.data);
-  //       console.log(response?.data);
-  //     })
-  //     .catch((e: Error) => {
-  //       console.log(e);
-  //     });
-
-  //   setDisabled(false);
-  // };
-
-  // const onDropDownChange2 = (e: DropdownChangeParams) => {
-  //   let _userService = { ...userService };
-
-  //   _userService.graveplot.lot = e.value;
-  //   _userService.graveplot.id = _userService.graveplot.lot;
-  //   setUserService(_userService);
-  //   console.log(_userService.graveplot.id);
-  // };
-
   const onDropDownChange3 = (e: DropdownChangeParams) => {
     let _userService = { ...userService };
 
@@ -314,11 +268,6 @@ const UserServiceRequestTable: React.FC = () => {
 
     setUserService(_userService);
     console.log(_userService);
-
-    // _userService.graveplot.lot = e.value;
-    // _userService.graveplot.id = _userService.graveplot.lot;
-    // setUserService(_userService);
-    // console.log(_userService.graveplot.id);
   };
 
   const leftToolbarTemplate = () => {
@@ -608,7 +557,7 @@ const UserServiceRequestTable: React.FC = () => {
         </div>
 
         <div className="field">
-          <label>Grave Test</label>
+          <label>Owned Grave</label>
           <Dropdown
             optionValue={"id"}
             value={selectedGrave}

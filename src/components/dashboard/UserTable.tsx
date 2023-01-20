@@ -44,6 +44,12 @@ const UserTable: React.FC = () => {
     password: "",
     roles: [],
     grave_name: [],
+    grave_plot2: [
+      {
+        id: "",
+        name: "",
+      },
+    ],
     grave_block: "",
     grave_lot: "",
     grave_plot: {
@@ -67,6 +73,7 @@ const UserTable: React.FC = () => {
   const [pwDialog, setPwDialog] = useState(false);
 
   const [addLotDialog, setAddLotDialog] = useState(false);
+  const [deleteLotDialog, setDeleteLotDialog] = useState(false);
 
   const [deleteUserDialog, setDeleteUserDialog] = useState(false);
   const [deleteSelectedUserDialog, setSelectedUserDialog] = useState(false);
@@ -81,6 +88,7 @@ const UserTable: React.FC = () => {
   const [disabled, setDisabled] = useState(true);
 
   const [lotOwned, setLotOwnedDialog] = useState(false);
+  const [selectedGrave, setSelectedGrave] = useState<any>(null);
 
   const [selectedRole, setSelectedRole] = useState<Array<string> | undefined>(
     []
@@ -89,7 +97,6 @@ const UserTable: React.FC = () => {
   const roles = [
     { name: "admin", role: "ROLE_ADMIN" },
     { name: "user", role: "ROLE_USER" },
-    { name: "moderator", role: "ROLE_MODERATOR" },
   ];
 
   const blocks = [
@@ -148,6 +155,7 @@ const UserTable: React.FC = () => {
     setSelectedRole([]);
     setPwDialog(false);
     setAddLotDialog(false);
+    setDeleteLotDialog(false);
     setLotOwnedDialog(false);
   };
 
@@ -286,6 +294,40 @@ const UserTable: React.FC = () => {
     setUser(emptyUser);
   };
 
+  const deleteLotOwned = () => {
+    setSubmitted(true);
+    let _user = { ...user };
+    console.log(_user.id);
+    console.log(selectedGrave);
+
+    if (_user.id) {
+      UserService.deleteLotOwned(_user.id, selectedGrave)
+        .then((response) => {
+          toast.current.show({
+            severity: "success",
+            summary: "Successful",
+            detail: "Lot Delete Successfully",
+            life: 3000,
+          });
+          retrieveAllUsers();
+          checkLotOwner();
+          console.log(_user);
+        })
+        .catch((e) => {
+          console.log(e);
+          toast.current.show({
+            severity: "error",
+            summary: "Error!",
+            detail: "There is an error deleting a lot. " + e.message,
+            life: 3000,
+          });
+        });
+    }
+
+    setDeleteLotDialog(false);
+    setUser(emptyUser);
+  };
+
   const editUser = (user: IUser) => {
     setSelectedRole(user.roles);
     setUser({ ...user });
@@ -301,6 +343,11 @@ const UserTable: React.FC = () => {
     setUser({ ...user });
     console.log({ ...user });
     setAddLotDialog(true);
+  };
+
+  const deleteLot = (user: IUser) => {
+    setUser({ ...user });
+    setDeleteLotDialog(true);
   };
 
   const viewLotOwned = (user: IUser) => {
@@ -399,19 +446,6 @@ const UserTable: React.FC = () => {
     setGlobalFilterValue("");
   };
 
-  const clearFilter = () => {
-    initFilters();
-  };
-
-  const onGlobalFilterChange = (e: any) => {
-    const value = e.target.value;
-    let _filters = { ...filters };
-    _filters["global"].value = value;
-
-    setFilters(_filters);
-    setGlobalFilterValue(value);
-  };
-
   const onInputChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     name: string
@@ -451,6 +485,21 @@ const UserTable: React.FC = () => {
     _user.grave_plot.lot = e.value;
     _user.grave_plot.id = _user.grave_plot.lot;
     setUser(_user);
+  };
+
+  const onDropDownChange3 = (e: DropdownChangeParams) => {
+    let _user = { ...user };
+
+    _user.grave_plot2 = e.value;
+
+    setSelectedGrave(e.value);
+
+    console.log(_user);
+
+    // _userService.graveplot.lot = e.value;
+    // _userService.graveplot.id = _userService.graveplot.lot;
+    // setUserService(_userService);
+    // console.log(_userService.graveplot.id);
   };
 
   const leftToolbarTemplate = () => {
@@ -569,19 +618,6 @@ const UserTable: React.FC = () => {
       </>
     );
   };
-  // const graveBodyTemplate = (rowData: IUser) => {
-  //   return (
-  //     <>
-  //       <span className="p-column-title">Owned Grave</span>
-  //       {rowData.grave_names &&
-  //         rowData.grave_names.map((grave: string, index: number) => (
-  //           <li className="px-3 uppercase" key={index}>
-  //             {grave}
-  //           </li>
-  //         ))}
-  //     </>
-  //   );
-  // };
 
   const Grave_Template = () => {
     return (
@@ -606,6 +642,13 @@ const UserTable: React.FC = () => {
           onClick={() => addLot(rowData)}
           placeholder="Top"
           tooltip="Add Lot Owned"
+        />
+        <Button
+          icon="pi pi-minus"
+          className="p-button-rounded p-button-error mr-2 my-2"
+          onClick={() => deleteLot(rowData)}
+          placeholder="Top"
+          tooltip="Delete Lot Owned"
         />
         <Button
           icon="pi pi-user-edit"
@@ -702,6 +745,23 @@ const UserTable: React.FC = () => {
         icon="pi pi-check"
         className="p-button-text"
         onClick={addLotOwned}
+      />
+    </>
+  );
+
+  const deleteLotOwnedFooter = (
+    <>
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={deleteLotOwned}
       />
     </>
   );
@@ -1139,6 +1199,29 @@ const UserTable: React.FC = () => {
             />
           </div>
         )}
+      </Dialog>
+
+      <Dialog
+        visible={deleteLotDialog}
+        style={{ width: "450px" }}
+        header="Delete Grave Lot Owned"
+        modal
+        maximizable
+        className="p-fluid"
+        footer={deleteLotOwnedFooter}
+        onHide={hideDialog}
+      >
+        <div className="field">
+          <label>Owned Grave</label>
+          <Dropdown
+            optionValue={"id"}
+            value={selectedGrave}
+            options={user.grave_plot2}
+            onChange={onDropDownChange3}
+            placeholder="Select a Grave Plot"
+            optionLabel={"name"}
+          />
+        </div>
       </Dialog>
 
       <Dialog

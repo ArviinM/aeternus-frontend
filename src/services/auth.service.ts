@@ -66,6 +66,16 @@ export const addLotOwned = (id: any, grave_plot: string) => {
   );
 };
 
+export const deleteLotOwned = (id: any, grave_plot: string) => {
+  return http.put(
+    API_URL + `delete-lot-owner/${id}`,
+    { grave_plot },
+    {
+      headers: authHeaders(),
+    }
+  );
+};
+
 export const updateUser = (id: any, data: any) => {
   console.log(data);
   return http.put(API_URL + `user-update/${id}`, data, {
@@ -121,6 +131,7 @@ const UserService = {
   deleteUser,
   updateUser,
   adminChangePW,
+  deleteLotOwned,
   addLotOwned,
   passwordReset,
   getUserValid,
