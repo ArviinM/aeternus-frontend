@@ -68,12 +68,12 @@ const Login: React.FC = () => {
       <div className="hidden lg:block relative flex-1 w-2/5">
         <img
           className="absolute inset-0 h-full w-full object-cover brightness-75"
-          src="http://localhost:5000/public/login-bg.jpg"
+          src="https://aeternus-api.onrender.com/public/login-bg.jpg"
           alt="logo-bg"
         />
 
         <div className="h-3/6">
-          <a href="http://localhost:3000/">
+          <a href="https://aeternus-frontend.onrender.com/">
             <img
               className="mt-16 max-w-lg m-auto relative w-80 animate-float rounded-full"
               src="aeternus-logo-dark-circle.png"

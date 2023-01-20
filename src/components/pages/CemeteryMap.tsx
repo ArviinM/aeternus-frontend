@@ -95,7 +95,7 @@ const items: Item[] = [
   {
     name: "Cemetery Interactive Map",
     description: "",
-    imgPath: "http://localhost:5000/public/map.jpg",
+    imgPath: "https://aeternus-api.onrender.com/public/map.jpg",
     subtitle: "Search, locate, and read",
   },
 ];

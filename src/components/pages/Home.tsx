@@ -217,25 +217,25 @@ const items: Item[] = [
   {
     name: "Biñan City Cemetery",
     description: "Welcome to",
-    imgPath: "http://localhost:5000/public/binan-city-5.jpg",
+    imgPath: "https://aeternus-api.onrender.com/public/binan-city-5.jpg",
     subtitle: "A place of peace",
   },
   {
     name: "Helping Families Connect, Honor, Locate, & Remember",
     description: "Aeternus • A Cemetery Mapping and Information System",
-    imgPath: "http://localhost:5000/public/slide-1.jpg",
+    imgPath: "https://aeternus-api.onrender.com/public/slide-1.jpg",
     subtitle: "",
   },
   {
     name: "Guiding Families Locating their Deceased Loved Ones Grave Plot",
     description: "Aeternus • A Cemetery Mapping and Information System",
-    imgPath: "http://localhost:5000/public/slide-2.jpg",
+    imgPath: "https://aeternus-api.onrender.com/public/slide-2.jpg",
     subtitle: "",
   },
   {
     name: "Explore our Cemetery Interactive Map",
     description: "Aeternus • A Cemetery Mapping and Information System",
-    imgPath: "http://localhost:5000/public/map.jpg",
+    imgPath: "https://aeternus-api.onrender.com/public/map.jpg",
     subtitle: "",
   },
 ];

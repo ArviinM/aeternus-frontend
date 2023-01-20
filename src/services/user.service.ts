@@ -1,6 +1,6 @@
 import axios from "axios";
 import authHeaders from "./auth-header";
-const API_URL = "http://localhost:5000/api/test/";
+const API_URL = "https://aeternus-api.onrender.com/api/test/";
 
 export const getPublicContent = () => {
   return axios.get(API_URL + "all");
