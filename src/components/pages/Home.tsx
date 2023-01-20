@@ -116,7 +116,7 @@ const Home: React.FC = () => {
                 />
               </span>
               <span className="span-body">
-                <span className="span-title font-primary">Contact Us</span>
+                <span className="span-title font-primary">Keep In Touch</span>
                 <span className="span-subtitle font-canela_regular my-2">
                   Looking for help: burial services, information updates?
                 </span>

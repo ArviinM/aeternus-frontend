@@ -1328,6 +1328,23 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@formspree/core@^2.7.0":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@formspree/core/-/core-2.8.1.tgz#020485c030deb2213526d24c4d87e86991a2ad74"
+  integrity sha512-MkMWcI8EnIIy3ryB3tdRynC134BTMVLzSq5i/ACrcD/F10tbSffOPOOVpQ/tz9BSrCuCyeBJShAwllfifz52zg==
+  dependencies:
+    "@stripe/stripe-js" "^1.35.0"
+
+"@formspree/react@2.3.3":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@formspree/react/-/react-2.3.3.tgz#695c1becdb201dd55f0b5e5748da9109aa70153c"
+  integrity sha512-3LfmFMLWE1Z3SVmfG2IMHN4sR0P5+IQDEAib85GzC5Rx3mmNnWEdXXD8xSyVpTZYNq4SaymP2A6nt+wOF0DqqQ==
+  dependencies:
+    "@babel/runtime" "^7.18.9"
+    "@formspree/core" "^2.7.0"
+    "@stripe/react-stripe-js" "^1.7.1"
+    "@stripe/stripe-js" "^1.27.0"
+
 "@googlemaps/js-api-loader@^1.14.3":
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.15.1.tgz#7d5f1d55a4ec5c99b1d8f0708f3a46b83a71384c"
@@ -1898,6 +1915,18 @@
   integrity sha512-OAPJUAtgeINhh/TAlUID4QTs53Njm7xzddaVlEs/SXwgtiD1tW22zAB/W1wdqfrpmikgaWQ9Fw6Ws+hsiRm5Vg==
   dependencies:
     "@sinonjs/commons" "^1.7.0"
+
+"@stripe/react-stripe-js@^1.7.1":
+  version "1.16.4"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.16.4.tgz#d25c9bb93ae2d21d1d5a2d8a275e1e4e2732ba73"
+  integrity sha512-x+Zstd3mHctNbSATOdbA2rOVXqGhbLU1ziNgcWqYCaFXj2dPKzjkBiUJfDhoARJVXVGOts0oZ8teTkOFY/ZRzQ==
+  dependencies:
+    prop-types "^15.7.2"
+
+"@stripe/stripe-js@^1.27.0", "@stripe/stripe-js@^1.35.0":
+  version "1.46.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.46.0.tgz#2b9acca0dfa7b90aaecd909e678a049f799a27d6"
+  integrity sha512-dkm0zCEoRLu5rTnsIgwDf/QG2DKcalOT2dk1IVgMySOHWTChLyOvQwMYhEduGgLvyYWTwNhAUV4WOLPQvjwLwA==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
@@ -7813,7 +7842,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2, prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==

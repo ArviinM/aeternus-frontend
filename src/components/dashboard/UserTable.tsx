@@ -43,6 +43,7 @@ const UserTable: React.FC = () => {
     email: "",
     password: "",
     roles: [],
+    grave_name: [],
     grave_block: "",
     grave_lot: "",
     grave_plot: {
@@ -568,42 +569,33 @@ const UserTable: React.FC = () => {
       </>
     );
   };
-  const graveBodyTemplate = (rowData: IUser) => {
-    return (
-      <>
-        <span className="p-column-title">Owned Grave</span>
-        {/* {rowData.grave_plot.block.name &&
-          rowData.grave_plot.block.name.map((block: string) => {
-            return (
-              <div>
-                Block {block}
-                {rowData.grave_plot.lot.map((lot: string) => {
-                  return <div>Lot {lot}</div>;
-                })}
-              </div>
-            );
-          })} */}
-      </>
-    );
-  };
-
-  // const Grave_Template = () => {
+  // const graveBodyTemplate = (rowData: IUser) => {
   //   return (
   //     <>
-  //       {user.grave_plot.block.name &&
-  //         user.grave_plot.block.name.map((block: string) => {
-  //           return (
-  //             <p>
-  //               Block {block}
-  //               {user.grave_plot.lot.map((lot: string) => {
-  //                 return <p>Lot {lot}</p>;
-  //               })}
-  //             </p>
-  //           );
-  //         })}
+  //       <span className="p-column-title">Owned Grave</span>
+  //       {rowData.grave_names &&
+  //         rowData.grave_names.map((grave: string, index: number) => (
+  //           <li className="px-3 uppercase" key={index}>
+  //             {grave}
+  //           </li>
+  //         ))}
   //     </>
   //   );
   // };
+
+  const Grave_Template = () => {
+    return (
+      <>
+        <span className="p-column-title">Owned Grave</span>
+        {user.grave_name &&
+          user.grave_name.map((grave: string, index: number) => (
+            <li className="px-3" key={index}>
+              {grave}
+            </li>
+          ))}
+      </>
+    );
+  };
 
   const actionBodyTemplate = (rowData: IUser) => {
     return (
@@ -1149,7 +1141,7 @@ const UserTable: React.FC = () => {
         )}
       </Dialog>
 
-      {/* <Dialog
+      <Dialog
         visible={lotOwned}
         style={{ width: "600px" }}
         header="Lot Owned Details"
@@ -1161,7 +1153,7 @@ const UserTable: React.FC = () => {
         <>
           <Grave_Template />
         </>
-      </Dialog> */}
+      </Dialog>
 
       <Dialog
         visible={deleteUserDialog}
