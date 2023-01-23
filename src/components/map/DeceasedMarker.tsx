@@ -25,7 +25,7 @@ export default function DeceasedMarker() {
     id: "",
     block: { id: "", name: "" },
     lot: "",
-    status: { id: "", name: "" },
+    status: "",
     southWest: ["", ""],
     northEast: ["", ""],
     deceased: [
@@ -61,13 +61,13 @@ export default function DeceasedMarker() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const color = (status: any) => {
-    if (status === "available") {
+    if (status === "Available") {
       return `green`;
     }
-    if (status === "occupied") {
+    if (status === "Occupied") {
       return "blue";
     }
-    if (status === "reserved") {
+    if (status === "Reserved") {
       return "black";
     }
     return "red";
@@ -175,7 +175,7 @@ export default function DeceasedMarker() {
         <div>
           <Rectangle
             key={index}
-            pathOptions={{ color: color(gravePlots.status.name) }}
+            pathOptions={{ color: color(gravePlots.status) }}
             bounds={
               new LatLngBounds(
                 [

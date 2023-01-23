@@ -41,6 +41,7 @@ const UserServiceRequestTable: React.FC = () => {
     user: { id: "", username: "" },
     request: { id: "", name: "" },
     graveplot: { id: "", block: { id: "", name: "" }, lot: "" },
+    remarks: "",
     createdAt: "",
     updatedAt: "",
   };
@@ -72,6 +73,8 @@ const UserServiceRequestTable: React.FC = () => {
   const [disabled, setDisabled] = useState(true);
   const [selectedService, setSelectedService] = useState<Array<string>>([]);
   const [selectedGrave, setSelectedGrave] = useState<any>(null);
+
+  const [remarksDialog, setRemarksDialog] = useState(false);
 
   const service = [
     { name: "Plot Grass Cutting" },
@@ -124,6 +127,7 @@ const UserServiceRequestTable: React.FC = () => {
     setUserServiceDialog(false);
     setUserService(emptyUserReq);
     setSelectedService([]);
+    setRemarksDialog(false);
   };
 
   const hideDeleteUserDialog = () => {
@@ -143,8 +147,9 @@ const UserServiceRequestTable: React.FC = () => {
       let _userService = {
         service: selectedService,
         user: { id: currentUser.id },
-        request: { id: "63c7ad8efb9fe79294b6286c" },
+        request: { id: "63ce783984ffd5d19cdb89de" },
         graveplot: { id: userService.graveplot },
+        remarks: "",
       };
 
       UserServiceRequest.createUserServiceRequest(_userService)
@@ -305,6 +310,11 @@ const UserServiceRequestTable: React.FC = () => {
     );
   };
 
+  const viewRemarksDialog = (obituary: IUserServiceRequest) => {
+    setUserService({ ...obituary });
+    setRemarksDialog(true);
+  };
+
   const serviceBodyTemplate = (rowData: IUserServiceRequest) => {
     return (
       <>
@@ -313,6 +323,18 @@ const UserServiceRequestTable: React.FC = () => {
           <li>{e}</li>
         ))}
       </>
+    );
+  };
+
+  const remarksTemplate = (rowData: IUserServiceRequest) => {
+    return (
+      <div className="actions">
+        <Button
+          icon="pi pi-book"
+          className="p-button-rounded p-button-primary"
+          onClick={() => viewRemarksDialog(rowData)}
+        />
+      </div>
     );
   };
 
@@ -523,7 +545,12 @@ const UserServiceRequestTable: React.FC = () => {
             sortable
             style={{ minWidth: "10rem" }}
           ></Column>
-
+          <Column
+            field="remarks"
+            header="Remarks"
+            style={{ minWidth: "5rem" }}
+            body={remarksTemplate}
+          ></Column>
           <Column
             body={actionBodyTemplate}
             exportable={false}
@@ -531,6 +558,18 @@ const UserServiceRequestTable: React.FC = () => {
           ></Column>
         </DataTable>
       </div>
+
+      <Dialog
+        visible={remarksDialog}
+        style={{ width: "600px" }}
+        header="Remarks"
+        modal
+        maximizable
+        className="p-fluid"
+        onHide={hideDialog}
+      >
+        <p className="whitespace-pre-line">{userService.remarks}</p>
+      </Dialog>
 
       <Dialog
         visible={userServiceDialog}

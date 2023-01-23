@@ -25,6 +25,12 @@ const updateUserServiceRequest = (id: any, data: any) => {
   });
 };
 
+const updateUserServiceRemarks = (id: any, data: any) => {
+  return http.put<any>(`/service-request/update-remarks/${id}`, data, {
+    headers: authHeaders(),
+  });
+};
+
 const deleteUserServiceRequest = (id: any) => {
   return http.delete<any>(`/service-request/${id}`, { headers: authHeaders() });
 };
@@ -34,6 +40,7 @@ const UserServiceRequest = {
   getAllServiceRequest,
   createUserServiceRequest,
   updateUserServiceRequest,
+  updateUserServiceRemarks,
   deleteUserServiceRequest,
 };
 

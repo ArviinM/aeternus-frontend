@@ -36,7 +36,7 @@ const GravePlots: React.FC = () => {
     id: "",
     block: { id: "", name: "" },
     lot: "",
-    status: { id: "", name: "" },
+    status: "",
     southWest: ["", ""],
     northEast: ["", ""],
     deceased: [
@@ -94,9 +94,9 @@ const GravePlots: React.FC = () => {
   const [showGraveMap2, setShowGraveMap2] = useState(false);
 
   const statuses = [
-    { name: "Available", id: "63c7ad8efb9fe79294b62884" },
-    { name: "Reserved", id: "63c7ad8efb9fe79294b62885" },
-    { name: "Occupied", id: "63c7ad8efb9fe79294b62886" },
+    { name: "Available" },
+    { name: "Reserved" },
+    { name: "Occupied" },
   ];
 
   const retrieveAllGravePlots = () => {
@@ -395,11 +395,9 @@ const GravePlots: React.FC = () => {
   const onDropDownChange = (e: DropdownChangeParams) => {
     let _graveplot = { ...gravePlot };
 
-    _graveplot.status["name"] = e.value;
-    console.log(_graveplot.status);
-    _graveplot.status.id = _graveplot.status.name;
-    console.log(_graveplot.status);
+    _graveplot.status = e.value;
     setGravePlot(_graveplot);
+    console.log(e.value);
   };
 
   const leftToolbarTemplate = () => {
@@ -458,7 +456,7 @@ const GravePlots: React.FC = () => {
     return (
       <>
         <span className="p-column-title">Status</span>
-        <span className="capitalize">{rowData.status.name}</span>
+        <span className="capitalize">{rowData.status}</span>
       </>
     );
   };
@@ -639,6 +637,8 @@ const GravePlots: React.FC = () => {
           ></Column>
           <Column
             field="status"
+            filter
+            sortable
             header="Status"
             body={statusBodyTemplate}
             style={{ minWidth: "6rem" }}
@@ -703,8 +703,8 @@ const GravePlots: React.FC = () => {
         <div className="field col">
           <label htmlFor="name">Status</label>
           <Dropdown
-            optionValue="id"
-            value={gravePlot.status.name}
+            optionValue="name"
+            value={gravePlot.status}
             options={statuses}
             onChange={onDropDownChange}
             placeholder="Select Status"
@@ -808,7 +808,7 @@ const GravePlots: React.FC = () => {
           northEast={gravePlot.northEast}
           blockName={gravePlot.block.name}
           lotName={gravePlot.lot}
-          availability={gravePlot.status.name}
+          availability={gravePlot.status}
         />
       </Dialog>
 

@@ -19,7 +19,7 @@ import "primereact/resources/primereact.css";
 import "./dashboard.scss";
 import IGravePlotData from "../../types/graveplot.type";
 
-import { FilterMatchMode, Password } from "primereact";
+import { FilterMatchMode, InputTextarea, Password } from "primereact";
 import { TabTitle } from "../../utils/GenerateFunctions";
 import IUser from "../../types/user.type";
 import UserService, { deleteUser } from "../../services/auth.service";
@@ -65,6 +65,7 @@ const ServiceRequestTable: React.FC = () => {
     user: { id: "", username: "" },
     request: { id: "", name: "" },
     graveplot: { id: "", block: { id: "", name: "" }, lot: "" },
+    remarks: "",
     createdAt: "",
     updatedAt: "",
   };
@@ -100,6 +101,9 @@ const ServiceRequestTable: React.FC = () => {
   const [disabled, setDisabled] = useState(true);
   const [selectedService, setSelectedService] = useState<Array<string>>([]);
 
+  const [remarksDialog, setRemarksDialog] = useState(false);
+  const [addRemarksDialog, setAddRemarksDialog] = useState(false);
+
   const service = [
     { name: "Plot Grass Cutting" },
     { name: "Plot Cleaning" },
@@ -114,9 +118,10 @@ const ServiceRequestTable: React.FC = () => {
   ];
 
   const request = [
-    { name: "Finished", id: "63c7ad8efb9fe79294b6286a" },
-    { name: "Pending", id: "63c7ad8efb9fe79294b6286c" },
-    { name: "Denied", id: "63c7ad8efb9fe79294b6286b" },
+    { name: "Accepted", id: "63ce783984ffd5d19cdb89e0" },
+    { name: "Finished", id: "63ce783984ffd5d19cdb89e1" },
+    { name: "Cancelled", id: "63ce783984ffd5d19cdb89df" },
+    { name: "Processing", id: "63ce783984ffd5d19cdb89de" },
   ];
 
   // const retrieveAllUserServiceRequest = () => {
@@ -169,6 +174,8 @@ const ServiceRequestTable: React.FC = () => {
     setUserService(emptyUserReq);
     setSelectedService([]);
     setRequestDialog(false);
+    setRemarksDialog(false);
+    setAddRemarksDialog(false);
   };
 
   const hideDeleteUserDialog = () => {
@@ -243,6 +250,42 @@ const ServiceRequestTable: React.FC = () => {
     }
   };
 
+  const updateRemarks = () => {
+    setSubmitted(true);
+
+    if (userService.service) {
+      let _userService = { ...userService };
+
+      console.log(_userService);
+      if (_userService.id) {
+        UserServiceRequest.updateUserServiceRemarks(_userService.id, {
+          remarks: _userService.remarks,
+        })
+          .then((response) => {
+            toast.current.show({
+              severity: "success",
+              summary: "Successful",
+              detail: "Service Request Remarks changed!",
+              life: 5000,
+            });
+            retrieveAllServiceRequest();
+          })
+          .catch((e) => {
+            console.log(e);
+            toast.current.show({
+              severity: "error",
+              summary: "Error!",
+              detail: "There is an error in change the remarks. " + e,
+              life: 5000,
+            });
+          });
+      }
+
+      setAddRemarksDialog(false);
+      setUserService(emptyUserReq);
+    }
+  };
+
   // const editUserServiceRequest = (service: IUserServiceRequest) => {
   //   setUserService({ ...service });
   //   setUserServiceDialog(true);
@@ -256,6 +299,12 @@ const ServiceRequestTable: React.FC = () => {
   const editRequestStatus = (service: IUserServiceRequest) => {
     setUserService({ ...service });
     setRequestDialog(true);
+    console.log(service.request.name);
+  };
+
+  const editRemarks = (service: IUserServiceRequest) => {
+    setUserService({ ...service });
+    setAddRemarksDialog(true);
   };
 
   const deleteUser = () => {
@@ -355,6 +404,18 @@ const ServiceRequestTable: React.FC = () => {
     setGlobalFilterValue(value);
   };
 
+  const onInputChange = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    name: string
+  ) => {
+    const val = (e.target && e.target.value) || "";
+    let _userService = { ...userService };
+    // @ts-ignore
+    _userService[`${name}`] = val;
+    setUserService(_userService);
+    console.log(_userService);
+  };
+
   const onDropDownChange = (e: DropdownChangeParams) => {
     let _userService = { ...userService };
 
@@ -428,6 +489,11 @@ const ServiceRequestTable: React.FC = () => {
     );
   };
 
+  const viewRemarksDialog = (obituary: IUserServiceRequest) => {
+    setUserService({ ...obituary });
+    setRemarksDialog(true);
+  };
+
   const userRequestBodyTemplate = (rowData: IUserServiceRequest) => {
     return (
       <>
@@ -493,6 +559,18 @@ const ServiceRequestTable: React.FC = () => {
     );
   };
 
+  const remarksTemplate = (rowData: IUserServiceRequest) => {
+    return (
+      <div className="actions">
+        <Button
+          icon="pi pi-book"
+          className="p-button-rounded p-button-primary"
+          onClick={() => viewRemarksDialog(rowData)}
+        />
+      </div>
+    );
+  };
+
   const actionBodyTemplate = (rowData: IUserServiceRequest) => {
     return (
       <div className="actions">
@@ -502,6 +580,14 @@ const ServiceRequestTable: React.FC = () => {
           onClick={() => editRequestStatus(rowData)}
           placeholder="Top"
           tooltip="Edit Request Status"
+        />
+
+        <Button
+          icon="pi pi-book"
+          className="p-button-rounded p-button-info mr-2"
+          onClick={() => editRemarks(rowData)}
+          placeholder="Top"
+          tooltip="Edit Request Remarks"
         />
 
         <Button
@@ -568,6 +654,23 @@ const ServiceRequestTable: React.FC = () => {
         icon="pi pi-check"
         className="p-button-text"
         onClick={saveUser}
+      />
+    </>
+  );
+
+  const remarksDialogFooter = (
+    <>
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={updateRemarks}
       />
     </>
   );
@@ -684,14 +787,31 @@ const ServiceRequestTable: React.FC = () => {
             sortable
             style={{ minWidth: "10rem" }}
           ></Column>
-
+          <Column
+            field="remarks"
+            header="Remarks"
+            style={{ minWidth: "5rem" }}
+            body={remarksTemplate}
+          ></Column>
           <Column
             body={actionBodyTemplate}
             exportable={false}
-            style={{ minWidth: "10rem" }}
+            style={{ minWidth: "15rem" }}
           ></Column>
         </DataTable>
       </div>
+
+      <Dialog
+        visible={remarksDialog}
+        style={{ width: "600px" }}
+        header="Remarks"
+        modal
+        maximizable
+        className="p-fluid"
+        onHide={hideDialog}
+      >
+        <p className="whitespace-pre-line">{userService.remarks}</p>
+      </Dialog>
 
       <Dialog
         visible={userServiceDialog}
@@ -780,6 +900,32 @@ const ServiceRequestTable: React.FC = () => {
             onChange={onDropDownChange3}
             placeholder="Select a Request"
             optionLabel={"name"}
+          />
+        </div>
+      </Dialog>
+
+      <Dialog
+        visible={addRemarksDialog}
+        style={{ width: "450px" }}
+        header="Add or Edit Remarks"
+        modal
+        maximizable
+        className="p-fluid"
+        footer={remarksDialogFooter}
+        onHide={hideDialog}
+      >
+        <div className="field">
+          <label htmlFor="description">Remarks</label>
+          <InputTextarea
+            id="remarks"
+            value={userService.remarks}
+            onChange={(e: any) => onInputChange(e, "remarks")}
+            required
+            rows={20}
+            cols={20}
+            className={classNames({
+              "p-invalid": submitted && !userService.remarks,
+            })}
           />
         </div>
       </Dialog>

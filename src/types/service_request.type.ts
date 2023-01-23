@@ -4,6 +4,7 @@ export default interface IUserServiceRequest {
   user: { id: string; username: string };
   request: { id: string; name: string };
   graveplot: { id: string; block: { id: string; name: string }; lot: string };
+  remarks: string;
   createdAt: any;
   updatedAt: any;
 }

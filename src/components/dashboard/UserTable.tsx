@@ -904,6 +904,7 @@ const UserTable: React.FC = () => {
             header="Open Lot Owned"
             style={{ minWidth: "2rem" }}
             body={lotOwnedTemplate}
+            exportable={false}
           ></Column>
           <Column
             body={actionBodyTemplate}
@@ -1286,3 +1287,6 @@ const UserTable: React.FC = () => {
 };
 
 export default UserTable;
+function saveAsExcelFile(excelBuffer: any, arg1: string) {
+  throw new Error("Function not implemented.");
+}

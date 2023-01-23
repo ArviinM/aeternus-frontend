@@ -18,7 +18,7 @@ export default function GraveMarker() {
     id: "",
     block: { id: "", name: "" },
     lot: "",
-    status: { id: "", name: "" },
+    status: "",
     southWest: ["", ""],
     northEast: ["", ""],
     deceased: [
@@ -50,13 +50,13 @@ export default function GraveMarker() {
   const [gravePlot, setGravePlot] = useState<IGravePlotData>(emptyGravePlot);
 
   const color = (status: any) => {
-    if (status === "available") {
+    if (status === "Available") {
       return `green`;
     }
-    if (status === "occupied") {
+    if (status === "Occupied") {
       return "blue";
     }
-    if (status === "reserved") {
+    if (status === "Reserved") {
       return "black";
     }
     return "red";
@@ -94,14 +94,14 @@ export default function GraveMarker() {
         <h3>
           Block {gravePlot.block.name} Lot {gravePlot.lot}
         </h3>
-        <p className="capitalize">{gravePlot.status.name}</p>
+        <p className="capitalize">{gravePlot.status}</p>
       </Sidebar>
 
       {gravePlots.map((gravePlots, index) => (
         <div>
           <Rectangle
             key={index}
-            pathOptions={{ color: color(gravePlots.status.name) }}
+            pathOptions={{ color: color(gravePlots.status) }}
             bounds={
               new LatLngBounds(
                 [
@@ -143,7 +143,7 @@ export default function GraveMarker() {
               </h1>
 
               <p className="text-gray-600 uppercase m-auto p-auto ">
-                {gravePlots.status.name}
+                {gravePlots.status}
               </p>
             </Popup>
           </Rectangle>
