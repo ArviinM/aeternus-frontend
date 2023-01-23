@@ -70,7 +70,7 @@ const WhatWeDo: React.FC = () => {
             <a className="title_a shadow-2xl">
               <video autoPlay loop muted controls>
                 <source
-                  src="http://localhost:5000/public/video/request-services-tutorial.mp4"
+                  src="https://aeternus-api.onrender.com/public/video/request-services-tutorial.mp4"
                   type="video/mp4"
                 />
               </video>
@@ -239,7 +239,7 @@ const items: Item[] = [
   {
     name: "What We Do?",
     description: "",
-    imgPath: "http://localhost:5000/public/what-we-do-2.jpg",
+    imgPath: "https://aeternus-api.onrender.com/public/what-we-do-2.jpg",
     subtitle: "Clean, maintain, and honor Life",
   },
 ];
