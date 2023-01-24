@@ -16,13 +16,13 @@ const GraveShower: React.FC<{
   );
 
   const color = (status: any) => {
-    if (status === "available") {
+    if (status === "Available") {
       return `green`;
     }
-    if (status === "occupied") {
+    if (status === "Occupied") {
       return "blue";
     }
-    if (status === "reserved") {
+    if (status === "Reserved") {
       return "black";
     }
     return "red";
