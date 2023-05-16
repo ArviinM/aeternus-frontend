@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+<div align="center">
+  <img alt="Aeternus_Logo" src="public/aeternus-logo-light.png" height="64" />
+</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br>
+<p align="center">
+Aeternus - A Cemetery Mapping and Information System
+</p>
+<p align="center">
+crafted with <span style="color: #8b0000;">&hearts;</span> by <a href="https://harshgoel.me">Arvin Medina & `Victor Casco, Mark Magallanes, & Celerino Louis de OCampo</a>.
+</p>
+<p align="center">
+    <img src="https://img.shields.io/badge/version-1.0.0-yellowgreen" alt="version 1.0.0"/>
+    <img src="https://img.shields.io/badge/license-MIT-brightgreen" alt="license MIT"/>
+</p>
 
-## Available Scripts
+## Built With
 
-In the project directory, you can run:
+This website is built with <span style="color: #8b0000;">&hearts;</span> on [ReactJS](https://reactjs.org/), statically typed in [TypeScript](https://www.typescriptlang.org/) following the best practises in the market.
 
-### `yarn start`
+## Installation 🔧
 
-Runs the app in the development mode.\
-Open [https://aeternus-frontend.onrender.com](https://aeternus-frontend.onrender.com) to view it in the browser.
+Install dependencies
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+$ yarn
+```
 
-### `yarn test`
+Building
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+$ yarn build
+```
 
-### `yarn build`
+## Running Server 🚀
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Start the development server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+$ yarn dev
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Start the server
 
-### `yarn eject`
+```
+$ yarn start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Other Commands 🚧
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Use ESLint to check all files
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+$ yarn lint
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Format the code using Prettier
 
-## Learn More
+```
+$ yarn format
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License 📜
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`Aeternus-Frontend` is available under the MIT license. See the LICENSE file for more info.
+
+
+## Forking this repo 🚨
+
+Many people have contacted us asking if they can use this code for their own websites. The answer to that question is usually **yes**, but with credits and approval. There are some cases, such as using this code for a business or something that is greater than a personal project, that we may be less comfortable saying yes to. If in doubt, please don't hesitate to ask us.
+
+We value keeping this site open source, but as you all know, _**plagiarism is bad**_. We spent a non-negligible amount of effort developing, designing, and trying to perfect this iteration of our website, and we are proud of it! All we ask is to not claim this effort as your own.
