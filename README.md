@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="Aeternus_Logo" src="public/aeternus-logo-light.png" height="64" />
+  <img alt="Aeternus_Logo" src="public/aeternus-logo-light.png" height="200" />
 </div>
 
 <br>
