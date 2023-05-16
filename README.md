@@ -7,7 +7,7 @@
 Aeternus - A Cemetery Mapping and Information System
 </p>
 <p align="center">
-crafted with <span style="color: #8b0000;">&hearts;</span> by <a href="https://harshgoel.me">Arvin Medina & `Victor Casco, Mark Magallanes, & Celerino Louis de OCampo</a>.
+crafted with <span style="color: #8b0000;">&hearts;</span> by <a href="https://arvinrhen.me">Arvin Medina</a><span> & Victor Casco, Mark Magallanes, & Celerino Louis de Ocampo </span>.
 </p>
 <p align="center">
     <img src="https://img.shields.io/badge/version-1.0.0-yellowgreen" alt="version 1.0.0"/>
